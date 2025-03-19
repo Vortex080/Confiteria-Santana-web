@@ -1,0 +1,34 @@
+<!-- Contenedor centrado vertical y horizontalmente -->
+<div class="flex items-center justify-center min-h-screen">
+    <!-- Tarjeta del formulario -->
+    <div class="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold text-center mb-6">Iniciar Sesión</h2>
+        <form action="#" method="POST">
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700">Correo electrónico</label>
+                <input type="email" id="email" name="email" placeholder="ejemplo@mail.com"
+                    class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                    required>
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="********"
+                    class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                    required>
+            </div>
+            <div class="flex items-center justify-between m-3">
+                <div class="flex items-center">
+                    <input id="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500">
+                    <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                        Recordarme
+                    </label>
+                </div>
+                <a href="#" class="text-sm text-blue-600 hover:underline">Olvidé mi contraseña</a>
+            </div>
+            <button type="submit"
+                class="btn btn-primary w-full">
+                Entrar
+            </button>
+        </form>
+    </div>
+</div>

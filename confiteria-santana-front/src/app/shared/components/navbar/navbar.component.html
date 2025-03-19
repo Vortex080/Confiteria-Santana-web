@@ -1,0 +1,130 @@
+<div class="navbar bg-base-100 shadow-sm">
+    <!-- Sección izquierda: menú móvil y logo -->
+    <div class="navbar-start">
+        <!-- Menú desplegable para móviles -->
+        <div class="dropdown">
+            <label tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                </svg>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                <li><a>Item 1</a></li>
+                <li>
+                    <a>Parent</a>
+                    <ul class="p-2">
+                        <li><a>Submenu 1</a></li>
+                        <li><a>Submenu 2</a></li>
+                    </ul>
+                </li>
+                <li><a>Item 3</a></li>
+            </ul>
+        </div>
+        <!-- Logo -->
+        <a>
+            <img src="images/negro.png" alt="Logo de Confiteria Santana" class="ml-5 w-40  sm:h-10" />
+        </a>
+    </div>
+
+    <!-- Sección central: menú horizontal para pantallas grandes -->
+    <div class="navbar-center hidden lg:flex">
+        <ul class="menu menu-horizontal px-1">
+            <li>
+                <a href="/">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M20 11.75a.74.74 0 0 1-.45-.15L12 5.94L4.45 11.6a.75.75 0 0 1-.9-1.2l8-6a.75.75 0 0 1 .9 0l8 6a.75.75 0 0 1 .15 1a.74.74 0 0 1-.6.35" />
+                        <path fill="currentColor"
+                            d="M18 19.75H6a.76.76 0 0 1-.75-.75V9.5a.75.75 0 0 1 1.5 0v8.75h10.5V9.5a.75.75 0 0 1 1.5 0V19a.76.76 0 0 1-.75.75" />
+                        <path fill="currentColor"
+                            d="M14 19.75a.76.76 0 0 1-.75-.75v-6.25h-2.5V19a.75.75 0 0 1-1.5 0v-7a.76.76 0 0 1 .75-.75h4a.76.76 0 0 1 .75.75v7a.76.76 0 0 1-.75.75" />
+                    </svg>
+                    INICIO
+                </a>
+            </li>
+            <li>
+                <a href="/productos">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M19.5 8.25h-3v-.5a4.5 4.5 0 0 0-9 0v.5h-3A1.25 1.25 0 0 0 3.25 9.5V18A2.75 2.75 0 0 0 6 20.75h12A2.75 2.75 0 0 0 20.75 18V9.5a1.25 1.25 0 0 0-1.25-1.25M9 7.75a3 3 0 0 1 6 0v.5H9ZM19.25 18A1.25 1.25 0 0 1 18 19.25H6A1.25 1.25 0 0 1 4.75 18V9.75H7.5V12A.75.75 0 0 0 9 12V9.75h6V12a.75.75 0 0 0 1.5 0V9.75h2.75Z" />
+                    </svg>
+                    PRODUCTOS
+                </a>
+            </li>
+            <li>
+                <a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <rect width="2" height="2" x="9" y="6" fill="currentColor" rx=".5" />
+                        <rect width="2" height="2" x="13" y="6" fill="currentColor" rx=".5" />
+                        <rect width="2" height="2" x="9" y="9.5" fill="currentColor" rx=".5" />
+                        <rect width="2" height="2" x="13" y="9.5" fill="currentColor" rx=".5" />
+                        <rect width="2" height="2" x="9" y="13" fill="currentColor" rx=".5" />
+                        <rect width="2" height="2" x="13" y="13" fill="currentColor" rx=".5" />
+                        <path fill="currentColor"
+                            d="M18.25 19.25h-.5V4a.76.76 0 0 0-.75-.75H7a.76.76 0 0 0-.75.75v15.25h-.5a.75.75 0 0 0 0 1.5h12.5a.75.75 0 0 0 0-1.5m-2 0H11V17a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v2.25H7.75V4.75h8.5Z" />
+                    </svg>
+                    SOBRE NOSOTROS
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Sección derecha: botón adicional, carrito y avatar -->
+    @if (this.user != null) {
+    <div class="navbar-end">
+
+        <!-- Dropdown de carrito -->
+        <div class="dropdown dropdown-end ml-2">
+            <label tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                <div class="indicator">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span class="badge badge-sm indicator-item">8</span>
+                </div>
+            </label>
+            <div tabindex="0" class="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
+                <div class="card-body">
+                    <span class="text-lg font-bold">8 Items</span>
+                    <span class="text-info">Subtotal: $999</span>
+                    <div class="card-actions">
+                        <button class="btn btn-primary btn-block">View cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dropdown de avatar -->
+        <div class="dropdown dropdown-end ml-2">
+            <label tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                <div class="w-10 rounded-full">
+                    <img alt="Tailwind CSS Navbar component"
+                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                </div>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                <li>
+                    <a class="justify-between">
+                        Profile
+                        <span class="badge">New</span>
+                    </a>
+                </li>
+                <li><a>Settings</a></li>
+                <li><a>Logout</a></li>
+            </ul>
+        </div>
+    </div>
+    } @else {
+    <div class="navbar-end">
+        <a href="/iniciosesion">
+            <button class="btn btn-primary mx-2">Iniciar Sesión</button>
+        </a>
+        <a href="/registro">
+            <button class="btn btn-primary mx-2">Registrarse</button>
+        </a>
+    </div>
+    }
+</div>
