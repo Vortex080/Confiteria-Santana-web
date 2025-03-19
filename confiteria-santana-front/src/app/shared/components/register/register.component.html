@@ -1,0 +1,33 @@
+<!-- Contenedor centrado vertical y horizontalmente -->
+<div class="flex items-center justify-center min-h-screen">
+  <!-- Tarjeta del formulario de registro -->
+  <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold text-center mb-6">Crear Cuenta</h2>
+    <form action="#" method="POST">
+      <div class="mb-4">
+        <label for="nombre" class="block text-gray-700">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre"
+          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" required>
+      </div>
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="ejemplo@mail.com"
+          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" required>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="block text-gray-700">Contraseña</label>
+        <input type="password" id="password" name="password" placeholder="********"
+          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" required>
+      </div>
+      <div class="mb-6">
+        <label for="confirm-password" class="block text-gray-700">Confirmar Contraseña</label>
+        <input type="password" id="confirm-password" name="confirm-password" placeholder="********"
+          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" required>
+      </div>
+      <button type="submit"
+        class="w-full btn btn-primary">
+        Registrarse
+      </button>
+    </form>
+  </div>
+</div>
