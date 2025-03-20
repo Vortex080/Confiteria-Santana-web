@@ -1,20 +1,39 @@
-<main>
+<main class="my-5">
     <h3 class="text-center text-3xl font-bold my-8">
         NUESTROS MEJORES PRODUCTOS
     </h3>
-    <div class="flex min-h-screen">
+    <div class="flex min-h-screen w-full">
+        <!-- Contenedor flexible -->
+        <div class="flex min-h-screen w-full">
+            <!-- Sidebar (Menú lateral) -->
+            <div class="w-64 bg-gray-100 m-4 rounded-2xl hidden md:block">
+                <app-menulateral></app-menulateral>
+            </div>
 
-        <app-menulateral></app-menulateral>
-
-        <!-- Área de contenido principal -->
-        <div class="flex-1 p-4">
-            <!-- Botón para ocultar/mostrar el menú lateral -->
-            <button id="toggleBtn" class="mb-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
-                Toggle Sidebar
-            </button>
-            <h1 class="text-2xl font-bold">Contenido Principal</h1>
-            <p>Aquí se mostrará el contenido principal de la aplicación.</p>
+            <!-- Contenedor de productos con scroll propio -->
+            <div class="flex-1 mx-0 p-0 md:mx-10 md:p-4 bg-base-100 rounded-box overflow-y-auto h-screen">
+                <div class="flex flex-col gap-8">
+                    <div *ngFor="let categoria of categorias" [id]="categoria">
+                        <h2 class="text-2xl font-bold mt-4 mb-2">{{ categoria }}</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            <div *ngFor="let producto of productosFiltrados[categoria]"
+                                class="card bg-base-100 shadow-sm">
+                                <figure>
+                                    <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                                        alt="{{ producto.nombre }}" />
+                                </figure>
+                                <div class="card-body">
+                                    <h2 class="card-title">{{ producto.nombre }}</h2>
+                                    <p>Descripción del producto.</p>
+                                    <div class="card-actions justify-end">
+                                        <button class="btn btn-primary">Buy Now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </main>
