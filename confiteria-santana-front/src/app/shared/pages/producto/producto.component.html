@@ -1,0 +1,41 @@
+<div class="max-w-5xl mx-auto p-6 bg-white shadow-xl rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- Imagen del producto -->
+    <div class="flex justify-center items-center">
+        <img [src]="producto.foto" [alt]="producto.nombre" class="rounded-xl max-h-96 object-cover shadow-md" />
+    </div>
+
+    <!-- Información del producto -->
+    <div class="flex flex-col justify-between space-y-6">
+        <!-- Nombre -->
+        <h1 class="text-3xl font-bold text-gray-800">{{ producto.nombre }}</h1>
+
+        <!-- Descripción -->
+        <p class="text-gray-600 text-base leading-relaxed">
+            {{ producto.descripcion }}
+        </p>
+
+        <!-- Ingredientes -->
+        <div>
+            <h2 class="text-lg font-semibold text-gray-700 mb-1">Ingredientes</h2>
+            <ul class="list-disc list-inside text-gray-600">
+                <li *ngFor="let ingrediente of producto.ingredientes">{{ ingrediente }}</li>
+            </ul>
+        </div>
+
+        <!-- Alérgenos -->
+        <div *ngIf="producto.alergenos?.length">
+            <h2 class="text-lg font-semibold text-red-600 mb-1">Alérgenos</h2>
+            <ul class="list-disc list-inside text-red-500">
+                <li *ngFor="let alergeno of producto.alergenos">{{ alergeno }}</li>
+            </ul>
+        </div>
+
+        <!-- Botón Añadir a la cesta -->
+        <div class="mt-4">
+            <button (click)="anadirACesta(producto)"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition duration-300 shadow-md">
+                Añadir a la cesta
+            </button>
+        </div>
+    </div>
+</div>

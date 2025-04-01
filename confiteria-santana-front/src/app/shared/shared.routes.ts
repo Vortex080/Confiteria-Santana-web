@@ -4,6 +4,8 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProductosComponent } from './components/productos/productos.component';
+import { SobrenosotrosComponent } from './pages/sobrenosotros/sobrenosotros.component';
+import { ProductoComponent } from './pages/producto/producto.component';
 
 export const sharedRoutes: Routes = [
 
@@ -26,6 +28,18 @@ export const sharedRoutes: Routes = [
             {
                 path: 'productos',
                 component: ProductosComponent
+            },
+            {
+                path: 'sobrenosotros',
+                component: SobrenosotrosComponent
+            },
+            {
+                path: 'producto',
+                component: ProductoComponent
+            },
+            {
+                path: '**',
+                component: HomeComponent
             }
         ]
     }

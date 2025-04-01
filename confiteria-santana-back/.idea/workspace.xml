@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4050de44-080f-4e1d-a23a-86f46f2576d6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Alergens.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/PaymentMethod.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Payments.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/ProductPhoto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/ShippingTracking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Stock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/StockMovements.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/enums/MovementReason.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/enums/MovementType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/enums/OrderStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AddressDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AlergensDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/CategoryDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/OrderDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/PaymentMethodDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/PaymentsDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductPhotoDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ShippingTrackingDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/StockDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/StockMovementsDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/UserDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/vortex/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/shared.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/shared.routes.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2ulz9XCOe4RDeyf7xYKfpXRIAsX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "develop",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4050de44-080f-4e1d-a23a-86f46f2576d6" name="Changes" comment="" />
+      <created>1742837799582</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1742837799582</updated>
+      <workItem from="1742837801287" duration="2324000" />
+      <workItem from="1742856004576" duration="16219000" />
+      <workItem from="1743097527407" duration="4807000" />
+      <workItem from="1743436441676" duration="3424000" />
+      <workItem from="1743494472398" duration="3768000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
