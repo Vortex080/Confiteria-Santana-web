@@ -5,40 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4050de44-080f-4e1d-a23a-86f46f2576d6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Address.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Alergens.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Category.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/PaymentMethod.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Payments.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/ProductPhoto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/ShippingTracking.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Stock.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/StockMovements.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/enums/MovementReason.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/enums/MovementType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/enums/OrderStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AddressDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AlergensDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/CategoryDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/OrderDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/PaymentMethodDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/PaymentsDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductPhotoDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ShippingTrackingDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/StockDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/StockMovementsDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/UserDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/vortex/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/shared.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/shared.routes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/AddressDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/AlergenDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/CategoryDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/OrderDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/PaymentMethodDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/PaymentsDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/ProductDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/ProductPhotoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/ShippingTracking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/StockDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/StockMovementsDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/UserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AddressRest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/ApplicationConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/ProductPhoto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/ProductPhoto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AdressRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AlergenRest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +96,9 @@
       <workItem from="1742856004576" duration="16219000" />
       <workItem from="1743097527407" duration="4807000" />
       <workItem from="1743436441676" duration="3424000" />
-      <workItem from="1743494472398" duration="3768000" />
+      <workItem from="1743494472398" duration="12464000" />
+      <workItem from="1743595541474" duration="963000" />
+      <workItem from="1744035110326" duration="5049000" />
     </task>
     <servers />
   </component>

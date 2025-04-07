@@ -21,7 +21,7 @@ public class ProductPhoto {
     private String url;
 
     @Column(nullable = false)
-    private String alt_text;
+    private String altText;
 
     /**
      * Instantiates a new Product photo.
@@ -89,8 +89,8 @@ public class ProductPhoto {
      *
      * @return the alt text
      */
-    public String getAlt_text() {
-        return alt_text;
+    public String getAltText() {
+        return altText;
     }
 
     /**
@@ -98,7 +98,7 @@ public class ProductPhoto {
      *
      * @param alt_text the alt text
      */
-    public void setAlt_text(String alt_text) {
-        this.alt_text = alt_text;
+    public void setAltText(String alt_text) {
+        this.altText = alt_text;
     }
 }
