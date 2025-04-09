@@ -34,7 +34,7 @@ public class CategoryDAO {
      * @param id the id
      * @return the category
      */
-    public Category find(int id) {
+    public Category find(Long id) {
         return em.find(Category.class, id);
     }
 

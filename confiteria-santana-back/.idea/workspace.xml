@@ -5,23 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4050de44-080f-4e1d-a23a-86f46f2576d6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/AddressDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/AlergenDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/CategoryDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/OrderDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/PaymentMethodDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/PaymentsDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/ProductDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/ProductPhotoDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/ShippingTracking.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/StockDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/StockMovementsDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/UserDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AddressRest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/ApplicationConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/CategoryRest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/OrderRest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/ProductPhoto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/ProductPhoto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AdressRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AlergenRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AlergenRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AlergenRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AddressDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AddressDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AlergensDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AlergensDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/CategoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/CategoryDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/UserDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,21 +50,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "develop",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -99,6 +91,8 @@
       <workItem from="1743494472398" duration="12464000" />
       <workItem from="1743595541474" duration="963000" />
       <workItem from="1744035110326" duration="5049000" />
+      <workItem from="1744101712813" duration="5218000" />
+      <workItem from="1744207820627" duration="3063000" />
     </task>
     <servers />
   </component>

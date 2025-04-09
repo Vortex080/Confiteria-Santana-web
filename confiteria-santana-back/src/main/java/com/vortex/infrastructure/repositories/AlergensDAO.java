@@ -33,7 +33,7 @@ public class AlergensDAO {
      * @param id the id
      * @return the alergens
      */
-    public Alergens find(int id) {
+    public Alergens find(Long id) {
         return em.find(Alergens.class, id);
     }
 

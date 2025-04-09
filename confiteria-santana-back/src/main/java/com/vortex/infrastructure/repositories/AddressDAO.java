@@ -70,4 +70,8 @@ public class AddressDAO {
         em.remove(address);
     }
 
+    public Address findAddressByUserId(Long userId) {
+
+    }
+
 }
