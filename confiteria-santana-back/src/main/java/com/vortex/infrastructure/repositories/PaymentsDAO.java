@@ -34,7 +34,7 @@ public class PaymentsDAO {
      * @param id the id
      * @return the payments
      */
-    public Payments find(int id) {
+    public Payments find(Long id) {
         return em.find(Payments.class, id);
     }
 

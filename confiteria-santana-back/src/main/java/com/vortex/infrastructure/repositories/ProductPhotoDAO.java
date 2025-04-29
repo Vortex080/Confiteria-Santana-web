@@ -2,9 +2,11 @@ package com.vortex.infrastructure.repositories;
 
 import com.vortex.domain.entities.Product;
 import com.vortex.domain.entities.ProductPhoto;
+import com.vortex.domain.entities.User;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class ProductPhotoDAO {
      *
      * @param product the product
      */
-    public void persist(Product product) {
+    public void persist(ProductPhoto product) {
         em.persist(product);
     }
 
@@ -52,8 +54,8 @@ public class ProductPhotoDAO {
      *
      * @param product the product
      */
-    public void delete(Product product) {
-        em.remove(em.merge(product));
+    public void delete(ProductPhoto product) {
+        em.remove(product);
     }
 
     /**
@@ -61,7 +63,14 @@ public class ProductPhotoDAO {
      *
      * @param product the product
      */
-    public void update(Product product) {
+    public void update(ProductPhoto product) {
         em.merge(product);
+    }
+
+    public List<ProductPhoto> findByProduct(Long id){
+        TypedQuery<ProductPhoto> query = em.createQuery("SELECT u FROM ProductPhoto u WHERE u.product_id = :product_id", ProductPhoto.class);
+        query.setParameter("product_is", id);
+        List<ProductPhoto> photos = query.getResultList();
+        return photos.isEmpty() ? null : photos;
     }
 }

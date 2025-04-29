@@ -3,6 +3,7 @@ package com.vortex.infrastructure.repositories;
 import com.vortex.domain.entities.User;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -34,7 +35,7 @@ public class UserDAO {
      * @param id the id
      * @return the user
      */
-    public User find(int id) {
+    public User find(Long id) {
         return em.find(User.class, id);
     }
 
@@ -82,5 +83,15 @@ public class UserDAO {
         return users.isEmpty() ? null : users.get(0);
     }
 
+    public boolean verifyUser(String email, String password) {
+        try {
+            User user = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+            return user.getPassword().equals(password);
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
 
 }

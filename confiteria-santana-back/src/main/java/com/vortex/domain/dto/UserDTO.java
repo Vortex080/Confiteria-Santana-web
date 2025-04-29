@@ -1,6 +1,8 @@
 package com.vortex.domain.dto;
 
 
+import com.vortex.infrastructure.repositories.AddressDAO;
+
 public class UserDTO {
 
     private String username;
@@ -13,11 +15,13 @@ public class UserDTO {
 
     private String email;
 
-    private Long address;
+    private AddressDTO address;
 
     private String rol;
 
     private int phone;
+
+    private String pass;
 
     public String getUsername() {
         return username;
@@ -59,11 +63,11 @@ public class UserDTO {
         this.email = email;
     }
 
-    public Long getAddress() {
+    public AddressDTO getAddress() {
         return address;
     }
 
-    public void setAddress(Long address) {
+    public void setAddress(AddressDTO address) {
         this.address = address;
     }
 
@@ -81,5 +85,13 @@ public class UserDTO {
 
     public void setPhone(int phone) {
         this.phone = phone;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 }

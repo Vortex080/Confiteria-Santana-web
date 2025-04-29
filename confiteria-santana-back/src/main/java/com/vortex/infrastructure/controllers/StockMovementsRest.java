@@ -1,8 +1,11 @@
 package com.vortex.infrastructure.controllers;
 
-import com.vortex.domain.dto.CategoryDTO;
-import com.vortex.domain.entities.Category;
-import com.vortex.infrastructure.repositories.CategoryDAO;
+import com.vortex.domain.dto.StockMovementsDTO;
+import com.vortex.domain.entities.Payments;
+import com.vortex.domain.entities.Product;
+import com.vortex.domain.entities.StockMovements;
+import com.vortex.infrastructure.repositories.ProductDAO;
+import com.vortex.infrastructure.repositories.StockMovementsDAO;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -13,14 +16,15 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
 
-@Tag(name = "Category")
-@Path("/category")
+@Tag(name = "StockMovements")
+@Path("/stockmovements")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class CategoryRest {
+public class StockMovementsRest {
 
     @Inject
-    private CategoryDAO categoryDAO;
+    private StockMovementsDAO dao;
+    private ProductDAO productDAO;
 
     @POST
     @APIResponses({
@@ -28,28 +32,24 @@ public class CategoryRest {
             @APIResponse(responseCode = "201", description = "Creado correctamente"),
             @APIResponse(responseCode = "404", description = "No encontrado")
     })
-    public Response create(CategoryDTO categoryDTO) {
-        if (categoryDTO.getName() == null) {
+    public Response create(StockMovementsDTO dto){
+        if (dto.getUnit() == null || dto.getProduct() == null || dto.getReason() == null || dto.getType() == null ) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        Category category = new Category();
-        category.setName(categoryDTO.getName());
+        StockMovements stock = new StockMovements();
 
-        categoryDAO.persist(category);
+        Product product = productDAO.findByFields(dto.getProduct());
+
+        stock.setProduct(product);
+        stock.setUnit(dto.getUnit());
+        stock.setType(dto.getType());
+        stock.setReason(dto.getReason());
+
+        dao.persist(stock);
 
         return Response.status(Response.Status.CREATED).build();
-    }
 
-    @GET
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response findAll() {
-        List<Category> Category = categoryDAO.findAll();
-        return Response.ok(Category).build();
     }
 
     @GET
@@ -59,13 +59,25 @@ public class CategoryRest {
             @APIResponse(responseCode = "201", description = "Creado correctamente"),
             @APIResponse(responseCode = "404", description = "No encontrado")
     })
-    public Response get(@PathParam("id") Long id) {
-        Category category = categoryDAO.find(id);
-        if (category == null) {
+    public Response get(@PathParam("id") Long id){
+        StockMovements stock = dao.find(id);
+        if (stock == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(category).build();
+        return Response.ok(stock).build();
     }
+
+    @GET
+    @APIResponses({
+            @APIResponse(responseCode = "200", description = "Operación exitosa"),
+            @APIResponse(responseCode = "201", description = "Creado correctamente"),
+            @APIResponse(responseCode = "404", description = "No encontrado")
+    })
+    public Response findAll(){
+        List<StockMovements> list = dao.findAll();
+        return Response.ok(list).build();
+    }
+
 
     @DELETE
     @Path("/{id}")
@@ -74,14 +86,15 @@ public class CategoryRest {
             @APIResponse(responseCode = "201", description = "Creado correctamente"),
             @APIResponse(responseCode = "404", description = "No encontrado")
     })
-    public Response delete(@PathParam("id") Long id) {
-        Category category = categoryDAO.find(id);
-        if (category == null) {
+    public Response delete(@PathParam("id") Long id){
+        StockMovements stock = dao.find(id);
+
+        if (stock == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        categoryDAO.delete(category);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        dao.delete(stock);
+        return Response.status(Response.Status.OK).build();
     }
 
     @PUT
@@ -91,15 +104,25 @@ public class CategoryRest {
             @APIResponse(responseCode = "201", description = "Creado correctamente"),
             @APIResponse(responseCode = "404", description = "No encontrado")
     })
-    public Response update(@PathParam("id") Long id, CategoryDTO categoryDTO) {
-        Category category = categoryDAO.find(id);
-        if (category == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+    public Response update(@PathParam("id") Long id, StockMovementsDTO dto){
+        if (dto.getUnit() == null || dto.getProduct() == null || dto.getReason() == null || dto.getType() == null ) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        category.setName(categoryDTO.getName());
-        categoryDAO.update(category);
+        StockMovements stock = dao.find(id);
 
-        return Response.ok(category).build();
+        Product product = productDAO.findByFields(dto.getProduct());
+
+        stock.setProduct(product);
+        stock.setUnit(dto.getUnit());
+        stock.setType(dto.getType());
+        stock.setReason(dto.getReason());
+
+        dao.persist(stock);
+
+        return Response.status(Response.Status.OK).build();
     }
+
 }
+
+

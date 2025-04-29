@@ -1,9 +1,13 @@
 package com.vortex.infrastructure.repositories;
 
+import com.vortex.domain.dto.AddressDTO;
+import com.vortex.domain.dto.OrderDTO;
+import com.vortex.domain.entities.Address;
 import com.vortex.domain.entities.Order;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -34,7 +38,7 @@ public class OrderDAO {
      * @param id the id
      * @return the order
      */
-    public Order find(int id) {
+    public Order find(Long id) {
         return em.find(Order.class, id);
     }
 
@@ -64,4 +68,22 @@ public class OrderDAO {
     public void update(Order order) {
         em.merge(order);
     }
+
+    public Order findByFields(OrderDTO orderDTO) {
+
+        String jpql = "SELECT o FROM Order o WHERE o.user = :user " +
+                "AND o.total = :total AND o.shipping = :shipping " +
+                "AND o.paymentMethod = :paymentMethod AND o.billingAddress = :billingAddress";
+
+        TypedQuery<Order> query = em.createQuery(jpql, Order.class)
+                .setParameter("user", orderDTO.getUser())
+                .setParameter("total", orderDTO.getTotal())
+                .setParameter("shipping", orderDTO.getShipping())
+                .setParameter("paymentMethod", orderDTO.getPaymentMethod())
+                .setParameter("billingAddress", orderDTO.getBillingAddress());
+
+        return query.getResultStream().findFirst().orElse(null);
+    }
+
+
 }

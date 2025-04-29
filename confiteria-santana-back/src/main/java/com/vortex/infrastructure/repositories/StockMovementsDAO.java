@@ -24,7 +24,7 @@ public class StockMovementsDAO {
      *
      * @param stock the stock
      */
-    public void persist(Stock stock) {
+    public void persist(StockMovements stock) {
         em.persist(stock);
     }
 
@@ -34,7 +34,7 @@ public class StockMovementsDAO {
      * @param id the id
      * @return the stock movements
      */
-    public StockMovements find(int id) {
+    public StockMovements find(Long id) {
         return em.find(StockMovements.class, id);
     }
 

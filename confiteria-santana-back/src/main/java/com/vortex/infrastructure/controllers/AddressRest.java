@@ -9,9 +9,13 @@ import jakarta.jms.Message;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import java.util.List;
 
+@Tag(name = "Address")
 @Path("/address")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -21,6 +25,11 @@ public class AddressRest {
     private AddressDAO addressDAO;
 
     @POST
+    @APIResponses({
+            @APIResponse(responseCode = "200", description = "Operación exitosa"),
+            @APIResponse(responseCode = "201", description = "Creado correctamente"),
+            @APIResponse(responseCode = "404", description = "No encontrado")
+    })
     public Response addAddress(AddressDTO dto) {
         Address address = new Address();
 
@@ -39,6 +48,11 @@ public class AddressRest {
 
     @GET
     @Path("/{id}")
+    @APIResponses({
+            @APIResponse(responseCode = "200", description = "Operación exitosa"),
+            @APIResponse(responseCode = "201", description = "Creado correctamente"),
+            @APIResponse(responseCode = "404", description = "No encontrado")
+    })
     public Response getAddress(@PathParam("id") Long id) {
         Address address = addressDAO.findById(id);
         if (address == null){
@@ -60,12 +74,21 @@ public class AddressRest {
     }
 
     @GET
-    @Path("/idAll")
+    @APIResponses({
+            @APIResponse(responseCode = "200", description = "Operación exitosa"),
+            @APIResponse(responseCode = "201", description = "Creado correctamente"),
+            @APIResponse(responseCode = "404", description = "No encontrado")
+    })
     public Response getAllAddresses() {return Response.ok(addressDAO.findAll()).build();}
 
 
     @DELETE
     @Path("/{id}")
+    @APIResponses({
+            @APIResponse(responseCode = "200", description = "Operación exitosa"),
+            @APIResponse(responseCode = "201", description = "Creado correctamente"),
+            @APIResponse(responseCode = "404", description = "No encontrado")
+    })
     public Response deleteAddress(@PathParam("id") Long id) {
         Address address = addressDAO.findById(id);
         if (address == null){

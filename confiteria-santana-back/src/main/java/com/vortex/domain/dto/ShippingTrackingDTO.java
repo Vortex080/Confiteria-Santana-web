@@ -3,7 +3,7 @@ package com.vortex.domain.dto;
 /**
  * The type Shipping tracking.
  */
-public class ShippingTracking {
+public class ShippingTrackingDTO {
 
     private OrderDTO order;
 
@@ -16,7 +16,7 @@ public class ShippingTracking {
     /**
      * Instantiates a new Shipping tracking.
      */
-    public ShippingTracking() {}
+    public ShippingTrackingDTO() {}
 
     /**
      * Gets order.

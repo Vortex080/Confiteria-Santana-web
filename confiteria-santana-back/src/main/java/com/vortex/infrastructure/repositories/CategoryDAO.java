@@ -1,10 +1,12 @@
 package com.vortex.infrastructure.repositories;
 
 
+import com.vortex.domain.dto.CategoryDTO;
 import com.vortex.domain.entities.Category;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -65,5 +67,17 @@ public class CategoryDAO {
     public Category update(Category category) {
         return em.merge(category);
     }
+
+    public Category findByFields(CategoryDTO categoryDTO) {
+
+        String jpql = "SELECT c FROM Category c WHERE c.name = :name AND c.description = :description";
+
+        TypedQuery<Category> query = em.createQuery(jpql, Category.class)
+                .setParameter("name", categoryDTO.getName())
+                .setParameter("description", categoryDTO.getDescription());
+
+        return query.getResultStream().findFirst().orElse(null);
+    }
+
 
 }

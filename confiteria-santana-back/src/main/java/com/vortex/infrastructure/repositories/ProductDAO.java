@@ -1,9 +1,11 @@
 package com.vortex.infrastructure.repositories;
 
+import com.vortex.domain.dto.ProductDTO;
 import com.vortex.domain.entities.Product;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
@@ -63,4 +65,31 @@ public class ProductDAO {
     public void update(Product product) {
         em.merge(product);
     }
+
+
+    public Product findByFields(ProductDTO productDTO) {
+
+        String jpql = "SELECT p FROM Product p WHERE p.name = :name " +
+                "AND p.description = :description " +
+                "AND p.price = :price AND p.unit = :unit";
+
+        if (productDTO.getCategory() != null) {
+            jpql += " AND p.category = :category";
+        } else {
+            jpql += " AND p.category IS NULL";
+        }
+
+        TypedQuery<Product> query = em.createQuery(jpql, Product.class)
+                .setParameter("name", productDTO.getName())
+                .setParameter("description", productDTO.getDescription())
+                .setParameter("price", productDTO.getPrice())
+                .setParameter("unit", productDTO.getUnit());
+
+        if (productDTO.getCategory() != null) {
+            query.setParameter("category", productDTO.getCategory());
+        }
+
+        return query.getResultStream().findFirst().orElse(null);
+    }
+
 }

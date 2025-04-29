@@ -33,7 +33,7 @@ public class StockDAO {
      * @param id the id
      * @return the stock
      */
-    public Stock find(int id) {
+    public Stock find(Long id) {
         return em.find(Stock.class, id);
     }
 
