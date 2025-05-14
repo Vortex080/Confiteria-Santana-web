@@ -38,11 +38,11 @@ public class PaymentMethodRest {
 
         PaymentMethod payment = new PaymentMethod();
 
-        if(userDAO.findByEmail(dto.getUser().getEmail()) == null){
+        if(userDAO.find(dto.getUser()) == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        payment.setUser(userDAO.findByEmail(dto.getUser().getEmail()));
+        payment.setUser(userDAO.find(dto.getUser()));
 
         payment.setExpiryMonth(dto.getExpiryMonth());
 
@@ -117,7 +117,11 @@ public class PaymentMethodRest {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        payment.setUser(userDAO.findByEmail(dto.getUser().getEmail()));
+        if(userDAO.find(dto.getUser()) == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        payment.setUser(userDAO.find(dto.getUser()));
 
         payment.setExpiryMonth(dto.getExpiryMonth());
 

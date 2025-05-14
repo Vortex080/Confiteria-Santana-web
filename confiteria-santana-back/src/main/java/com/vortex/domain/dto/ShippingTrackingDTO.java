@@ -5,7 +5,7 @@ package com.vortex.domain.dto;
  */
 public class ShippingTrackingDTO {
 
-    private OrderDTO order;
+    private Long order;
 
     private String carrier;
 
@@ -23,7 +23,7 @@ public class ShippingTrackingDTO {
      *
      * @return the order
      */
-    public OrderDTO getOrder() {
+    public Long getOrder() {
         return order;
     }
 
@@ -32,7 +32,7 @@ public class ShippingTrackingDTO {
      *
      * @param order the order
      */
-    public void setOrder(OrderDTO order) {
+    public void setOrder(Long order) {
         this.order = order;
     }
 

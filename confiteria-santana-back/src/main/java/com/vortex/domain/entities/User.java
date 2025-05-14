@@ -1,5 +1,7 @@
 package com.vortex.domain.entities;
 
+import com.vortex.domain.dto.AddressDTO;
+
 import jakarta.persistence.*;
 
 
@@ -32,8 +34,10 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private Long address;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "address", nullable = false)
+    private Address address;
+
 
     @Column(nullable = false)
     private String rol;
@@ -115,7 +119,7 @@ public class User {
      *
      * @return the address
      */
-    public Long getAddress() {
+    public Address getAddress() {
         return address;
     }
 
@@ -203,10 +207,10 @@ public class User {
     /**
      * Sets address.
      *
-     * @param address the address
+     * @param address2 the address
      */
-    public void setAddress(Long address) {
-        this.address = address;
+    public void setAddress(Address address2) {
+        this.address = address2;
     }
 
     /**

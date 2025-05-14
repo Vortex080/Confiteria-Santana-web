@@ -1,39 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
-             version="3.0">
-    <persistence-unit name="confiteriaPU"
-                      transaction-type="JTA">
-        <jta-data-source>jdbc/confiteriaDS</jta-data-source>
-        <properties>
-            <!-- Proveedor de JPA (Hibernate) -->
-            <property name="jakarta.persistence.provider"
-                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+	version="3.0">
+	
+	<persistence-unit name="confiteriaPU" transaction-type="JTA">
+		<jta-data-source>jdbc/confiteriaDS</jta-data-source>
+		
+		<properties>
+			<!-- Proveedor de JPA (Hibernate) -->
+			<property name="jakarta.persistence.provider"
+				value="org.hibernate.jpa.HibernatePersistenceProvider" />
+			
+			<!-- Configuración de la base de datos -->
+			<property name="jakarta.persistence.jdbc.driver"
+				value="com.mysql.cj.jdbc.Driver" />
+			<property name="jakarta.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/bd1" />
+			<property name="jakarta.persistence.jdbc.user" value="root" />
+			<property name="jakarta.persistence.jdbc.password" value="" />
 
-            <!-- Configuración de la base de datos -->
-            <property name="jakarta.persistence.jdbc.driver"
-                      value="com.mysql.cj.jdbc.Driver" />
-            <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/bd1" />
-            <property name="jakarta.persistence.jdbc.user" value="root" />
-            <property name="jakarta.persistence.jdbc.password" value="" />
+			<!-- Dialecto específico para MySQL -->
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MySQL8Dialect" />
 
-            <!-- Generación automática de tablas -->
-            <property
-                    name="jakarta.persistence.schema-generation.database.action"
-                    value="create" />
+			<!-- Mostrar las consultas SQL en la consola -->
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
 
-            <!-- Dialecto específico para MySQL -->
-            <property name="hibernate.dialect"
-                      value="org.hibernate.dialect.MySQL8Dialect" />
+			<!-- Desactivar caché de segundo nivel y de consultas -->
+			<property name="hibernate.cache.use_second_level_cache" value="false" />
+			<property name="hibernate.cache.use_query_cache" value="false" />
 
-            <!-- Mostrar las consultas SQL en la consola -->
-            <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.format_sql" value="true" />
-
-            <!-- Usar logs detallados para depuración -->
-            <property name="hibernate.hbm2ddl.auto" value="update" />
-        </properties>
-    </persistence-unit>
+			<!-- Generación automática de tablas -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="jakarta.persistence.schema-generation.database.action"
+				value="create" />
+		</properties>
+	</persistence-unit>
 </persistence>

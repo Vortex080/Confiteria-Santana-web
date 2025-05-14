@@ -35,6 +35,7 @@ public class CategoryRest {
 
         Category category = new Category();
         category.setName(categoryDTO.getName());
+        category.setDescription(categoryDTO.getDescription());
 
         categoryDAO.persist(category);
 

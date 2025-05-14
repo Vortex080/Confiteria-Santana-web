@@ -8,7 +8,7 @@ import com.vortex.domain.enums.MovementType;
  */
 public class StockMovementsDTO {
 
-    private ProductDTO product;
+    private Long product;
 
     private MovementType type;
 
@@ -26,7 +26,7 @@ public class StockMovementsDTO {
      *
      * @return the product
      */
-    public ProductDTO getProduct() {
+    public Long getProduct() {
         return product;
     }
 
@@ -35,7 +35,7 @@ public class StockMovementsDTO {
      *
      * @param product the product
      */
-    public void setProduct(ProductDTO product) {
+    public void setProduct(Long product) {
         this.product = product;
     }
 

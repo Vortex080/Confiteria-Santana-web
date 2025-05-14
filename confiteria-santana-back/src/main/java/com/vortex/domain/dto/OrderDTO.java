@@ -5,15 +5,15 @@ package com.vortex.domain.dto;
  */
 public class OrderDTO {
 
-    private UserDTO user;
+    private Long user;
 
     private Long total;
 
     private Long shipping;
 
-    private PaymentMethodDTO paymentMethod;
+    private Long paymentMethod;
 
-    private AddressDTO billingAddress;
+    private Long billingAddress;
 
     /**
      * Instantiates a new Order dto.
@@ -25,7 +25,7 @@ public class OrderDTO {
      *
      * @return the user
      */
-    public UserDTO getUser() {
+    public Long getUser() {
         return user;
     }
 
@@ -34,7 +34,7 @@ public class OrderDTO {
      *
      * @param user the user
      */
-    public void setUser(UserDTO user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 
@@ -79,7 +79,7 @@ public class OrderDTO {
      *
      * @return the payment method
      */
-    public PaymentMethodDTO getPaymentMethod() {
+    public Long getPaymentMethod() {
         return paymentMethod;
     }
 
@@ -88,7 +88,7 @@ public class OrderDTO {
      *
      * @param paymentMethod the payment method
      */
-    public void setPaymentMethod(PaymentMethodDTO paymentMethod) {
+    public void setPaymentMethod(Long paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
@@ -97,7 +97,7 @@ public class OrderDTO {
      *
      * @return the billing address
      */
-    public AddressDTO getBillingAddress() {
+    public Long getBillingAddress() {
         return billingAddress;
     }
 
@@ -106,7 +106,7 @@ public class OrderDTO {
      *
      * @param billingAddress the billing address
      */
-    public void setBillingAddress(AddressDTO billingAddress) {
+    public void setBillingAddress(Long billingAddress) {
         this.billingAddress = billingAddress;
     }
 }

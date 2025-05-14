@@ -41,7 +41,7 @@ public class ShippingTrackingRest {
         ShippingTracking shipping = new ShippingTracking();
 
         shipping.setCarrier(dto.getCarrier());
-        Order order = orderDAO.findByFields(dto.getOrder());
+        Order order = orderDAO.find(dto.getOrder());
         shipping.setOrder(order);
         shipping.setStatus(dto.getStatus());
         shipping.setTracking_number(dto.getTrakingNumber());
@@ -110,7 +110,7 @@ public class ShippingTrackingRest {
         ShippingTracking shipping = dao.find(id);
 
         shipping.setCarrier(dto.getCarrier());
-        Order order = orderDAO.findByFields(dto.getOrder());
+        Order order = orderDAO.find(dto.getOrder());
         shipping.setOrder(order);
         shipping.setStatus(dto.getStatus());
         shipping.setTracking_number(dto.getTrakingNumber());

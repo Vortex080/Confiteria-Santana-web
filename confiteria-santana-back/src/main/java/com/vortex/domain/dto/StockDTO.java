@@ -5,7 +5,7 @@ package com.vortex.domain.dto;
  */
 public class StockDTO {
 
-    private ProductDTO product;
+    private Long product;
 
     private int quantity;
 
@@ -19,7 +19,7 @@ public class StockDTO {
      *
      * @return the product
      */
-    public ProductDTO getProduct() {
+    public Long getProduct() {
         return product;
     }
 
@@ -28,7 +28,7 @@ public class StockDTO {
      *
      * @param product the product
      */
-    public void setProduct(ProductDTO product) {
+    public void setProduct(Long product) {
         this.product = product;
     }
 

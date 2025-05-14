@@ -11,8 +11,6 @@ public class CategoryDTO {
 
     private String description;
 
-    private List<ProductDTO> products;
-
     /**
      * Instantiates a new Category dto.
      */
@@ -52,23 +50,5 @@ public class CategoryDTO {
      */
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    /**
-     * Get products list <>.
-     *
-     * @return the list <>
-     */
-    public List<ProductDTO> getProducts() {
-        return products;
-    }
-
-    /**
-     * Sets products.
-     *
-     * @param products the products
-     */
-    public void setProducts(List<ProductDTO> products) {
-        this.products = products;
     }
 }

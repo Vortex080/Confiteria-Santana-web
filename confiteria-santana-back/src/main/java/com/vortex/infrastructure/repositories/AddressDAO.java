@@ -18,6 +18,7 @@ import java.util.List;
 @Transactional
 public class AddressDAO {
 
+    /** The em. */
     @PersistenceContext
     private EntityManager em;
 
@@ -52,6 +53,12 @@ public class AddressDAO {
         return em.createQuery("select u from Address u", Address.class).getResultList();
     }
 
+    /**
+     * Find by fields.
+     *
+     * @param addressDTO the address DTO
+     * @return the address
+     */
     public Address findByFields(AddressDTO addressDTO){
 
         String jpql = "SELECT a FROM Address a WHERE a.street = :street AND a.number = :number " +

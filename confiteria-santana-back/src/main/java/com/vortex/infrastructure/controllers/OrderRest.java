@@ -41,15 +41,15 @@ public class OrderRest {
         Order order = new Order();
         order.setTotal(dto.getTotal());
 
-        if (UserDAO.findByEmail(dto.getUser().getEmail()) != null) {
-            order.setUser(UserDAO.findByEmail(dto.getUser().getEmail()));
+        if (UserDAO.find(dto.getUser()) != null) {
+            order.setUser(UserDAO.find(dto.getUser()));
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
         order.setShipping(dto.getShipping());
         if(dto.getBillingAddress() == null) {
-            order.setBillingAddress(AddressDAO.findByFields(dto.getBillingAddress()));
+            order.setBillingAddress(AddressDAO.findById(dto.getBillingAddress()));
         }
 
         OrderDAO.persist(order);
@@ -118,15 +118,15 @@ public class OrderRest {
 
         order.setTotal(dto.getTotal());
 
-        if (UserDAO.findByEmail(dto.getUser().getEmail()) != null) {
-            order.setUser(UserDAO.findByEmail(dto.getUser().getEmail()));
+        if (UserDAO.find(dto.getUser()) != null) {
+            order.setUser(UserDAO.find(dto.getUser()));
         } else {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
         order.setShipping(dto.getShipping());
         if(dto.getBillingAddress() == null) {
-            order.setBillingAddress(AddressDAO.findByFields(dto.getBillingAddress()));
+            order.setBillingAddress(AddressDAO.findById(dto.getBillingAddress()));
         }
 
         OrderDAO.update(order);

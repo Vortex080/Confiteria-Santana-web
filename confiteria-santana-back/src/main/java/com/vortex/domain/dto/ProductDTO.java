@@ -2,28 +2,33 @@ package com.vortex.domain.dto;
 
 import com.vortex.domain.entities.Alergens;
 import com.vortex.domain.entities.ProductPhoto;
+import com.vortex.infrastructure.repositories.AlergensDAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The type Product dto.
- */
 public class ProductDTO {
 
+    /** The name. */
     private String name;
 
+    /** The description. */
     private String description;
 
+    /** The price. */
     private int price;
 
+    /** The unit. */
     private  String unit;
 
-    private ArrayList<Alergens> alergens;
+    /** The alergens. */
+    private ArrayList<Long> alergens;
 
-    private CategoryDTO category;
+    /** The category. */
+    private Long category;
 
-    private List<ProductPhoto> photos;
+    /** The photos. */
+    private List<ProductPhotoDTO> photos;
 
     /**
      * Instantiates a new Product dto.
@@ -107,7 +112,7 @@ public class ProductDTO {
      *
      * @return the alergens
      */
-    public ArrayList<Alergens> getAlergens() {
+    public ArrayList<Long> getAlergens() {
         return alergens;
     }
 
@@ -116,7 +121,7 @@ public class ProductDTO {
      *
      * @param alergens the alergens
      */
-    public void setAlergens(ArrayList<Alergens> alergens) {
+    public void setAlergens(ArrayList<Long > alergens) {
         this.alergens = alergens;
     }
 
@@ -125,7 +130,7 @@ public class ProductDTO {
      *
      * @return the category
      */
-    public CategoryDTO getCategory() {
+    public Long getCategory() {
         return category;
     }
 
@@ -134,7 +139,7 @@ public class ProductDTO {
      *
      * @param category the category
      */
-    public void setCategory(CategoryDTO category) {
+    public void setCategory(Long category) {
         this.category = category;
     }
 
@@ -143,7 +148,7 @@ public class ProductDTO {
      *
      * @return the photos
      */
-    public List<ProductPhoto> getPhotos() {
+    public List<ProductPhotoDTO> getPhotos() {
         return photos;
     }
 
@@ -152,7 +157,7 @@ public class ProductDTO {
      *
      * @param photos the photos
      */
-    public void setPhotos(List<ProductPhoto> photos) {
+    public void setPhotos(List<ProductPhotoDTO> photos) {
         this.photos = photos;
     }
 }

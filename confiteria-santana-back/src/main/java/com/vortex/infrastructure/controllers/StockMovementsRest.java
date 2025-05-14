@@ -39,7 +39,7 @@ public class StockMovementsRest {
 
         StockMovements stock = new StockMovements();
 
-        Product product = productDAO.findByFields(dto.getProduct());
+        Product product = productDAO.findById(dto.getProduct());
 
         stock.setProduct(product);
         stock.setUnit(dto.getUnit());
@@ -111,7 +111,7 @@ public class StockMovementsRest {
 
         StockMovements stock = dao.find(id);
 
-        Product product = productDAO.findByFields(dto.getProduct());
+        Product product = productDAO.findById(dto.getProduct());
 
         stock.setProduct(product);
         stock.setUnit(dto.getUnit());

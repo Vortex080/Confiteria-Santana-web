@@ -39,17 +39,17 @@ public class PaymentRest {
 
         Payments payment = new Payments();
 
-        if (userDAO.findByEmail(dto.getUser().getEmail()) == null){
+        if (userDAO.find(dto.getUser()) == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        payment.setUser(userDAO.findByEmail(dto.getUser().getEmail()));
+        payment.setUser(userDAO.find(dto.getUser()));
 
-        if (orderDAO.findByFields(dto.getOrder()) == null) {
+        if (orderDAO.find(dto.getOrder()) == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        payment.setOrder(orderDAO.findByFields(dto.getOrder()));
+        payment.setOrder(orderDAO.find(dto.getOrder()));
 
         payment.setPaymentMethodId(dto.getPaymentMethod());
 
@@ -128,17 +128,17 @@ public class PaymentRest {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        if (userDAO.findByEmail(dto.getUser().getEmail()) == null){
+        if (userDAO.find(dto.getUser()) == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        payment.setUser(userDAO.findByEmail(dto.getUser().getEmail()));
+        payment.setUser(userDAO.find(dto.getUser()));
 
-        if (orderDAO.findByFields(dto.getOrder()) == null) {
+        if (orderDAO.find(dto.getOrder()) == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        payment.setOrder(orderDAO.findByFields(dto.getOrder()));
+        payment.setOrder(orderDAO.find(dto.getOrder()));
 
         payment.setPaymentMethodId(dto.getPaymentMethod());
 

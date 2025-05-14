@@ -1,22 +1,33 @@
 package com.vortex.infrastructure.controllers;
 
-import com.vortex.domain.dto.AlergenDTO;
-import com.vortex.domain.dto.UserDTO;
-import com.vortex.domain.entities.Address;
-import com.vortex.domain.entities.Alergens;
-import com.vortex.domain.entities.LoginRequest;
-import com.vortex.domain.entities.User;
-import com.vortex.infrastructure.repositories.AddressDAO;
-import com.vortex.infrastructure.repositories.UserDAO;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import java.util.List;
+
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.mindrot.jbcrypt.BCrypt;
 
-import java.util.List;
+import com.vortex.domain.dto.UserDTO;
+import com.vortex.domain.entities.Address;
+import com.vortex.domain.entities.LoginRequest;
+import com.vortex.domain.entities.TokenUtil;
+import com.vortex.domain.entities.User;
+import com.vortex.infrastructure.repositories.AddressDAO;
+import com.vortex.infrastructure.repositories.UserDAO;
+
+import jakarta.inject.Inject;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Tag(name = "User")
 @Path("/user")
@@ -24,157 +35,171 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserRest {
 
-    @Inject
-    private UserDAO dao;
-    private AddressDAO addressDAO;
-    private AddressRest addressRest;
+	@Inject
+	private UserDAO dao;
+	@Inject
+	private AddressDAO addressDAO;
+	@Inject
+	private AddressRest addressRest;
 
-    @POST
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response create(UserDTO dto){
-        if (dto.getAddress() == null || dto.getEmail() == null || dto.getLastname() == null || dto.getName() == null || dto.getPhone() == -1 || dto.getRol() == null || dto.getPhoto() == null || dto.getUsername() == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-        User user = new User();
+	@POST
+	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
+			@APIResponse(responseCode = "201", description = "Creado correctamente"),
+			@APIResponse(responseCode = "404", description = "No encontrado") })
+	public Response create(UserDTO dto) {
+		if (dto.getAddress() == null || dto.getEmail() == null || dto.getLastname() == null || dto.getName() == null
+				|| dto.getPhone() == -1 || dto.getRol() == null || dto.getPhoto() == null || dto.getUsername() == null
+				|| dto.getPass() == null) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
 
-        if (addressDAO.findByFields(dto.getAddress()) == null){
-            Address address = new Address();
-            address.setStreet(dto.getAddress().getStreet());
-            address.setCity(dto.getAddress().getCity());
-            address.setState(dto.getAddress().getState());
-            address.setDoor(dto.getAddress().getDoor());
-            address.setNumber(dto.getAddress().getNumber());
-            address.setFlat(dto.getAddress().getFlat());
-            address.setCountry(dto.getAddress().getCountry());
-            address.setPostalCode(dto.getAddress().getPostalCode());
+		// Verificar si el email ya existe
+		if (dao.findByEmail(dto.getEmail()) != null) {
+			return Response.status(Response.Status.CONFLICT).entity("El email ya está en uso").build();
+		}
 
-            addressDAO.persist(address);
-        }
+		User user = new User();
 
-        user.setAddress(addressDAO.findByFields(dto.getAddress()).getId());
-        user.setEmail(dto.getEmail());
-        user.setName(dto.getName());
-        user.setLastname(dto.getLastname());
-        user.setPassword(dto.getPass());
-        user.setPhoto(dto.getPhoto());
-        user.setUsername(dto.getUsername());
-        user.setName(dto.getName());
-        user.setRol(dto.getRol());
-        user.setPhone(dto.getPhone());
+		if (addressDAO.findByFields(dto.getAddress()) == null) {
+			Address address = new Address();
+			address.setStreet(dto.getAddress().getStreet());
+			address.setNumber(dto.getAddress().getNumber());
+			address.setFlat(dto.getAddress().getFlat());
+			address.setDoor(dto.getAddress().getDoor());
+			address.setCity(dto.getAddress().getCity());
+			address.setState(dto.getAddress().getState());
+			address.setCountry(dto.getAddress().getCountry());
+			address.setPostalCode(dto.getAddress().getPostalCode());
+			addressDAO.persist(address);
+		}
 
-        // Verificar si el email ya existe
-        if (dao.findByEmail(user.getEmail()) != null) {
-            return Response.status(Response.Status.CONFLICT) // 409 Conflict
-                    .entity("El email ya está en uso").build();
-        }
+		user.setAddress(addressDAO.findByFields(dto.getAddress()));
+		user.setEmail(dto.getEmail());
+		user.setName(dto.getName());
+		user.setLastname(dto.getLastname());
 
-        dao.persist(user);
+		// Encriptar la contraseña
+		String hashedPassword = BCrypt.hashpw(dto.getPass(), BCrypt.gensalt());
+		user.setPassword(hashedPassword);
 
-        return Response.status(Response.Status.CREATED).build();
-    }
+		user.setPhoto(dto.getPhoto());
+		user.setUsername(dto.getUsername());
+		user.setRol(dto.getRol());
+		user.setPhone(dto.getPhone());
 
-    @GET
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response findAll() {
-        List<User> list = dao.findAll();
-        return Response.ok(list).build();
-    }
+		dao.persist(user);
 
-    @GET
-    @Path("/{id}")
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response get(@PathParam("id") Long id) {
-        User user = dao.find(id);
+		return Response.status(Response.Status.CREATED).build();
+	}
 
-        if (user == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+	@GET
+	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
+			@APIResponse(responseCode = "201", description = "Creado correctamente"),
+			@APIResponse(responseCode = "404", description = "No encontrado") })
+	public Response findAll() {
+		List<User> list = dao.findAll();
+		return Response.ok(list).build();
+	}
 
-        return Response.ok(user).build();
-    }
+	@GET
+	@Path("/{id}")
+	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
+			@APIResponse(responseCode = "201", description = "Creado correctamente"),
+			@APIResponse(responseCode = "404", description = "No encontrado") })
+	public Response get(@PathParam("id") Long id) {
+		User user = dao.find(id);
 
-    @DELETE
-    @Path("/{id}")
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response delete(@PathParam("id") Long id) {
-        User user = dao.find(id);
+		if (user == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
 
-        if (user == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+		return Response.ok(user).build();
+	}
 
-        dao.delete(user);
-        return Response.status(Response.Status.NO_CONTENT).build();
-    }
+	@DELETE
+	@Path("/{id}")
+	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
+			@APIResponse(responseCode = "201", description = "Creado correctamente"),
+			@APIResponse(responseCode = "404", description = "No encontrado") })
+	public Response delete(@PathParam("id") Long id) {
+		User user = dao.find(id);
 
-    @PUT
-    @Path("/{id}")
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response update(@PathParam("id") Long id, UserDTO dto) {
-        User user = dao.find(id);
+		if (user == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
 
-        if (user == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+		dao.delete(user);
+		return Response.status(Response.Status.NO_CONTENT).build();
+	}
 
-        if (addressDAO.findByFields(dto.getAddress()) == null){
-            Address address = new Address();
-            address.setStreet(dto.getAddress().getStreet());
-            address.setCity(dto.getAddress().getCity());
-            address.setState(dto.getAddress().getState());
-            address.setDoor(dto.getAddress().getDoor());
-            address.setNumber(dto.getAddress().getNumber());
-            address.setFlat(dto.getAddress().getFlat());
-            address.setCountry(dto.getAddress().getCountry());
-            address.setPostalCode(dto.getAddress().getPostalCode());
+	@PUT
+	@Path("/{id}")
+	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
+			@APIResponse(responseCode = "201", description = "Creado correctamente"),
+			@APIResponse(responseCode = "404", description = "No encontrado") })
+	public Response update(@PathParam("id") Long id, UserDTO dto) {
+		User user = dao.find(id);
 
-            addressDAO.persist(address);
-        }
+		if (addressDAO.findByFields(dto.getAddress()) == null) {
+			Address address = new Address();
+			address.setStreet(dto.getAddress().getStreet());
+			address.setNumber(dto.getAddress().getNumber());
+			address.setFlat(dto.getAddress().getFlat());
+			address.setDoor(dto.getAddress().getDoor());
+			address.setCity(dto.getAddress().getCity());
+			address.setState(dto.getAddress().getState());
+			address.setCountry(dto.getAddress().getCountry());
+			address.setPostalCode(dto.getAddress().getPostalCode());
+			user.setAddress(address);
+		} else {
+			user.setAddress(addressDAO.findByFields(dto.getAddress()));
+		}
 
-        user.setAddress(addressDAO.findByFields(dto.getAddress()).getId());
-        user.setEmail(dto.getEmail());
-        user.setName(dto.getName());
-        user.setLastname(dto.getLastname());
-        user.setPassword(dto.getPass());
-        user.setPhoto(dto.getPhoto());
-        user.setUsername(dto.getUsername());
-        user.setName(dto.getName());
-        user.setRol(dto.getRol());
-        user.setPhone(dto.getPhone());
+		user.setEmail(dto.getEmail());
+		user.setName(dto.getName());
+		user.setLastname(dto.getLastname());
+		user.setPassword(dto.getPass());
+		user.setPhoto(dto.getPhoto());
+		user.setUsername(dto.getUsername());
+		user.setName(dto.getName());
+		user.setRol(dto.getRol());
+		user.setPhone(dto.getPhone());
 
-        return Response.ok(user).build();
-    }
+		return Response.ok(user).build();
+	}
 
-    @POST
-    @Path("/login")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response login(LoginRequest request) {
-        boolean isValid = dao.verifyUser(request.getEmail(), request.getPass());
-        if (isValid) {
-            return Response.status(Response.Status.OK).build();
-        } else {
-            return Response.status(Response.Status.UNAUTHORIZED).entity("Credenciales inválidas").build();
-        }
-    }
+	@POST
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response login(LoginRequest request) {
+	    // Buscar usuario por email
+	    User user = dao.findByEmail(request.getEmail());
+
+	    // Si no existe o contraseña incorrecta, retornar 401
+	    if (user == null || !BCrypt.checkpw(request.getPass(), user.getPassword())) {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("Credenciales inválidas").build();
+	    }
+
+	    try {
+	        // Generar token con email y rol
+	        String token = TokenUtil.generateToken(user.getEmail(), user.getRol());
+
+	        JsonObject response = Json.createObjectBuilder()
+	            .add("token", token)
+	            .add("user", Json.createObjectBuilder()
+	                .add("id", user.getId())
+	                .add("name", user.getName())
+	                .add("email", user.getEmail())
+	                .add("photoUrl", user.getPhoto())
+	            	.add("rol", user.getRol()))
+
+	            .build();
+
+	        return Response.ok(response).build();
+
+	    } catch (Exception e) {
+	        return Response.serverError().entity("Error generando token").build();
+	    }
+	}
 
 }

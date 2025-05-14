@@ -5,7 +5,7 @@ package com.vortex.domain.dto;
  */
 public class PaymentMethodDTO {
 
-    private UserDTO user;
+    private Long userId;
 
     private String provider;
 
@@ -29,8 +29,8 @@ public class PaymentMethodDTO {
      *
      * @return the user
      */
-    public UserDTO getUser() {
-        return user;
+    public Long getUser() {
+        return userId;
     }
 
     /**
@@ -38,8 +38,8 @@ public class PaymentMethodDTO {
      *
      * @param user the user
      */
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setUser(Long user) {
+        this.userId = user;
     }
 
     /**

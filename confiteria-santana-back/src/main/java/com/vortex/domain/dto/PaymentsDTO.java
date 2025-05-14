@@ -7,9 +7,9 @@ import com.vortex.infrastructure.repositories.UserDAO;
  */
 public class PaymentsDTO {
 
-    private UserDTO user;
+    private Long user;
 
-    private OrderDTO order;
+    private Long order;
 
     private Long paymentMethod;
 
@@ -29,7 +29,7 @@ public class PaymentsDTO {
      *
      * @return the user
      */
-    public UserDTO getUser() {
+    public Long getUser() {
         return user;
     }
 
@@ -38,7 +38,7 @@ public class PaymentsDTO {
      *
      * @param user the user
      */
-    public void setUser(UserDTO user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 
@@ -47,7 +47,7 @@ public class PaymentsDTO {
      *
      * @return the order
      */
-    public OrderDTO getOrder() {
+    public Long getOrder() {
         return order;
     }
 
@@ -56,7 +56,7 @@ public class PaymentsDTO {
      *
      * @param order the order
      */
-    public void setOrder(OrderDTO order) {
+    public void setOrder(Long order) {
         this.order = order;
     }
 

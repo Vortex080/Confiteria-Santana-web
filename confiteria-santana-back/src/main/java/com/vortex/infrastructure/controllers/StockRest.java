@@ -40,7 +40,7 @@ public class StockRest {
 
         Stock stock = new Stock();
 
-        Product product = productDAO.findByFields(dto.getProduct());
+        Product product = productDAO.findById(dto.getProduct());
 
         stock.setProduct(product);
         stock.setQuantity(dto.getQuantity());
@@ -111,7 +111,7 @@ public class StockRest {
 
         Stock stock = dao.find(id);
 
-        Product product = productDAO.findByFields(dto.getProduct());
+        Product product = productDAO.findById(dto.getProduct());
 
         stock.setProduct(product);
         stock.setQuantity(dto.getQuantity());

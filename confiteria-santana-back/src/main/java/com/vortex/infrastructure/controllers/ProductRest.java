@@ -1,9 +1,12 @@
 package com.vortex.infrastructure.controllers;
 
+import com.vortex.domain.dto.AlergenDTO;
 import com.vortex.domain.dto.ProductDTO;
 import com.vortex.domain.dto.ProductPhotoDTO;
+import com.vortex.domain.entities.Alergens;
 import com.vortex.domain.entities.Product;
 import com.vortex.domain.entities.ProductPhoto;
+import com.vortex.infrastructure.repositories.AlergensDAO;
 import com.vortex.infrastructure.repositories.CategoryDAO;
 import com.vortex.infrastructure.repositories.ProductDAO;
 import com.vortex.infrastructure.repositories.ProductPhotoDAO;
@@ -15,6 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Product")
@@ -23,151 +27,178 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProductRest {
 
-    @Inject
-    private ProductDAO productDAO;
-    private CategoryDAO categoryDAO;
-    private ProductPhotoDAO productPhotoDAO;
+	@Inject
+	private ProductDAO productDAO;
+	private CategoryDAO categoryDAO;
+	private ProductPhotoDAO productPhotoDAO;
+	private AlergensDAO alergensDAO;
 
+	/**
+	 * Creates the.
+	 *
+	 * @param dto the dto
+	 * @return the response
+	 */
+	@POST
+	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
+			@APIResponse(responseCode = "201", description = "Creado correctamente"),
+			@APIResponse(responseCode = "404", description = "No encontrado") })
+	public Response create(ProductDTO dto) {
+		if (dto.getName() == null || dto.getDescription() == null || dto.getPrice() == -1 || dto.getUnit() == null
+				|| dto.getAlergens() == null || dto.getCategory() == null || dto.getPhotos() == null) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
 
-    @POST
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response create(ProductDTO dto){
-        if (dto.getName() == null || dto.getDescription() == null || dto.getPrice() == -1 || dto.getUnit() == null || dto.getAlergens() == null || dto.getCategory() == null || dto.getPhotos() == null){
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
+		Product product = new Product();
 
-        Product product = new Product();
+		product.setName(dto.getName());
+		product.setDescription(dto.getDescription());
+		product.setPrice(dto.getPrice());
+		product.setUnit(dto.getUnit());
 
-        product.setName(dto.getName());
-        product.setDescription(dto.getDescription());
-        product.setPrice(dto.getPrice());
-        product.setUnit(dto.getUnit());
-        product.setAlergens(dto.getAlergens());
+		ArrayList<Alergens> list = new ArrayList<Alergens>();
 
-        if (categoryDAO.findByFields(dto.getCategory()) == null){
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
+		for (Long id : dto.getAlergens()) {
 
-        product.setCategory(categoryDAO.findByFields(dto.getCategory()));
+			if (alergensDAO.find(id) == null) {
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
 
-        productDAO.persist(product);
+			Alergens alergen = alergensDAO.find(id);
+			list.add(alergen);
 
-        product = productDAO.findByFields(dto);
+		}
 
-        for (ProductPhoto photo : dto.getPhotos()){
+		product.setAlergens(list);
 
-            photo.setProduct(product);
-            photo.setUrl(dto.getPhotos().get(0).getUrl());
-            photo.setAltText(dto.getPhotos().get(0).getAltText());
+		if (categoryDAO.find(dto.getCategory()) == null) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
 
-            productPhotoDAO.persist(photo);
-        }
+		product.setCategory(categoryDAO.find(dto.getCategory()));
 
-        return Response.status(Response.Status.CREATED).build();
+		productDAO.persist(product);
 
-    }
+		product = productDAO.findByFields(dto);
 
-    @GET
-    @Path("/{id}")
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response get(@PathParam("id") Long id){
-        Product product = productDAO.findById(id);
+		for (ProductPhotoDTO photo : dto.getPhotos()) {
 
-        if (product == null){
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+			ProductPhoto photo1 = new ProductPhoto();
 
-        return Response.ok(product).build();
-    }
+			photo1.setProduct(product);
+			photo1.setUrl(dto.getPhotos().get(0).getUrl());
+			photo1.setAltText(dto.getPhotos().get(0).getAltText());
 
+			productPhotoDAO.persist(photo1);
+		}
 
-    @GET
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response getAll() {
-        List<Product> list = productDAO.findAll();
-        return Response.ok(list).build();
-    }
+		return Response.status(Response.Status.CREATED).build();
 
-    @DELETE
-    @Path("/{id}")
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response delete(@PathParam("id") Long id){
-        Product product = productDAO.findById(id);
+	}
 
-        if (product.getName() == null || product.getDescription() == null || product.getPrice() == -1 || product.getUnit() == null || product.getAlergens() == null || product.getCategory() == null ){
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+	@GET
+	@Path("/{id}")
+	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
+			@APIResponse(responseCode = "201", description = "Creado correctamente"),
+			@APIResponse(responseCode = "404", description = "No encontrado") })
+	public Response get(@PathParam("id") Long id) {
+		Product product = productDAO.findById(id);
 
-        productDAO.delete(product);
+		if (product == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
 
-        return Response.status(Response.Status.OK).build();
+		return Response.ok(product).build();
+	}
 
-    }
+	@GET
+	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
+			@APIResponse(responseCode = "201", description = "Creado correctamente"),
+			@APIResponse(responseCode = "404", description = "No encontrado") })
+	public Response getAll() {
+		List<Product> list = productDAO.findAll();
+		return Response.ok(list).build();
+	}
 
-    @PUT
-    @Path("/{id}")
-    @APIResponses({
-            @APIResponse(responseCode = "200", description = "Operación exitosa"),
-            @APIResponse(responseCode = "201", description = "Creado correctamente"),
-            @APIResponse(responseCode = "404", description = "No encontrado")
-    })
-    public Response update(@PathParam("id") Long id, ProductDTO dto){
+	@DELETE
+	@Path("/{id}")
+	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
+			@APIResponse(responseCode = "201", description = "Creado correctamente"),
+			@APIResponse(responseCode = "404", description = "No encontrado") })
+	public Response delete(@PathParam("id") Long id) {
+		Product product = productDAO.findById(id);
 
-        Product product = productDAO.findById(id);
+		if (product.getName() == null || product.getDescription() == null || product.getPrice() == -1
+				|| product.getUnit() == null || product.getAlergens() == null || product.getCategory() == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
 
-        if (dto.getName() == null || dto.getDescription() == null || dto.getPrice() == -1 || dto.getUnit() == null || dto.getAlergens() == null || dto.getCategory() == null || dto.getPhotos() == null){
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
+		productDAO.delete(product);
 
-        product.setName(dto.getName());
-        product.setDescription(dto.getDescription());
-        product.setPrice(dto.getPrice());
-        product.setUnit(dto.getUnit());
-        product.setAlergens(dto.getAlergens());
+		return Response.status(Response.Status.OK).build();
 
-        if (categoryDAO.findByFields(dto.getCategory()) == null){
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
+	}
 
-        product.setCategory(categoryDAO.findByFields(dto.getCategory()));
+	@PUT
+	@Path("/{id}")
+	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
+			@APIResponse(responseCode = "201", description = "Creado correctamente"),
+			@APIResponse(responseCode = "404", description = "No encontrado") })
+	public Response update(@PathParam("id") Long id, ProductDTO dto) {
 
-        productDAO.update(product);
+		Product product = productDAO.findById(id);
 
-        List<ProductPhoto> list = productPhotoDAO.findByProduct(product.getId());
+		if (dto.getName() == null || dto.getDescription() == null || dto.getPrice() == -1 || dto.getUnit() == null
+				|| dto.getAlergens() == null || dto.getCategory() == null || dto.getPhotos() == null) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
 
+		product.setName(dto.getName());
+		product.setDescription(dto.getDescription());
+		product.setPrice(dto.getPrice());
+		product.setUnit(dto.getUnit());
 
-        for (ProductPhoto photo : list){
-            for (ProductPhoto photo2 : dto.getPhotos()){
-                photo.setUrl(photo2.getUrl());
+		ArrayList<Alergens> list = new ArrayList<Alergens>();
 
-                photo.setProduct(photo2.getProduct());
+		for (Long idaler : dto.getAlergens()) {
 
-                photo.setUrl(photo2.getUrl());
+			if (alergensDAO.find(idaler) == null) {
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
 
-                photo.setAltText(photo2.getAltText());
-                productPhotoDAO.update(photo);
-            }
+			Alergens alergen = alergensDAO.find(idaler);
+			list.add(alergen);
 
-        }
+		}
 
-        return Response.status(Response.Status.OK).build();
+		product.setAlergens(list);
 
-    }
+		if (categoryDAO.find(dto.getCategory()) == null) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+
+		product.setCategory(categoryDAO.find(dto.getCategory()));
+
+		productDAO.update(product);
+
+		List<ProductPhoto> listphoto = productPhotoDAO.findByProduct(product.getId());
+
+		for (ProductPhoto photo : listphoto) {
+			for (ProductPhotoDTO photo2 : dto.getPhotos()) {
+				photo.setUrl(photo2.getUrl());
+				product = productDAO.findByFields(photo2.getProduct());
+				photo.setProduct(product);
+
+				photo.setUrl(photo2.getUrl());
+
+				photo.setAltText(photo2.getAltText());
+				productPhotoDAO.update(photo);
+			}
+
+		}
+
+		return Response.status(Response.Status.OK).build();
+
+	}
 
 }
