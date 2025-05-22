@@ -5,68 +5,49 @@ package com.vortex.domain.dto;
  */
 public class ProductPhotoDTO {
 
-    private ProductDTO product;
+	private String url;
 
-    private String url;
+	private String altText;
 
-    private String altText;
+	/**
+	 * Instantiates a new Product photo dto.
+	 */
+	public ProductPhotoDTO() {
+	}
 
-    /**
-     * Instantiates a new Product photo dto.
-     */
-    public ProductPhotoDTO() {}
+	/**
+	 * Gets url.
+	 *
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
 
-    /**
-     * Gets product.
-     *
-     * @return the product
-     */
-    public ProductDTO getProduct() {
-        return product;
-    }
+	/**
+	 * Sets url.
+	 *
+	 * @param url the url
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-    /**
-     * Sets product.
-     *
-     * @param product the product
-     */
-    public void setProduct(ProductDTO product) {
-        this.product = product;
-    }
+	/**
+	 * Gets alt text.
+	 *
+	 * @return the alt text
+	 */
+	public String getAltText() {
+		return altText;
+	}
 
-    /**
-     * Gets url.
-     *
-     * @return the url
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Sets url.
-     *
-     * @param url the url
-     */
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    /**
-     * Gets alt text.
-     *
-     * @return the alt text
-     */
-    public String getAltText() {
-        return altText;
-    }
-
-    /**
-     * Sets alt text.
-     *
-     * @param altText the alt text
-     */
-    public void setAltText(String altText) {
-        this.altText = altText;
-    }
+	/**
+	 * Sets alt text.
+	 *
+	 * @param altText the alt text
+	 */
+	public void setAltText(String altText) {
+		this.altText = altText;
+	}
 }

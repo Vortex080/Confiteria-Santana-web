@@ -112,7 +112,8 @@ public class AddressDAO {
      * @param address the address
      */
     public void delete(Address address) {
-        em.remove(address);
+    	Address managed = em.merge(address);
+    	em.remove(managed);
     }
 
 

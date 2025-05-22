@@ -7,13 +7,14 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.vortex.domain.dto.AddressDTO;
 import com.vortex.domain.dto.UserDTO;
 import com.vortex.domain.entities.Address;
 import com.vortex.domain.entities.LoginRequest;
-import com.vortex.domain.entities.TokenUtil;
 import com.vortex.domain.entities.User;
 import com.vortex.infrastructure.repositories.AddressDAO;
 import com.vortex.infrastructure.repositories.UserDAO;
+import com.vortex.infrastructure.security.TokenUtil;
 
 import jakarta.inject.Inject;
 import jakarta.json.Json;
@@ -103,18 +104,43 @@ public class UserRest {
 
 	@GET
 	@Path("/{id}")
-	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
-			@APIResponse(responseCode = "201", description = "Creado correctamente"),
-			@APIResponse(responseCode = "404", description = "No encontrado") })
+	@APIResponses({
+	    @APIResponse(responseCode = "200", description = "Operación exitosa"),
+	    @APIResponse(responseCode = "201", description = "Creado correctamente"),
+	    @APIResponse(responseCode = "404", description = "No encontrado")
+	})
 	public Response get(@PathParam("id") Long id) {
-		User user = dao.find(id);
+	    User user = dao.find(id);
 
-		if (user == null) {
-			return Response.status(Response.Status.NOT_FOUND).build();
-		}
+	    if (user == null) {
+	        return Response.status(Response.Status.NOT_FOUND).build();
+	    }
 
-		return Response.ok(user).build();
+	    // Mapeo manual a DTO
+	    UserDTO dto = new UserDTO();
+	    dto.setUsername(user.getUsername());
+	    dto.setName(user.getName());
+	    dto.setLastname(user.getLastname());
+	    dto.setPhoto(user.getPhoto());
+	    dto.setEmail(user.getEmail());
+	    dto.setRol(user.getRol());
+	    dto.setPhone(user.getPhone());
+	    
+	    AddressDTO addresdto = new AddressDTO();
+        addresdto.setStreet(user.getAddress().getStreet());
+        addresdto.setNumber(user.getAddress().getNumber());
+        addresdto.setFlat(user.getAddress().getFlat());
+        addresdto.setDoor(user.getAddress().getDoor());
+        addresdto.setCity(user.getAddress().getCity());
+        addresdto.setState(user.getAddress().getState());
+        addresdto.setCountry(user.getAddress().getCountry());
+        addresdto.setPostalCode(user.getAddress().getPostalCode());
+	    
+	    dto.setAddress(addresdto);
+
+	    return Response.ok(dto).build();
 	}
+
 
 	@DELETE
 	@Path("/{id}")

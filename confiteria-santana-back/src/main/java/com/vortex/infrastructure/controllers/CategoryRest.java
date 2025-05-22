@@ -99,6 +99,7 @@ public class CategoryRest {
         }
 
         category.setName(categoryDTO.getName());
+        category.setDescription(categoryDTO.getDescription());
         categoryDAO.update(category);
 
         return Response.ok(category).build();

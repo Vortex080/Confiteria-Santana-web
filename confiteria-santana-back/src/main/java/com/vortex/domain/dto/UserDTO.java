@@ -1,7 +1,7 @@
 package com.vortex.domain.dto;
 
 
-import com.vortex.infrastructure.repositories.AddressDAO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserDTO {
 
@@ -87,6 +87,7 @@ public class UserDTO {
         this.phone = phone;
     }
 
+    @JsonIgnore
     public String getPass() {
         return pass;
     }

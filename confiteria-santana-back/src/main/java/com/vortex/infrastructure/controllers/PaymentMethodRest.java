@@ -23,6 +23,7 @@ public class PaymentMethodRest {
 
     @Inject
     private PaymentMethodDAO paymentMethodDAO;
+    @Inject
     private UserDAO userDAO;
 
     @POST
@@ -32,7 +33,7 @@ public class PaymentMethodRest {
             @APIResponse(responseCode = "404", description = "No encontrado")
     })
     public Response create(PaymentMethodDTO dto){
-        if (dto.getUser() == null || dto.getExpiryMonth() == -1 || dto.getExpiryYear() == -1 || dto.getProvider() == null || dto.getToken() == null || dto.getLast4() == null || dto.getType() == null){
+        if (dto.getUser() == null || dto.getExpiryMonth() == -1 || dto.getExpiryYear() == -1 || dto.getProvider() == null || dto.getToken() == null || dto.getLast4() == null || dto.getType() == null || dto.getBrand() == null){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
@@ -55,6 +56,8 @@ public class PaymentMethodRest {
         payment.setLast4(dto.getLast4());
 
         payment.setType(dto.getType());
+        
+        payment.setBrand(dto.getBrand());
 
         paymentMethodDAO.persist(payment);
 

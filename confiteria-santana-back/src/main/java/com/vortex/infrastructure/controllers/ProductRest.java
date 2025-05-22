@@ -29,8 +29,11 @@ public class ProductRest {
 
 	@Inject
 	private ProductDAO productDAO;
+	@Inject
 	private CategoryDAO categoryDAO;
+	@Inject
 	private ProductPhotoDAO productPhotoDAO;
+	@Inject
 	private AlergensDAO alergensDAO;
 
 	/**
@@ -85,7 +88,6 @@ public class ProductRest {
 
 			ProductPhoto photo1 = new ProductPhoto();
 
-			photo1.setProduct(product);
 			photo1.setUrl(dto.getPhotos().get(0).getUrl());
 			photo1.setAltText(dto.getPhotos().get(0).getAltText());
 
@@ -186,7 +188,6 @@ public class ProductRest {
 		for (ProductPhoto photo : listphoto) {
 			for (ProductPhotoDTO photo2 : dto.getPhotos()) {
 				photo.setUrl(photo2.getUrl());
-				product = productDAO.findByFields(photo2.getProduct());
 				photo.setProduct(product);
 
 				photo.setUrl(photo2.getUrl());

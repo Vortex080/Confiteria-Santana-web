@@ -23,7 +23,9 @@ public class PaymentRest {
 
     @Inject
     private PaymentsDAO paymentsDAO;
+    @Inject
     private UserDAO userDAO;
+    @Inject
     private OrderDAO orderDAO;
 
     @POST

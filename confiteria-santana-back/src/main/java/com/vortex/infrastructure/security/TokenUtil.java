@@ -1,4 +1,4 @@
-package com.vortex.domain.entities;
+package com.vortex.infrastructure.security;
 
 import java.util.Date;
 import java.util.List;

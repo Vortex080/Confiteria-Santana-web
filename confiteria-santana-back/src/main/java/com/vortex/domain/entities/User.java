@@ -1,5 +1,6 @@
 package com.vortex.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vortex.domain.dto.AddressDTO;
 
 import jakarta.persistence.*;
@@ -92,6 +93,7 @@ public class User {
      *
      * @return the password
      */
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

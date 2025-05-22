@@ -61,7 +61,8 @@ public class AlergensDAO {
      * @param alergens the alergens
      */
     public void update(Alergens alergens) {
-        em.merge(alergens);
+    	Alergens managed = em.merge(alergens);
+    	em.remove(managed);
     }
 
 }

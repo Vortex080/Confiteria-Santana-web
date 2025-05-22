@@ -55,7 +55,8 @@ public class CategoryDAO {
      * @param category the category
      */
     public void delete(Category category) {
-        em.remove(category);
+    	Category managed = em.merge(category);
+    	em.remove(managed);
     }
 
     /**
