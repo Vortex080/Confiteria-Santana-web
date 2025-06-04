@@ -1,3 +1,4 @@
+
 package com.vortex.infrastructure.controllers;
 
 import com.vortex.domain.dto.AlergenDTO;
@@ -59,26 +60,22 @@ public class ProductRest {
 		product.setPrice(dto.getPrice());
 		product.setUnit(dto.getUnit());
 
-		ArrayList<Alergens> list = new ArrayList<Alergens>();
-
-		for (Long id : dto.getAlergens()) {
-
-			if (alergensDAO.find(id) == null) {
-				return Response.status(Response.Status.BAD_REQUEST).build();
-			}
-
-			Alergens alergen = alergensDAO.find(id);
-			list.add(alergen);
-
+		List<Alergens> list = new ArrayList<>();
+		for (AlergenDTO alergenDTO : dto.getAlergens()) {
+		    Alergens alergen = alergensDAO.find(alergenDTO.getId());
+		    if (alergen == null) {
+		        return Response.status(Response.Status.BAD_REQUEST).build();
+		    }
+		    list.add(alergen);
 		}
 
-		product.setAlergens(list);
+		product.setAlergens((ArrayList<Alergens>) list);
 
-		if (categoryDAO.find(dto.getCategory()) == null) {
+		if (categoryDAO.find(dto.getCategory().getId()) == null) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 
-		product.setCategory(categoryDAO.find(dto.getCategory()));
+		product.setCategory(categoryDAO.find(dto.getCategory().getId()));
 
 		productDAO.persist(product);
 
@@ -90,7 +87,8 @@ public class ProductRest {
 
 			photo1.setUrl(dto.getPhotos().get(0).getUrl());
 			photo1.setAltText(dto.getPhotos().get(0).getAltText());
-
+			photo1.setProduct(product);
+			
 			productPhotoDAO.persist(photo1);
 		}
 
@@ -118,9 +116,10 @@ public class ProductRest {
 			@APIResponse(responseCode = "201", description = "Creado correctamente"),
 			@APIResponse(responseCode = "404", description = "No encontrado") })
 	public Response getAll() {
-		List<Product> list = productDAO.findAll();
-		return Response.ok(list).build();
+	    List<Product> list = productDAO.findAllWithEverything();
+	    return Response.ok(list).build();
 	}
+
 
 	@DELETE
 	@Path("/{id}")
@@ -154,32 +153,28 @@ public class ProductRest {
 				|| dto.getAlergens() == null || dto.getCategory() == null || dto.getPhotos() == null) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
-
 		product.setName(dto.getName());
 		product.setDescription(dto.getDescription());
 		product.setPrice(dto.getPrice());
 		product.setUnit(dto.getUnit());
 
-		ArrayList<Alergens> list = new ArrayList<Alergens>();
-
-		for (Long idaler : dto.getAlergens()) {
-
-			if (alergensDAO.find(idaler) == null) {
-				return Response.status(Response.Status.BAD_REQUEST).build();
-			}
-
-			Alergens alergen = alergensDAO.find(idaler);
-			list.add(alergen);
-
+		List<Alergens> list = new ArrayList<>();
+		for (AlergenDTO alergenDTO : dto.getAlergens()) {
+		    Alergens alergen = alergensDAO.find(alergenDTO.getId());
+		    if (alergen == null) {
+		        return Response.status(Response.Status.BAD_REQUEST).build();
+		    }
+		    list.add(alergen);
 		}
 
-		product.setAlergens(list);
+		product.setAlergens((ArrayList<Alergens>) list);
 
-		if (categoryDAO.find(dto.getCategory()) == null) {
+
+		if (categoryDAO.find(dto.getCategory().getId()) == null) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 
-		product.setCategory(categoryDAO.find(dto.getCategory()));
+		product.setCategory(categoryDAO.find(dto.getCategory().getId()));
 
 		productDAO.update(product);
 
@@ -195,9 +190,8 @@ public class ProductRest {
 				photo.setAltText(photo2.getAltText());
 				productPhotoDAO.update(photo);
 			}
-
 		}
-
+		
 		return Response.status(Response.Status.OK).build();
 
 	}

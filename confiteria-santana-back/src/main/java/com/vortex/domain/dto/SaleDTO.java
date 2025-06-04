@@ -5,13 +5,17 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SaleDTO.
  */
 public class SaleDTO {
 
+	/** The id. */
+	private Long id;
+
 	/** The date. */
-	private Date date;
+	private LocalDateTime date;
 
 	/** The total. */
 	private BigDecimal total;
@@ -27,7 +31,7 @@ public class SaleDTO {
 	 *
 	 * @return the date
 	 */
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
@@ -36,7 +40,7 @@ public class SaleDTO {
 	 *
 	 * @param date the new date
 	 */
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
@@ -92,6 +96,24 @@ public class SaleDTO {
 	 */
 	public void setLine(List<SaleLineDTO> line) {
 		this.line = line;
+	}
+
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

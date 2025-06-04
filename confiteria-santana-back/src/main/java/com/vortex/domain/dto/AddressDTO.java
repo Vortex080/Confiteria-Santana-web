@@ -1,172 +1,203 @@
 package com.vortex.domain.dto;
 
+// TODO: Auto-generated Javadoc
 /**
  * The type Address dto.
  */
 public class AddressDTO {
 
-    private String street;
+	/** The id. */
+	private String id;
 
-    private String number;
+	/** The street. */
+	private String street;
 
-    private String flat;
+	/** The number. */
+	private String number;
 
-    private String door;
+	/** The flat. */
+	private String flat;
 
-    private String city;
+	/** The door. */
+	private String door;
 
-    private String state;
+	/** The city. */
+	private String city;
 
-    private String country;
+	/** The state. */
+	private String state;
 
-    private String postalCode;
+	/** The country. */
+	private String country;
 
-    /**
-     * Instantiates a new Address dto.
-     */
-    public AddressDTO() {}
+	/** The postal code. */
+	private String postalCode;
 
-    /**
-     * Gets street.
-     *
-     * @return the street
-     */
-    public String getStreet() {
-        return street;
-    }
+	/**
+	 * Instantiates a new Address dto.
+	 */
+	public AddressDTO() {
+	}
 
-    /**
-     * Sets street.
-     *
-     * @param street the street
-     */
-    public void setStreet(String street) {
-        this.street = street;
-    }
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
 
-    /**
-     * Gets number.
-     *
-     * @return the number
-     */
-    public String getNumber() {
-        return number;
-    }
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    /**
-     * Sets number.
-     *
-     * @param number the number
-     */
-    public void setNumber(String number) {
-        this.number = number;
-    }
+	/**
+	 * Gets street.
+	 *
+	 * @return the street
+	 */
+	public String getStreet() {
+		return street;
+	}
 
-    /**
-     * Gets flat.
-     *
-     * @return the flat
-     */
-    public String getFlat() {
-        return flat;
-    }
+	/**
+	 * Sets street.
+	 *
+	 * @param street the street
+	 */
+	public void setStreet(String street) {
+		this.street = street;
+	}
 
-    /**
-     * Sets flat.
-     *
-     * @param flat the flat
-     */
-    public void setFlat(String flat) {
-        this.flat = flat;
-    }
+	/**
+	 * Gets number.
+	 *
+	 * @return the number
+	 */
+	public String getNumber() {
+		return number;
+	}
 
-    /**
-     * Gets door.
-     *
-     * @return the door
-     */
-    public String getDoor() {
-        return door;
-    }
+	/**
+	 * Sets number.
+	 *
+	 * @param number the number
+	 */
+	public void setNumber(String number) {
+		this.number = number;
+	}
 
-    /**
-     * Sets door.
-     *
-     * @param door the door
-     */
-    public void setDoor(String door) {
-        this.door = door;
-    }
+	/**
+	 * Gets flat.
+	 *
+	 * @return the flat
+	 */
+	public String getFlat() {
+		return flat;
+	}
 
-    /**
-     * Gets city.
-     *
-     * @return the city
-     */
-    public String getCity() {
-        return city;
-    }
+	/**
+	 * Sets flat.
+	 *
+	 * @param flat the flat
+	 */
+	public void setFlat(String flat) {
+		this.flat = flat;
+	}
 
-    /**
-     * Sets city.
-     *
-     * @param city the city
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
+	/**
+	 * Gets door.
+	 *
+	 * @return the door
+	 */
+	public String getDoor() {
+		return door;
+	}
 
-    /**
-     * Gets state.
-     *
-     * @return the state
-     */
-    public String getState() {
-        return state;
-    }
+	/**
+	 * Sets door.
+	 *
+	 * @param door the door
+	 */
+	public void setDoor(String door) {
+		this.door = door;
+	}
 
-    /**
-     * Sets state.
-     *
-     * @param state the state
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
+	/**
+	 * Gets city.
+	 *
+	 * @return the city
+	 */
+	public String getCity() {
+		return city;
+	}
 
-    /**
-     * Gets country.
-     *
-     * @return the country
-     */
-    public String getCountry() {
-        return country;
-    }
+	/**
+	 * Sets city.
+	 *
+	 * @param city the city
+	 */
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    /**
-     * Sets country.
-     *
-     * @param country the country
-     */
-    public void setCountry(String country) {
-        this.country = country;
-    }
+	/**
+	 * Gets state.
+	 *
+	 * @return the state
+	 */
+	public String getState() {
+		return state;
+	}
 
-    /**
-     * Gets postal code.
-     *
-     * @return the postal code
-     */
-    public String getPostalCode() {
-        return postalCode;
-    }
+	/**
+	 * Sets state.
+	 *
+	 * @param state the state
+	 */
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    /**
-     * Sets postal code.
-     *
-     * @param postalCode the postal code
-     */
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
+	/**
+	 * Gets country.
+	 *
+	 * @return the country
+	 */
+	public String getCountry() {
+		return country;
+	}
+
+	/**
+	 * Sets country.
+	 *
+	 * @param country the country
+	 */
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	/**
+	 * Gets postal code.
+	 *
+	 * @return the postal code
+	 */
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	/**
+	 * Sets postal code.
+	 *
+	 * @param postalCode the postal code
+	 */
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
 }

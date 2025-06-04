@@ -2,6 +2,8 @@ package com.vortex.domain.entities;
 
 import java.math.BigDecimal;
 
+import com.vortex.domain.dto.ProductDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,9 +26,7 @@ public class SaleLine {
 	private Long id;
 
 	/** The product. */
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "product_id", nullable = false)
-	private Product product;
+	private ProductDTO  product;
 
 	/** The cuantity. */
 	@Column(nullable = false)
@@ -86,7 +86,7 @@ public class SaleLine {
 	 *
 	 * @return the product
 	 */
-	public Product getProduct() {
+	public ProductDTO getProduct() {
 		return product;
 	}
 
@@ -95,7 +95,7 @@ public class SaleLine {
 	 *
 	 * @param product the new product
 	 */
-	public void setProduct(Product product) {
+	public void setProduct(ProductDTO product) {
 		this.product = product;
 	}
 

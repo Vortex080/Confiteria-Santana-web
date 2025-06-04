@@ -1,112 +1,185 @@
 package com.vortex.domain.dto;
 
+import java.time.LocalDateTime;
+
+// TODO: Auto-generated Javadoc
 /**
  * The type Order dto.
  */
 public class OrderDTO {
 
-    private Long user;
+	/** The id. */
+	private Long id;
 
-    private Long total;
+	/** The user. */
+	private Long user;
 
-    private Long shipping;
+	/** The total. */
+	private Long total;
 
-    private Long paymentMethod;
+	/** The shipping. */
+	private Long shipping;
 
-    private Long billingAddress;
+	/** The payment method. */
+	private Long paymentMethod;
 
-    /**
-     * Instantiates a new Order dto.
-     */
-    public OrderDTO() {}
+	/** The billing address. */
+	private Long billingAddress;
 
-    /**
-     * Gets user.
-     *
-     * @return the user
-     */
-    public Long getUser() {
-        return user;
-    }
+	/** The sale. */
+	private Long sale;
 
-    /**
-     * Sets user.
-     *
-     * @param user the user
-     */
-    public void setUser(Long user) {
-        this.user = user;
-    }
+	/** The created at. */
+	private LocalDateTime created_at;
 
-    /**
-     * Gets total.
-     *
-     * @return the total
-     */
-    public Long getTotal() {
-        return total;
-    }
+	/**
+	 * Instantiates a new Order dto.
+	 */
+	public OrderDTO() {
+	}
 
-    /**
-     * Sets total.
-     *
-     * @param total the total
-     */
-    public void setTotal(Long total) {
-        this.total = total;
-    }
+	/**
+	 * Gets user.
+	 *
+	 * @return the user
+	 */
+	public Long getUser() {
+		return user;
+	}
 
-    /**
-     * Gets shipping.
-     *
-     * @return the shipping
-     */
-    public Long getShipping() {
-        return shipping;
-    }
+	/**
+	 * Sets user.
+	 *
+	 * @param user the user
+	 */
+	public void setUser(Long user) {
+		this.user = user;
+	}
 
-    /**
-     * Sets shipping.
-     *
-     * @param shipping the shipping
-     */
-    public void setShipping(Long shipping) {
-        this.shipping = shipping;
-    }
+	/**
+	 * Gets total.
+	 *
+	 * @return the total
+	 */
+	public Long getTotal() {
+		return total;
+	}
 
-    /**
-     * Gets payment method.
-     *
-     * @return the payment method
-     */
-    public Long getPaymentMethod() {
-        return paymentMethod;
-    }
+	/**
+	 * Sets total.
+	 *
+	 * @param total the total
+	 */
+	public void setTotal(Long total) {
+		this.total = total;
+	}
 
-    /**
-     * Sets payment method.
-     *
-     * @param paymentMethod the payment method
-     */
-    public void setPaymentMethod(Long paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
+	/**
+	 * Gets shipping.
+	 *
+	 * @return the shipping
+	 */
+	public Long getShipping() {
+		return shipping;
+	}
 
-    /**
-     * Gets billing address.
-     *
-     * @return the billing address
-     */
-    public Long getBillingAddress() {
-        return billingAddress;
-    }
+	/**
+	 * Sets shipping.
+	 *
+	 * @param shipping the shipping
+	 */
+	public void setShipping(Long shipping) {
+		this.shipping = shipping;
+	}
 
-    /**
-     * Sets billing address.
-     *
-     * @param billingAddress the billing address
-     */
-    public void setBillingAddress(Long billingAddress) {
-        this.billingAddress = billingAddress;
-    }
+	/**
+	 * Gets payment method.
+	 *
+	 * @return the payment method
+	 */
+	public Long getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	/**
+	 * Sets payment method.
+	 *
+	 * @param paymentMethod the payment method
+	 */
+	public void setPaymentMethod(Long paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	/**
+	 * Gets billing address.
+	 *
+	 * @return the billing address
+	 */
+	public Long getBillingAddress() {
+		return billingAddress;
+	}
+
+	/**
+	 * Sets billing address.
+	 *
+	 * @param billingAddress the billing address
+	 */
+	public void setBillingAddress(Long billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
+	/**
+	 * Gets the sale.
+	 *
+	 * @return the sale
+	 */
+	public Long getSale() {
+		return sale;
+	}
+
+	/**
+	 * Sets the sale.
+	 *
+	 * @param sale the new sale
+	 */
+	public void setSale(Long sale) {
+		this.sale = sale;
+	}
+
+	/**
+	 * Gets the created at.
+	 *
+	 * @return the created at
+	 */
+	public LocalDateTime getCreated_at() {
+		return created_at;
+	}
+
+	/**
+	 * Sets the created at.
+	 *
+	 * @param created_at the new created at
+	 */
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = created_at;
+	}
+
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }

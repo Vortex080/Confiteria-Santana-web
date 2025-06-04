@@ -1,8 +1,5 @@
 package com.vortex.infrastructure.controllers;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +8,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import com.vortex.domain.dto.ProductDTO;
 import com.vortex.domain.dto.SaleDTO;
 import com.vortex.domain.dto.SaleLineDTO;
 import com.vortex.domain.entities.Product;
@@ -60,26 +58,24 @@ public class SaleRest {
 
 		Sale sale = new Sale();
 
-		LocalDateTime dateTime = dto.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-		sale.setdate(dateTime);
+		sale.setDate(dto.getDate());
 		sale.setMetodoPago(dto.getMetodoPago());
 		sale.setTotal(dto.getTotal());
 
 		List<SaleLine> lineas = new ArrayList<>();
 
 		for (SaleLineDTO lineDTO : dto.getLine()) {
-			Product product = productDAO.findById(lineDTO.getProduct());
+			
 
-			if (product == null) {
+			if (productDAO.findById(lineDTO.getProduct().getId()) != null) {
 				return Response.status(Response.Status.BAD_REQUEST).entity("Producto con ID inválido").build();
 			}
-
+			
 			SaleLine line = new SaleLine();
 			line.setCuantity(lineDTO.getCuantity());
 			line.setPrice(lineDTO.getPrice());
 			line.setSubtotal(lineDTO.getSubtotal());
-			line.setProduct(product);
+			line.setProduct(lineDTO.getProduct());
 			line.setSale(sale);
 
 			lineas.add(line);
@@ -96,9 +92,32 @@ public class SaleRest {
 			@APIResponse(responseCode = "201", description = "Creado correctamente"),
 			@APIResponse(responseCode = "404", description = "No encontrado") })
 	public Response findAll() {
-		List<Sale> list = dao.findAll();
-		return Response.ok(list).build();
+		List<Sale> sales = dao.findAll();
+
+		List<SaleDTO> dtos = sales.stream().map(sale -> {
+			SaleDTO dto = new SaleDTO();
+			if (sale.getDate() != null) {
+				dto.setDate(sale.getDate());
+			}
+			dto.setId(sale.getId());
+			dto.setTotal(sale.getTotal());
+			dto.setMetodoPago(sale.getMetodoPago());
+			List<SaleLineDTO> lineasDTO = sale.getLineas().stream().map(linea -> {
+				SaleLineDTO l = new SaleLineDTO();
+				l.setProduct(linea.getProduct());
+				l.setCuantity(linea.getCuantity());
+				l.setPrice(linea.getPrice());
+				l.setSubtotal(linea.getSubtotal());
+				return l;
+			}).collect(Collectors.toList());
+
+			dto.setLine(lineasDTO);
+			return dto;
+		}).collect(Collectors.toList());
+
+		return Response.ok(dtos).build();
 	}
+
 
 	@GET
 	@Path("/{id}")
@@ -114,13 +133,13 @@ public class SaleRest {
 		}
 
 		SaleDTO dto = new SaleDTO();
-		dto.setDate(Timestamp.valueOf(sale.getdate())); // LocalDateTime → java.util.Date
+		dto.setDate(sale.getDate());
 		dto.setTotal(sale.getTotal());
 		dto.setMetodoPago(sale.getMetodoPago());
 
 		List<SaleLineDTO> lineasDTO = sale.getLineas().stream().map(linea -> {
 			SaleLineDTO l = new SaleLineDTO();
-			l.setProduct(linea.getProduct().getId());
+			l.setProduct(linea.getProduct());
 			l.setCuantity(linea.getCuantity());
 			l.setPrice(linea.getPrice());
 			l.setSubtotal(linea.getSubtotal());
@@ -148,8 +167,7 @@ public class SaleRest {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
 
-		LocalDateTime dateTime = dto.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-		sale.setdate(dateTime);
+		sale.setDate(dto.getDate());
 		sale.setMetodoPago(dto.getMetodoPago());
 		sale.setTotal(dto.getTotal());
 
@@ -157,13 +175,13 @@ public class SaleRest {
 
 		List<SaleLine> nuevasLineas = new ArrayList<>();
 		for (SaleLineDTO lineDTO : dto.getLine()) {
-			Product product = productDAO.findById(lineDTO.getProduct());
-			if (product == null) {
+			Product productid = productDAO.findById(lineDTO.getProduct().getId());
+			if (productid == null) {
 				return Response.status(Response.Status.BAD_REQUEST).entity("Producto con ID inválido").build();
 			}
 
 			SaleLine line = new SaleLine();
-			line.setProduct(product);
+			line.setProduct(lineDTO.getProduct());
 			line.setCuantity(lineDTO.getCuantity());
 			line.setPrice(lineDTO.getPrice());
 			line.setSubtotal(lineDTO.getSubtotal());

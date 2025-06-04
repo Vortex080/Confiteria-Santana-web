@@ -25,6 +25,7 @@ public class StockRest {
 
     @Inject
     private StockDAO dao;
+    @Inject
     private ProductDAO productDAO;
 
     @POST

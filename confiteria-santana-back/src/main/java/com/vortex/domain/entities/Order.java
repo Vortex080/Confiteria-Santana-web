@@ -1,9 +1,18 @@
 package com.vortex.domain.entities;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-import java.sql.Timestamp;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
+// TODO: Auto-generated Javadoc
 /**
  * The type Order.
  */
@@ -11,201 +20,235 @@ import java.sql.Timestamp;
 @Table(name = "orders") // Usamos plural y en minúscula para seguir la convención
 public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	/** The id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+	/** The user. */
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
 
-    @Column(nullable = false)
-    private Long total;
+	/** The total. */
+	@Column(nullable = false)
+	private Long total;
 
-    @Column(name = "shipping_cost", nullable = false)
-    private Long shipping;
+	/** The shipping. */
+	@Column(name = "shipping_cost", nullable = false)
+	private Long shipping;
 
-    @ManyToOne
-    @JoinColumn(name = "payment_method_id", nullable = false)
-    private PaymentMethod paymentMethod;
+	/** The payment method. */
+	@ManyToOne
+	@JoinColumn(name = "payment_method_id", nullable = false)
+	private PaymentMethod paymentMethod;
 
-    @ManyToOne
-    @JoinColumn(name = "shipping_address_id", nullable = false)
-    private Address shippingAddress;
+	/** The shipping address. */
+	@ManyToOne
+	@JoinColumn(name = "shipping_address_id", nullable = false)
+	private Address shippingAddress;
 
-    @ManyToOne
-    @JoinColumn(name = "billing_address_id", nullable = false)
-    private Address billingAddress;
+	/** The billing address. */
+	@ManyToOne
+	@JoinColumn(name = "billing_address_id", nullable = false)
+	private Address billingAddress;
 
-    private Timestamp created_at;
+	/** The sale. */
+	@OneToOne
+	@JoinColumn(name = "sale_id", referencedColumnName = "id", nullable = false)
+	private Sale sale;
 
-    private Timestamp updated_at;
+	/** The created at. */
+	@Column(nullable = false)
+	private LocalDateTime created_at;
 
-    /**
-     * Instantiates a new Order.
-     */
-    public Order() {
-    }
+	/** The updated at. */
+	private LocalDateTime updated_at;
 
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
+	/**
+	 * Instantiates a new Order.
+	 */
+	public Order() {
+	}
 
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+	/**
+	 * Gets id.
+	 *
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
 
-    /**
-     * Gets user.
-     *
-     * @return the user
-     */
-    public User getUser() {
-        return user;
-    }
+	/**
+	 * Sets id.
+	 *
+	 * @param id the id
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    /**
-     * Sets user.
-     *
-     * @param user the user
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
+	/**
+	 * Gets user.
+	 *
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
 
-    /**
-     * Gets total.
-     *
-     * @return the total
-     */
-    public Long getTotal() {
-        return total;
-    }
+	/**
+	 * Sets user.
+	 *
+	 * @param user the user
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    /**
-     * Sets total.
-     *
-     * @param total the total
-     */
-    public void setTotal(Long total) {
-        this.total = total;
-    }
+	/**
+	 * Gets total.
+	 *
+	 * @return the total
+	 */
+	public Long getTotal() {
+		return total;
+	}
 
-    /**
-     * Gets shipping.
-     *
-     * @return the shipping
-     */
-    public Long getShipping() {
-        return shipping;
-    }
+	/**
+	 * Sets total.
+	 *
+	 * @param total the total
+	 */
+	public void setTotal(Long total) {
+		this.total = total;
+	}
 
-    /**
-     * Sets shipping.
-     *
-     * @param shipping the shipping
-     */
-    public void setShipping(Long shipping) {
-        this.shipping = shipping;
-    }
+	/**
+	 * Gets shipping.
+	 *
+	 * @return the shipping
+	 */
+	public Long getShipping() {
+		return shipping;
+	}
 
-    /**
-     * Gets payment method.
-     *
-     * @return the payment method
-     */
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
+	/**
+	 * Sets shipping.
+	 *
+	 * @param shipping the shipping
+	 */
+	public void setShipping(Long shipping) {
+		this.shipping = shipping;
+	}
 
-    /**
-     * Sets payment method.
-     *
-     * @param paymentMethod the payment method
-     */
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
+	/**
+	 * Gets payment method.
+	 *
+	 * @return the payment method
+	 */
+	public PaymentMethod getPaymentMethod() {
+		return paymentMethod;
+	}
 
-    /**
-     * Gets shipping address.
-     *
-     * @return the shipping address
-     */
-    public Address getShippingAddress() {
-        return shippingAddress;
-    }
+	/**
+	 * Sets payment method.
+	 *
+	 * @param paymentMethod the payment method
+	 */
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
 
-    /**
-     * Sets shipping address.
-     *
-     * @param shippingAddress the shipping address
-     */
-    public void setShippingAddress(Address shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
+	/**
+	 * Gets shipping address.
+	 *
+	 * @return the shipping address
+	 */
+	public Address getShippingAddress() {
+		return shippingAddress;
+	}
 
-    /**
-     * Gets billing address.
-     *
-     * @return the billing address
-     */
-    public Address getBillingAddress() {
-        return billingAddress;
-    }
+	/**
+	 * Sets shipping address.
+	 *
+	 * @param shippingAddress the shipping address
+	 */
+	public void setShippingAddress(Address shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
 
-    /**
-     * Sets billing address.
-     *
-     * @param billingAddress the billing address
-     */
-    public void setBillingAddress(Address billingAddress) {
-        this.billingAddress = billingAddress;
-    }
+	/**
+	 * Gets billing address.
+	 *
+	 * @return the billing address
+	 */
+	public Address getBillingAddress() {
+		return billingAddress;
+	}
 
-    /**
-     * Gets created at.
-     *
-     * @return the created at
-     */
-    public Timestamp getCreated_at() {
-        return created_at;
-    }
+	/**
+	 * Sets billing address.
+	 *
+	 * @param billingAddress the billing address
+	 */
+	public void setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
+	}
 
-    /**
-     * Sets created at.
-     *
-     * @param created_at the created at
-     */
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
-    }
+	/**
+	 * Gets created at.
+	 *
+	 * @return the created at
+	 */
+	public LocalDateTime getCreated_at() {
+		return created_at;
+	}
 
-    /**
-     * Gets updated at.
-     *
-     * @return the updated at
-     */
-    public Timestamp getUpdated_at() {
-        return updated_at;
-    }
+	/**
+	 * Sets created at.
+	 *
+	 * @param created_at the created at
+	 */
+	public void setCreated_at(LocalDateTime created_at) {
+		this.created_at = created_at;
+	}
 
-    /**
-     * Sets updated at.
-     *
-     * @param updated_at the updated at
-     */
-    public void setUpdated_at(Timestamp updated_at) {
-        this.updated_at = updated_at;
-    }
+	/**
+	 * Gets updated at.
+	 *
+	 * @return the updated at
+	 */
+	public LocalDateTime getUpdated_at() {
+		return updated_at;
+	}
+
+	/**
+	 * Sets updated at.
+	 *
+	 * @param updated_at the updated at
+	 */
+	public void setUpdated_at(LocalDateTime updated_at) {
+		this.updated_at = updated_at;
+	}
+
+	/**
+	 * Gets the sale.
+	 *
+	 * @return the sale
+	 */
+	public Sale getSale() {
+		return sale;
+	}
+
+	/**
+	 * Sets the sale.
+	 *
+	 * @param sale the new sale
+	 */
+	public void setSale(Sale sale) {
+		this.sale = sale;
+	}
+
 }

@@ -1,12 +1,18 @@
 package com.vortex.domain.dto;
 
+// TODO: Auto-generated Javadoc
 /**
  * The type Product photo dto.
  */
 public class ProductPhotoDTO {
 
+	/** The id. */
+	private Long id;
+
+	/** The url. */
 	private String url;
 
+	/** The alt text. */
 	private String altText;
 
 	/**
@@ -50,4 +56,23 @@ public class ProductPhotoDTO {
 	public void setAltText(String altText) {
 		this.altText = altText;
 	}
+
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }

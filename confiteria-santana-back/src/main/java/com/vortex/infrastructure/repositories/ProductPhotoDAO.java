@@ -45,10 +45,16 @@ public class ProductPhotoDAO {
      *
      * @return the list
      */
-    public List<ProductPhoto> findAll() {
-        return em.createQuery("select p from ProductPhoto p", ProductPhoto.class).getResultList();
+    public List<Product> findAllWithEverything() {
+        return em.createQuery(
+            "SELECT DISTINCT p FROM Product p " +
+            "LEFT JOIN FETCH p.alergens " +
+            "LEFT JOIN FETCH p.category " +
+            "LEFT JOIN FETCH p.photos", Product.class
+        ).getResultList();
     }
 
+    
     /**
      * Delete.
      *
@@ -67,10 +73,10 @@ public class ProductPhotoDAO {
         em.merge(product);
     }
 
-    public List<ProductPhoto> findByProduct(Long id){
-        TypedQuery<ProductPhoto> query = em.createQuery("SELECT u FROM ProductPhoto u WHERE u.product_id = :product_id", ProductPhoto.class);
-        query.setParameter("product_is", id);
-        List<ProductPhoto> photos = query.getResultList();
-        return photos.isEmpty() ? null : photos;
+    public List<ProductPhoto> findByProduct(Long productId) {
+        return em.createQuery("SELECT u FROM ProductPhoto u WHERE u.product.id = :productId", ProductPhoto.class)
+                 .setParameter("productId", productId)
+                 .getResultList();
     }
+
 }

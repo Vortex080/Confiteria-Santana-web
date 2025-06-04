@@ -82,13 +82,13 @@ public class SaleLineDAO {
 	 */
 	public SaleLine findByFields(SaleLineDTO dto) {
 
-		Product product = dao.findById(dto.getProduct());
+		Product product = dao.findById(dto.getProduct().getId());
 
-		String jpql = "SELECT s FROM SaleLine s WHERE s.productId"
+		String jpql = "SELECT s FROM SaleLine s WHERE s.product"
 				+ "AND s.cuantity = :cuantity AND s.price = :price AND s.subtotal = :subtotal";
 
 		TypedQuery<SaleLine> query = em.createQuery(jpql, SaleLine.class)
-				.setParameter("productId", product.getId())
+				.setParameter("product", product)
 				.setParameter("cuantity", dto.getCuantity()).setParameter("price", dto.getPrice())
 				.setParameter("subtotal", dto.getSubtotal());
 

@@ -5,34 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4050de44-080f-4e1d-a23a-86f46f2576d6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/LoginRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/PaymentMethodRest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/PaymentRest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/ProductRest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/ShippingTrackingRest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/StockMovementsRest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/StockRest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/UserRest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/ShippingTracking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/ShippingTrackingDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AddressRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AddressRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AlergenRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/AlergenRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/ApplicationConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/CategoryRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/CategoryRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/OrderRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/OrderRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AddressDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AddressDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/CategoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/CategoryDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/OrderDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/PaymentMethodDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/PaymentMethodDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/PaymentsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/PaymentsDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductPhotoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductPhotoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/StockDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/StockDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/StockMovementsDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/StockMovementsDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/register/register.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/register/register.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/register/register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/register/register.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,9 +46,10 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature-endpoints&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/TFG/confiteria-santana-back&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,

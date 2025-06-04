@@ -1,3 +1,4 @@
+
 package com.vortex.infrastructure.repositories;
 
 import com.vortex.domain.dto.ProductDTO;
@@ -44,9 +45,15 @@ public class ProductDAO {
      *
      * @return the list
      */
-    public List<Product> findAll() {
-        return em.createQuery("select u from Product u", Product.class).getResultList();
+    public List<Product> findAllWithEverything() {
+        return em.createQuery(
+            "SELECT DISTINCT p FROM Product p " +
+            "LEFT JOIN FETCH p.alergens " +
+            "LEFT JOIN FETCH p.category " +
+            "LEFT JOIN FETCH p.photos", Product.class
+        ).getResultList();
     }
+
 
     /**
      * Delete.
@@ -73,21 +80,11 @@ public class ProductDAO {
                 "AND p.description = :description " +
                 "AND p.price = :price AND p.unit = :unit";
 
-        if (productDTO.getCategory() != null) {
-            jpql += " AND p.category = :category";
-        } else {
-            jpql += " AND p.category IS NULL";
-        }
-
         TypedQuery<Product> query = em.createQuery(jpql, Product.class)
                 .setParameter("name", productDTO.getName())
                 .setParameter("description", productDTO.getDescription())
                 .setParameter("price", productDTO.getPrice())
                 .setParameter("unit", productDTO.getUnit());
-
-        if (productDTO.getCategory() != null) {
-            query.setParameter("category", productDTO.getCategory());
-        }
 
         return query.getResultStream().findFirst().orElse(null);
     }

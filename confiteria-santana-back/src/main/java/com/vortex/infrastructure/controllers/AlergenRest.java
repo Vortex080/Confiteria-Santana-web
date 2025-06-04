@@ -23,7 +23,6 @@ public class AlergenRest {
     private AlergensDAO alergenDAO;
 
     @POST
-    @Path("/{id}")
     @APIResponses({
             @APIResponse(responseCode = "200", description = "Operación exitosa"),
             @APIResponse(responseCode = "201", description = "Creado correctamente"),

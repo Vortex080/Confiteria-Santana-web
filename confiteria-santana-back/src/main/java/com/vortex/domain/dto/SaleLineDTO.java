@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class SaleLineDTO {
 
 	/** The product. */
-	private Long product;
+	private ProductDTO product;
 
 	/** The cuantity. */
 	private Long cuantity;
@@ -24,7 +24,7 @@ public class SaleLineDTO {
 	 *
 	 * @return the product
 	 */
-	public Long getProduct() {
+	public ProductDTO getProduct() {
 		return product;
 	}
 
@@ -33,7 +33,7 @@ public class SaleLineDTO {
 	 *
 	 * @param product the new product
 	 */
-	public void setProduct(Long product) {
+	public void setProduct(ProductDTO product) {
 		this.product = product;
 	}
 

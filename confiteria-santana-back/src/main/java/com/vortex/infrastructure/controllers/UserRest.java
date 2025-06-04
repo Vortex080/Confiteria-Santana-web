@@ -184,12 +184,13 @@ public class UserRest {
 		user.setEmail(dto.getEmail());
 		user.setName(dto.getName());
 		user.setLastname(dto.getLastname());
-		user.setPassword(dto.getPass());
 		user.setPhoto(dto.getPhoto());
 		user.setUsername(dto.getUsername());
 		user.setName(dto.getName());
 		user.setRol(dto.getRol());
 		user.setPhone(dto.getPhone());
+		
+		dao.update(user);
 
 		return Response.ok(user).build();
 	}

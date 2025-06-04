@@ -4,15 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.json.bind.annotation.JsonbDateFormat;
+import jakarta.persistence.*;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Sale.
  */
@@ -37,7 +32,7 @@ public class Sale {
 	@Column(nullable = false)
 	private String metodoPago;
 
-	/** The lineas. */
+	/** The line. */
 	@OneToMany(mappedBy = "sale", cascade = CascadeType.PERSIST)
 	private List<SaleLine> line;
 
@@ -64,7 +59,7 @@ public class Sale {
 	 *
 	 * @return the date
 	 */
-	public LocalDateTime getdate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
@@ -73,7 +68,7 @@ public class Sale {
 	 *
 	 * @param date the new date
 	 */
-	public void setdate(LocalDateTime date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
@@ -130,5 +125,4 @@ public class Sale {
 	public void setLineas(List<SaleLine> lineas) {
 		this.line = lineas;
 	}
-
 }

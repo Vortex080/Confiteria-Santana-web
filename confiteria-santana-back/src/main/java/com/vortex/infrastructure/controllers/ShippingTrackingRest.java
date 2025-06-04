@@ -25,6 +25,7 @@ public class ShippingTrackingRest {
 
     @Inject
     private ShippingTrackingDAO dao;
+    @Inject
     private OrderDAO orderDAO;
 
     @POST
