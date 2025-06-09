@@ -1,6 +1,7 @@
 package com.vortex.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -205,7 +206,7 @@ public class UserDTO {
 	 *
 	 * @return the pass
 	 */
-	@JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
 	public String getPass() {
 		return pass;
 	}
