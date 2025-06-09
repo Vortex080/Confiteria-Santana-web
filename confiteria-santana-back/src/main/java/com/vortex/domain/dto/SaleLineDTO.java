@@ -2,10 +2,14 @@ package com.vortex.domain.dto;
 
 import java.math.BigDecimal;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SaleLineDTO.
  */
 public class SaleLineDTO {
+
+	/** The id. */
+	private Long id;
 
 	/** The product. */
 	private ProductDTO product;
@@ -26,6 +30,24 @@ public class SaleLineDTO {
 	 */
 	public ProductDTO getProduct() {
 		return product;
+	}
+
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

@@ -67,7 +67,7 @@ public class SaleRest {
 		for (SaleLineDTO lineDTO : dto.getLine()) {
 			
 
-			if (productDAO.findById(lineDTO.getProduct().getId()) != null) {
+			if (productDAO.findById(lineDTO.getProduct().getId()) == null) {
 				return Response.status(Response.Status.BAD_REQUEST).entity("Producto con ID inválido").build();
 			}
 			

@@ -5,11 +5,13 @@ import java.math.BigDecimal;
 import com.vortex.domain.dto.ProductDTO;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -26,6 +28,9 @@ public class SaleLine {
 	private Long id;
 
 	/** The product. */
+	@Lob
+	@Convert(converter = ProductDTOConverter.class)
+	@Column(name = "product", columnDefinition = "LONGTEXT")
 	private ProductDTO  product;
 
 	/** The cuantity. */
