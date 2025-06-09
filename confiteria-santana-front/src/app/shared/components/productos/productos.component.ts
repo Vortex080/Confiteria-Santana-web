@@ -1,6 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenulateralComponent } from "../menulateral/menulateral.component";
+import { Product } from '../../interface/product';
+import { ProductosService } from '../../service/productos.service'; // Asegúrate de que la ruta sea correcta
+import { rxResource } from '@angular/core/rxjs-interop';
+import { CategoryService } from '../../service/Category.service';
 
 @Component({
   selector: 'app-productos',
@@ -9,38 +13,52 @@ import { MenulateralComponent } from "../menulateral/menulateral.component";
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css'
 })
-export class ProductosComponent implements OnInit {
+export class ProductosComponent {
 
-  productos = [
-    { id: 1, nombre: 'Producto 1', categoria: 'Galletas' },
-    { id: 2, nombre: 'Producto 2', categoria: 'Galletas' },
-    { id: 3, nombre: 'Producto 3', categoria: 'Bolleria' },
-    { id: 4, nombre: 'Producto 4', categoria: 'Bolleria' },
-    { id: 5, nombre: 'Producto 5', categoria: 'Tartas' },
-    { id: 6, nombre: 'Producto 6', categoria: 'Tartas' },
-    { id: 7, nombre: 'Producto 7', categoria: 'Reposteria' },
-    { id: 8, nombre: 'Producto 8', categoria: 'Reposteria' },
-    { id: 9, nombre: 'Producto 9', categoria: 'Reposteria' }
-  ];
-
+  productos: Product[] = [];
   categorias: string[] = [];
-  productosFiltrados: { [key: string]: any[] } = {};
+  productosFiltrados: { [key: string]: Product[] } = {};
 
-  ngOnInit() {
-    this.productosFiltrados = this.productos.reduce((acc, producto) => {
-      if (!acc[producto.categoria]) {
-        acc[producto.categoria] = [];
+  sidebarVisible: boolean = window.innerWidth >= 768;
+
+  constructor(private productosService: ProductosService, private categoryService: CategoryService) { }
+
+  categories = rxResource({ loader: () => this.categoryService.getallCategory() });
+
+  nombresCategorias: string[] = [];
+
+  filtrarPorCategorias(): void {
+    if (!this.categories.hasValue() || this.productos.length === 0) {
+      this.productosFiltrados = {};
+      this.nombresCategorias = [];
+      return;
+    }
+
+    const cats = this.categories.value()!;
+
+    // Unimos productos con el nombre de la categoría
+    const prodsConCat = this.productos.map(p => {
+      const categoria = cats.find(c => c.id === p.category.id);
+      return {
+        ...p,
+        categoryName: categoria?.name ?? 'Sin categoría'
+      };
+    });
+
+    // Agrupamos por nombre
+    this.productosFiltrados = prodsConCat.reduce((acc, producto) => {
+      const nombre = producto.categoryName;
+      if (!acc[nombre]) {
+        acc[nombre] = [];
       }
-      acc[producto.categoria].push(producto);
+      acc[nombre].push(producto);
       return acc;
-    }, {} as { [key: string]: any[] });
+    }, {} as { [nombre: string]: Product[] });
 
-    this.categorias = Object.keys(this.productosFiltrados);
+    this.nombresCategorias = Object.keys(this.productosFiltrados);
   }
-  sidebarVisible: boolean = window.innerWidth >= 768; // Mostrar si es >= md
 
 
-  // Escuchar cambios en el tamaño de la pantalla
   @HostListener('window:resize', [])
   onResize() {
     this.updateSidebarVisibility();
@@ -48,7 +66,7 @@ export class ProductosComponent implements OnInit {
 
   updateSidebarVisibility(): void {
     if (window.innerWidth >= 768) {
-      this.sidebarVisible = true;  // Siempre visible en pantallas grandes
+      this.sidebarVisible = true;
     }
   }
 

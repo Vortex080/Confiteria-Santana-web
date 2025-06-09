@@ -5,6 +5,5 @@ export const routes: Routes = [
     {
         path: '',
         loadChildren: () => import('./shared/shared.routes')
-    }
-
+    },
 ];

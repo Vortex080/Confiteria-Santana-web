@@ -1,0 +1,117 @@
+<div class="flex h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <aside [class.w-64]="!collapsed" [class.w-20]="collapsed"
+        class="bg-white border-r shadow-lg p-4 transition-all duration-300 flex flex-col"
+        [class.items-center]="collapsed">
+
+        <!-- Toggle button -->
+        <div class="flex justify-end w-full mb-4">
+            <button (click)="collapsed = !collapsed" class="btn btn-sm btn-ghost">
+                <svg *ngIf="!collapsed" class="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                <svg *ngIf="collapsed" class="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Logo -->
+        <h1 *ngIf="!collapsed" class="text-2xl font-bold text-center text-purple-600 mb-10">Confitería</h1>
+
+        <!-- Menu -->
+        <ul class="space-y-4 w-full">
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/dashboard" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <svg class="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem]" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8v-10h-8v10zm0-18v6h8V3h-8z" />
+                    </svg>
+                    <span *ngIf="!collapsed">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/pedidos" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <svg class="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem]" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M21 6h-2.1l-1.1-2.3H7.2L6.1 6H3c-.6 0-1 .4-1 1s.4 1 1 1h1l1.6 9.2c.2 1.1 1.1 1.8 2.2 1.8h9.3c1.1 0 2-.8 2.2-1.8L20 8h1c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                    </svg>
+                    <span *ngIf="!collapsed">Pedidos</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/product" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <svg class="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem]" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zM7 17l5-5 5 5H7z" />
+                    </svg>
+                    <span *ngIf="!collapsed">Productos</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/categorias" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <svg class="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem]" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 5v14h18V5H3zm16 12H5V7h14v10zM8 9h2v6H8V9zm6 0h2v6h-2V9z" />
+                    </svg>
+                    <span *ngIf="!collapsed">Categorías</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/clientes" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <svg class="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem]" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M16 11c1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3 1.3 3 3 3zm-8 0c1.7 0 3-1.3 3-3S9.7 5 8 5 5 6.3 5 8s1.3 3 3 3zm0 2c-2.3 0-7 1.2-7 3.5V19h14v-2.5C14 14.2 10.3 13 8 13zm8 0c-.3 0-.7 0-1 .1 1.2.8 2 2.1 2 3.4V19h6v-2.5c0-2.3-4.7-3.5-7-3.5z" />
+                    </svg>
+                    <span *ngIf="!collapsed">Clientes</span>
+                </a>
+            </li>
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/ventas" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        class="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem]">
+                        <path fill="currentColor"
+                            d="m21.4 14.25l-7.15 7.15q-.3.3-.675.45t-.75.15t-.75-.15t-.675-.45l-8.825-8.825q-.275-.275-.425-.637T2 11.175V4q0-.825.588-1.412T4 2h7.175q.4 0 .775.163t.65.437l8.8 8.825q.3.3.438.675t.137.75t-.137.738t-.438.662M12.825 20l7.15-7.15L11.15 4H4v7.15zM6.5 8q.625 0 1.063-.437T8 6.5t-.437-1.062T6.5 5t-1.062.438T5 6.5t.438 1.063T6.5 8m5.5 4" />
+                    </svg>
+                    <span *ngIf="!collapsed">Ventas</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/tpv" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <svg class="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M1 21v-2h22v2zm3-3q-.825 0-1.412-.587T2 16V5q0-.825.588-1.412T4 3h16q.825 0 1.413.588T22 5v11q0 .825-.587 1.413T20 18zm0-2h16V5H4zm0 0V5z" />
+                    </svg>
+                    <span *ngIf="!collapsed">TPV</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/almacen" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <svg class="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M3 4h18q.825 0 1.413.588T23 6v12q0 .825-.587 1.413T21 20H3q-.825 0-1.412-.587T1 18V6q0-.825.588-1.412T3 4m0 2v2h18V6zm0 4v8h18v-8zM5 12h5v2H5z" />
+                    </svg>
+                    <span *ngIf="!collapsed">Almacén</span>
+                </a>
+            </li>
+
+
+            <li class="flex justify-start">
+                <div (click)="goToHome()" class="btn btn-ghost flex items-left gap-2 w-full text-left cursor-pointer">
+                    <svg class="w-6 h-6 min-w-[1.5rem] min-h-[1.5rem]" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                    </svg>
+                    <span *ngIf="!collapsed">Inicio</span>
+                </div>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Contenido -->
+    <main class="flex-1 p-8 overflow-auto">
+        <router-outlet></router-outlet>
+    </main>
+</div>

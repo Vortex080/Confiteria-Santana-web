@@ -1,0 +1,33 @@
+<div class="flex flex-col lg:flex-row gap-6 p-4">
+    <!-- Carrito: sección izquierda -->
+    <div class="flex-1 bg-white shadow-md rounded-xl p-4">
+        <h2 class="text-xl font-bold mb-4">Carrito</h2>
+        <div *ngIf="cartItems.length; else emptyCart">
+            <div *ngFor="let item of cartItems" class="flex justify-between items-center mb-4 border-b pb-2">
+                <div>
+                    <p class="font-semibold">{{ item.name }}</p>
+                    <p class="text-sm text-gray-600">Cantidad: {{ item.quantity }}</p>
+                    <p class="text-sm text-gray-600">Precio unitario: {{ item.price }} €</p>
+                </div>
+                <div class="text-right">
+                    <p class="font-semibold text-green-600">{{ item.price * item.quantity }} €</p>
+                    <button class="btn btn-sm btn-error mt-2" (click)="removeItem(item.id)">Eliminar</button>
+                </div>
+            </div>
+        </div>
+        <ng-template #emptyCart>
+            <p class="text-gray-500">El carrito está vacío.</p>
+        </ng-template>
+    </div>
+
+    <!-- Total: sección derecha -->
+    <div class="w-full lg:w-1/3 bg-base-200 shadow-md rounded-xl p-6 flex flex-col justify-between">
+        <div>
+            <h2 class="text-xl font-bold mb-4">Resumen</h2>
+            <p class="text-lg">Total: <span class="font-bold text-green-600">{{ total }} €</span></p>
+        </div>
+        <button class="btn btn-primary mt-6" [disabled]="!cartItems.length" (click)="makeOrder()">
+            Realizar pedido
+        </button>
+    </div>
+</div>

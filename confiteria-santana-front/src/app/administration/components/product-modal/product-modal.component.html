@@ -1,0 +1,80 @@
+<div class="fixed inset-0 bg-transparent flex justify-center items-center z-50 pointer-events-none">
+  <div
+    class="bg-white p-6 rounded-2xl w-[90%] max-w-xl max-h-[90vh] overflow-auto backdrop-blur-md shadow-2xl z-50 pointer-events-auto space-y-4">
+
+    <h2 class="text-xl font-bold">
+      {{ productToEdit ? 'Editar Producto' : 'Crear Producto' }}
+    </h2>
+
+    <input [(ngModel)]="name" type="text" placeholder="Nombre" class="input input-bordered w-full" required />
+    <textarea [(ngModel)]="description" placeholder="Descripción" class="textarea textarea-bordered w-full"
+      required></textarea>
+    <input [(ngModel)]="price" type="number" placeholder="Precio" class="input input-bordered w-full" required />
+
+    <select [(ngModel)]="unit" class="select select-bordered w-full" required>
+      <option value="" disabled selected>Selecciona una unidad</option>
+      <option value="unidad">Unidad</option>
+      <option value="kg">Kilogramo (kg)</option>
+      <option value="bandeja">Bandeja</option>
+      <option value="docena">Docena</option>
+      <option value="pieza">Pieza</option>
+      <option value="pack">Pack</option>
+    </select>
+
+    <!-- Categorías -->
+    <label class="block text-sm font-medium">Categoría:</label>
+    <select [(ngModel)]="categoryId" class="select select-bordered w-full" required>
+      <option value="" disabled selected>Selecciona una categoría</option>
+      <ng-container *ngIf="categories.value()! as cats">
+        <option *ngFor="let cat of cats" [value]="cat.id">{{ cat.name }}</option>
+      </ng-container>
+      <option *ngIf="categories.isLoading()" disabled>Cargando...</option>
+    </select>
+
+    <label class="block text-sm font-medium">Alérgenos:</label>
+    <!-- Chips de alérgenos seleccionados -->
+    <div class="flex flex-wrap gap-1 mb-2">
+      <span *ngFor="let ag of selectedAlergens" class="badge badge-sm badge-primary flex items-center space-x-1">
+        {{ ag.name }}
+        <button type="button" (click)="removeAlergen(ag.id)" class="ml-1">×</button>
+      </span>
+    </div>
+
+    <!-- Dropdown para añadir/eliminar -->
+    <div tabindex="0" class="dropdown mb-4 w-full">
+      <button class="btn btn-outline w-full justify-between">
+        <span *ngIf="selectedAlergens.length; else placeholder">
+          {{ selectedAlergens.length }} seleccionado(s)
+        </span>
+        <ng-template #placeholder>Selecciona alérgenos</ng-template>
+        <i class="ri-arrow-down-s-line"></i>
+      </button>
+      <ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-full max-h-60 overflow-auto">
+        <li *ngFor="let ag of alergens.value()!">
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" class="checkbox checkbox-sm" [checked]="isSelected(ag.id)"
+              (change)="toggleAlergen(ag)" />
+            <span>{{ ag.name }}</span>
+          </label>
+        </li>
+      </ul>
+    </div>
+
+    <input type="file" (change)="fileChangeEvent($event)" accept="image/*"
+      class="file-input file-input-bordered w-full" />
+
+    <!-- Sólo mostramos el cropper si hay evento de imagen -->
+    <div *ngIf="imageChangedEvent">
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" format="png"
+        [resizeToWidth]="1024" [resizeToHeight]="1024" (imageCropped)="imageCropped($event)">
+      </image-cropper>
+    </div>
+
+    <div class="flex justify-end space-x-2 pt-4">
+      <button class="btn btn-outline" (click)="cerrar()">Cancelar</button>
+      <button class="btn btn-primary" (click)="submit()">
+        {{ productToEdit ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </div>
+  </div>
+</div>

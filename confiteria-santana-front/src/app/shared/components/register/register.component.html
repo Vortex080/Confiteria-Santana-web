@@ -1,148 +1,147 @@
-<!-- Componente de Registro con Dirección -->
-<div class="p-8 mx-100 my-20 bg-white rounded-lg shadow-lg">
+<div class="container mx-auto p-6">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="bg-white shadow-md rounded p-8">
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- Primera Parte -->
+      <div class="flex-1 border-r border-gray-300 pr-6">
+        <h2 class="text-xl font-semibold mb-4">Datos Personales</h2>
+        <div formGroupName="firstPart" class="space-y-4">
+          <div>
+            <label class="block">Nombre</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="nombre" />
+            <p *ngIf="registerForm.get('firstPart.nombre')?.touched && registerForm.get('firstPart.nombre')?.invalid"
+              class="text-red-500 text-sm">Nombre requerido</p>
+          </div>
 
-  <!-- Título del formulario -->
-  <h2 class="text-2xl font-bold text-center mb-6">Crear Cuenta</h2>
+          <div>
+            <label class="block">Usuario</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="usuario" />
+            <p *ngIf="registerForm.get('firstPart.usuario')?.touched && registerForm.get('firstPart.usuario')?.invalid"
+              class="text-red-500 text-sm">Usuario requerido</p>
+          </div>
 
-  <!-- Formulario -->
-  <form [formGroup]="registerForm">
+          <div>
+            <label class="block">Apellidos</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="apellidos" />
+            <p *ngIf="registerForm.get('firstPart.apellidos')?.touched && registerForm.get('firstPart.apellidos')?.invalid"
+              class="text-red-500 text-sm">Apellidos requeridos</p>
+          </div>
 
-    <!-- Sección 1: Datos de la cuenta -->
-    <div *ngIf="currentSection === 1 ">
-      <!-- Nombre de usuario -->
-      <div class="mb-4">
-        <label for="username" class="block text-gray-700">Nombre de usuario</label>
-        <input id="username" type="text" formControlName="username" placeholder="Nombre de usuario"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+          <div>
+            <label class="block">Correo</label>
+            <input type="email"
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="correo" />
+            <p *ngIf="registerForm.get('firstPart.correo')?.touched && registerForm.get('firstPart.correo')?.invalid"
+              class="text-red-500 text-sm">Correo inválido</p>
+          </div>
+
+          <div>
+            <label class="block">Contraseña</label>
+            <input type="password"
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="contrasena" />
+            <p *ngIf="registerForm.get('firstPart.contrasena')?.touched && registerForm.get('firstPart.contrasena')?.invalid"
+              class="text-red-500 text-sm">Mínimo 6 caracteres</p>
+          </div>
+
+          <div>
+            <label class="block">Confirmar Contraseña</label>
+            <input type="password"
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="confirmarContrasena" />
+            <p *ngIf="registerForm.get('firstPart')?.errors?.['notMatching']" class="text-red-500 text-sm">
+              Las contraseñas no coinciden</p>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Nombre -->
-      <div class="mb-4">
-        <label for="name" class="block text-gray-700">Nombre</label>
-        <input id="name" type="text" formControlName="name" placeholder="Nombre"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
+      <!-- Segunda Parte -->
+      <div class="flex-1 pl-6">
+        <h2 class="text-xl font-semibold mb-4">Dirección</h2>
+        <div formGroupName="secondPart" class="space-y-4">
+          <div>
+            <label class="block">Calle</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="calle" />
+            <p *ngIf="registerForm.get('secondPart.calle')?.touched && registerForm.get('secondPart.calle')?.invalid"
+              class="text-red-500 text-sm">Calle requerida</p>
+          </div>
+
+          <div>
+            <label class="block">Número</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="numero" />
+            <p *ngIf="registerForm.get('secondPart.numero')?.touched && registerForm.get('secondPart.numero')?.invalid"
+              class="text-red-500 text-sm">Número requerido</p>
+          </div>
+
+          <div>
+            <label class="block">Piso (opcional)</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="piso" />
+          </div>
+
+          <div>
+            <label class="block">Puerta (opcional)</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="puerta" />
+          </div>
+
+          <div>
+            <label class="block">Ciudad</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="ciudad" />
+            <p *ngIf="registerForm.get('secondPart.ciudad')?.touched && registerForm.get('secondPart.ciudad')?.invalid"
+              class="text-red-500 text-sm">Ciudad requerida</p>
+          </div>
+
+          <div>
+            <label class="block">Provincia</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="provincia" />
+            <p *ngIf="registerForm.get('secondPart.provincia')?.touched && registerForm.get('secondPart.provincia')?.invalid"
+              class="text-red-500 text-sm">Provincia requerida</p>
+          </div>
+
+          <div>
+            <label class="block">País</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="pais" />
+            <p *ngIf="registerForm.get('secondPart.pais')?.touched && registerForm.get('secondPart.pais')?.invalid"
+              class="text-red-500 text-sm">País requerido</p>
+          </div>
+
+          <div>
+            <label class="block">Código Postal</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="codigoPostal" />
+            <p *ngIf="registerForm.get('secondPart.codigoPostal')?.touched && registerForm.get('secondPart.codigoPostal')?.invalid"
+              class="text-red-500 text-sm">Código postal inválido</p>
+          </div>
+        </div>
       </div>
-
-      <!-- Apellidos -->
-      <div class="mb-4">
-        <label for="lastname" class="block text-gray-700">Apellidos</label>
-        <input id="lastname" type="text" formControlName="lastname" placeholder="Apellidos"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-
-      <!-- Correo electrónico -->
-      <div class="mb-4">
-        <label for="email" class="block text-gray-700">Correo electrónico</label>
-        <input id="email" type="email" formControlName="email" placeholder="Correo electrónico"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-      <div *ngIf="email?.touched && email?.invalid" class="text-red-500 text-sm mt-1">
-        <div *ngIf="email?.errors?.['required']">El correo es obligatorio.</div>
-        <div *ngIf="email?.errors?.['email']">Formato de correo inválido.</div>
-      </div>
-
-      <!-- Contraseña -->
-      <div class="mb-4">
-        <label for="pass" class="block text-gray-700">Contraseña</label>
-        <input id="pass" type="password" formControlName="pass" placeholder="Contraseña"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-      <div *ngIf="pass?.touched && pass?.invalid" class="text-red-500 text-sm mt-1">
-        <div *ngIf="pass?.errors?.['required']">La contraseña es obligatoria.</div>
-        <div *ngIf="pass?.errors?.['minlength']">Debe tener al menos 8 caracteres.</div>
-      </div>
-
-      <div *ngIf="confirmPassword?.touched && registerForm?.errors?.['notSame']" class="text-red-500 text-sm mt-1">
-        Las contraseñas no coinciden.
-      </div>
-
-
-
-      <!-- Confirmar Contraseña -->
-      <div class="mb-4">
-        <label for="confirmPassword" class="block text-gray-700">Confirmar Contraseña</label>
-        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Confirmar Contraseña"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-
-
-      <!-- Botón para continuar a la siguiente sección -->
-      <button type="button" (click)="nextSection()" class="w-full btn btn-primary">
-        Continuar a la Dirección
-      </button>
     </div>
 
-    <!-- Sección 2: Dirección -->
-    <div *ngIf="currentSection === 2">
-      <!-- Calle -->
-      <div class="mb-4">
-        <label for="street" class="block text-gray-700">Calle</label>
-        <input id="street" type="text" formControlName="street" placeholder="Tu calle"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-
-      <!-- Número -->
-      <div class="mb-4">
-        <label for="number" class="block text-gray-700">Número</label>
-        <input id="number" type="text" formControlName="number" placeholder="Número"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-
-      <!-- Piso -->
-      <div class="mb-4">
-        <label for="floor" class="block text-gray-700">Piso (opcional)</label>
-        <input id="floor" type="text" formControlName="floor" placeholder="Piso"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-
-      <!-- Puerta -->
-      <div class="mb-4">
-        <label for="door" class="block text-gray-700">Puerta (opcional)</label>
-        <input id="door" type="text" formControlName="door" placeholder="Puerta"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-
-      <!-- Ciudad -->
-      <div class="mb-4">
-        <label for="city" class="block text-gray-700">Ciudad</label>
-        <input id="city" type="text" formControlName="city" placeholder="Ciudad"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-
-      <!-- Provincia -->
-      <div class="mb-4">
-        <label for="province" class="block text-gray-700">Provincia</label>
-        <input id="province" type="text" formControlName="province" placeholder="Provincia"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-
-      <!-- País -->
-      <div class="mb-4">
-        <label for="country" class="block text-gray-700">País</label>
-        <input id="country" type="text" formControlName="country" placeholder="País"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-
-      <!-- Código Postal -->
-      <div class="mb-4">
-        <label for="postalCode" class="block text-gray-700">Código Postal</label>
-        <input id="postalCode" type="text" formControlName="postalCode" placeholder="Código Postal"
-          class="mt-1 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300">
-      </div>
-
-
-
-      <!-- Botón para volver a la sección anterior -->
-      <button type="button" (click)="previousSection()" class="w-full mb-2 btn btn-primary">
-        Volver a Datos de la Cuenta
-      </button>
-
-
-      <!-- Botón para enviar el formulario -->
-      <button type="submit" class="w-full btn btn-primary" (click)="enviarUsuario()">
+    <!-- Botón Submit -->
+    <div class="mt-6 text-center">
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
         Registrarse
       </button>
     </div>
-
   </form>
 </div>

@@ -1,0 +1,75 @@
+<div class="modal modal-open" *ngIf="show">
+    <div class="modal-box w-full max-w-3xl p-6">
+        <h3 class="text-2xl font-bold mb-6">Crear nuevo pedido</h3>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+            <label class="form-control">
+                <span class="label-text font-semibold">Cliente</span>
+                <input type="text" class="input input-bordered w-full" [(ngModel)]="pedido.user.name" />
+            </label>
+
+            <label class="form-control">
+                <span class="label-text font-semibold">Método de pago</span>
+                <select class="select select-bordered w-full" [(ngModel)]="pedido.paymentMethod">
+                    <option disabled selected>Selecciona</option>
+                    <option value="Tarjeta">Tarjeta</option>
+                    <option value="PayPal">PayPal</option>
+                    <option value="Efectivo">Efectivo</option>
+                </select>
+            </label>
+
+            <label class="form-control">
+                <span class="label-text font-semibold">Dirección de envío</span>
+                <input type="text" class="input input-bordered w-full" [(ngModel)]="pedido.shippingAddress.street" />
+            </label>
+
+            <label class="form-control">
+                <span class="label-text font-semibold">Dirección de facturación</span>
+                <input type="text" class="input input-bordered w-full" [(ngModel)]="pedido.billingAddress.street" />
+            </label>
+
+            <label class="form-control">
+                <span class="label-text font-semibold">Coste de envío (€)</span>
+                <input type="number" class="input input-bordered w-full" [(ngModel)]="pedido.shipping" />
+            </label>
+        </div>
+
+        <!-- Tabla de productos -->
+        <div class="overflow-y-auto max-h-64 rounded-lg border border-base-300 mb-6">
+            <table class="table table-zebra w-full">
+                <thead class="sticky top-0 bg-base-200 z-10">
+                    <tr class="text-base font-semibold text-neutral">
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio (€)</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let linea of pedido.venta.lineas; let i = index">
+                        <td><input class="input input-bordered w-full" [(ngModel)]="linea.nombreProducto" /></td>
+                        <td><input class="input input-bordered w-24" type="number" [(ngModel)]="linea.cantidad" /></td>
+                        <td><input class="input input-bordered w-28" type="number" [(ngModel)]="linea.precioUnitario" />
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-error" (click)="eliminarProducto(i)">✖</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mb-4">
+            <button class="btn btn-outline btn-accent" (click)="agregarProducto()">+ Añadir producto</button>
+        </div>
+
+        <div class="text-right text-lg font-semibold mb-4">
+            Total estimado: {{ calcularTotal() | number:'1.2-2' }} €
+        </div>
+
+        <div class="modal-action">
+            <button class="btn" (click)="cancelar()">Cancelar</button>
+            <button class="btn btn-primary" (click)="guardar()">Guardar</button>
+        </div>
+    </div>
+</div>

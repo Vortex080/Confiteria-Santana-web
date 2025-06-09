@@ -11,24 +11,28 @@ import { CommonModule } from '@angular/common';
 export class MenulateralComponent {
 
 
-  // Variable que mantiene el estado de visibilidad del sidebar
-  sidebarVisible: boolean = true;
+  collapsed = false;
+  sidebarVisible = false;
 
-  // Retorna el estado actual del sidebar
-  isSidebarVisible(): boolean {
-    return this.sidebarVisible;
-  }
-
-  // Método que alterna la visibilidad del sidebar
-  toggleSidebar(): void {
+  toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
   }
+
+  isSidebarVisible(): boolean {
+    return this.sidebarVisible || window.innerWidth >= 768;
+  }
+
+  // Método que alterna la visibilidad del sideba
   categorias: string[] = ['Galletas', 'Bolleria', 'Tartas', 'Reposteria']; // Asegúrate de que coincida con el padre
 
   scrollToCategory(categoria: string) {
-    const elemento = document.getElementById(categoria);
-    if (elemento) {
-      elemento.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const el = document.getElementById(categoria);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+      if (window.innerWidth < 768) {
+        this.sidebarVisible = false;
+      }
     }
   }
+
 }

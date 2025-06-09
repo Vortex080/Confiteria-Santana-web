@@ -48,13 +48,85 @@
     </div>
 
     <!-- Sección derecha: Botones de autenticación (solo en pantallas grandes) -->
-    <div class="navbar-end hidden lg:flex space-x-2">
-        <a href="/iniciosesion" class="btn btn-primary btn-sm">Iniciar Sesión</a>
-        <a href="/registro" class="btn btn-primary btn-sm">Registrarse</a>
+    <div class="navbar-end hidden lg:flex space-x-2 items-center">
+        <ng-container *ngIf="!token() || !user(); else loggedIn">
+            <a href="/iniciosesion" class="btn btn-primary btn-sm">Iniciar Sesión</a>
+            <a href="/registro" class="btn btn-primary btn-sm">Registrarse</a>
+        </ng-container>
+
+        <ng-template #loggedIn>
+            <!-- Icono del carrito -->
+            <a href="/carrito" class="btn btn-ghost btn-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 7M7 13l-1.293 2.707A1 1 0 007 17h10a1 1 0 00.894-1.447L17 13M9 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
+                </svg>
+            </a>
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" class="flex items-center justify-center space-x-2 cursor-pointer">
+                    <!-- Nombre del usuario -->
+                    <span class="font-semibold">Bienvenido, {{ user().name }}</span>
+                    <!-- Avatar circular -->
+                    <div class="btn btn-circle avatar">
+                        <div class="w-10 h-10 rounded-full overflow-hidden">
+                            <img [src]="user().photoUrl || 'https://via.placeholder.com/40'" alt="User photo"
+                                class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <ul tabindex="0"
+                    class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 right-0">
+                    <li><a href="/perfil">Perfil</a></li>
+
+                    @if (user().rol == 'admin' || user().rol == 'repartidor' || user().rol == 'tpv' || user().rol ==
+                    'almacen') {
+                    <div tabindex="0" class="collapse collapse-arrow">
+                        <input type="checkbox" />
+                        <div class="collapse-title">Confiteria</div>
+                        <div class="collapse-content text-sm">
+                            @if (user().rol == 'admin') {
+                            <li><a href="/admin">Administración</a></li>
+                            }
+
+                            @if (user().rol == 'admin' || user().rol == 'repartidor') {
+                            <li><a href="/gestionpedidos">Pedidos</a></li>
+                            }
+
+                            @if (user().rol == 'admin' || user().rol == 'tpv') {
+                            <li><a href="/tpv">TPV</a></li>
+                            }
+
+                            @if (user().rol == 'admin' || user().rol == 'almacen') {
+                            <li><a href="/almacen">Almacén</a></li>
+                            }
+
+                        </div>
+                    </div>}
+
+                    <!-- Todos -->
+                    <li><a (click)="logout()">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </ng-template>
+
     </div>
 
-    <!-- Menú desplegable en móviles (botón completamente a la derecha) -->
-    <div class="navbar-end lg:hidden">
+
+    <!-- Menú desplegable en móviles (botón y avatar) -->
+    <div class="navbar-end lg:hidden items-center space-x-2">
+        <!-- Avatar del usuario, si está logueado -->
+        <ng-container *ngIf="token() && user()">
+            <div class="btn btn-circle avatar">
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img [src]="user().photoUrl || 'https://via.placeholder.com/40'" alt="Avatar de usuario">
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- Botón menú colapsado -->
         <div class="dropdown dropdown-end">
             <label tabindex="0" role="button" class="btn btn-ghost">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
@@ -74,7 +146,7 @@
                             <path fill="currentColor"
                                 d="M14 19.75a.76.76 0 0 1-.75-.75v-6.25h-2.5V19a.75.75 0 0 1-1.5 0v-7a.76.76 0 0 1 .75-.75h4a.76.76 0 0 1 .75.75v7a.76.76 0 0 1-.75.75" />
                         </svg>
-                        INICIO
+                        Inicio
                     </a>
                 </li>
                 <li>
@@ -83,7 +155,7 @@
                             <path fill="currentColor"
                                 d="M19.5 8.25h-3v-.5a4.5 4.5 0 0 0-9 0v.5h-3A1.25 1.25 0 0 0 3.25 9.5V18A2.75 2.75 0 0 0 6 20.75h12A2.75 2.75 0 0 0 20.75 18V9.5a1.25 1.25 0 0 0-1.25-1.25M9 7.75a3 3 0 0 1 6 0v.5H9ZM19.25 18A1.25 1.25 0 0 1 18 19.25H6A1.25 1.25 0 0 1 4.75 18V9.75H7.5V12A.75.75 0 0 0 9 12V9.75h6V12a.75.75 0 0 0 1.5 0V9.75h2.75Z" />
                         </svg>
-                        PRODUCTOS
+                        Productos
                     </a>
                 </li>
                 <li>
@@ -98,11 +170,51 @@
                             <path fill="currentColor"
                                 d="M18.25 19.25h-.5V4a.76.76 0 0 0-.75-.75H7a.76.76 0 0 0-.75.75v15.25h-.5a.75.75 0 0 0 0 1.5h12.5a.75.75 0 0 0 0-1.5m-2 0H11V17a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v2.25H7.75V4.75h8.5Z" />
                         </svg>
-                        SOBRE NOSOTROS
+                        Sobre Nosotros
                     </a>
                 </li>
-                <li><a href="/iniciosesion" class="btn btn-primary btn-sm my-2">Iniciar Sesión</a></li>
-                <li><a href="/registro" class="btn btn-primary btn-sm">Registrarse</a></li>
+                <ng-container *ngIf="!token() || !user(); else mobileLoggedIn">
+                    <li><a href="/iniciosesion" class="btn btn-primary btn-sm my-2">Iniciar Sesión</a></li>
+                    <li><a href="/registro" class="btn btn-primary btn-sm">Registrarse</a></li>
+                </ng-container>
+                <ng-template #mobileLoggedIn>
+                    <li>
+                        <a href="/carrito">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 7M7 13l-1.293 2.707A1 1 0 007 17h10a1 1 0 00.894-1.447L17 13M9 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
+                            </svg>
+                            Carrito
+                        </a>
+                    </li>
+
+
+                    <li><a href="/perfil">Mi perfil</a></li>
+
+                    <div tabindex="0" class="collapse collapse-arrow bg-base-100 border-base-300 border">
+                        <div class="collapse-title font-semibold">Confiteria</div>
+                        <div class="collapse-content text-sm">
+                            @if (user().rol == 'admin') {
+                            <li><a href="/admin">Administración</a></li>
+                            }
+
+                            @if (user().rol == 'admin' || user().rol == 'repartidor') {
+                            <li><a href="/pedidos">Pedidos</a></li>
+                            }
+
+                            @if (user().rol == 'admin' || user().rol == 'tpv') {
+                            <li><a href="/tpv">TPV</a></li>
+                            }
+
+                            @if (user().rol == 'admin' || user().rol == 'almacen') {
+                            <li><a href="/almacen">Almacén</a></li>
+                            }
+
+                        </div>
+                    </div>
+                    <li><a (click)="logout()">Cerrar sesión</a></li>
+                </ng-template>
             </ul>
         </div>
     </div>

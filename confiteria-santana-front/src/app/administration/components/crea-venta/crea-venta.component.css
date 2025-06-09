@@ -1,0 +1,8 @@
+:host {
+  display: block;
+}
+
+
+body.modal-open {
+  overflow: hidden;
+}

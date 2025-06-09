@@ -1,0 +1,1 @@
+export type MovementReason = "VENTA" | "DAÑADO" | "CADUCADO" | "CORRECCIÓN_DE_INVENTARIO";

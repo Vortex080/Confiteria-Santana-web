@@ -12,9 +12,7 @@ export class RegisterService {
 
   constructor(private http: HttpClient) { }
 
-  registrarUsuario(usuario: { email: string; name: string; pass: string; photo?: string }): Observable<HttpResponse<User>> {
-    // Asignar el valor por defecto 'hola' si photo no está definido
-    console.log('entro');
+  registrarUsuario(usuario: User): Observable<HttpResponse<User>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     if (!usuario.photo) {
@@ -23,4 +21,5 @@ export class RegisterService {
 
     return this.http.post<User>(this.apiUrl, usuario, { headers, observe: 'response' });
   }
+
 }

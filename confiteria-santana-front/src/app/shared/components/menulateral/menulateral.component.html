@@ -1,20 +1,29 @@
-<!-- Botón para togglear el sidebar (solo visible en móviles) -->
-<button class="md:hidden bg-black text-white p-2 rounded mb-4" (click)="toggleSidebar()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-        <path fill="currentColor"
-            d="M3 7h18c.6 0 1-.4 1-1s-.4-1-1-1H3c-.6 0-1 .4-1 1s.4 1 1 1m18 2H3c-.6 0-1 .4-1 1s.4 1 1 1h18c.6 0 1-.4 1-1s-.4-1-1-1m0 4H3c-.6 0-1 .4-1 1s.4 1 1 1h18c.6 0 1-.4 1-1s-.4-1-1-1m0 4H3c-.6 0-1 .4-1 1s.4 1 1 1h18c.6 0 1-.4 1-1s-.4-1-1-1" />
-    </svg>
-</button>
+<aside
+    class="fixed z-50 top-0 left-0 h-full w-full md:static md:h-auto bg-white shadow-lg border-r transform transition-all duration-300 ease-in-out md:block">
 
-<!-- Sidebar -->
-<div [ngClass]="{ 'block': isSidebarVisible(), 'hidden': !isSidebarVisible() }"
-    class="sidebar m-4 transition-all duration-300 ease-in-out overflow-hidden rounded-box ml-2 md:block mb-5">
-    <p class="text-center">Nuestras Secciones</p>
-    <ul class="menu menu-md rounded-box w-56">
-        <li *ngFor="let categoria of categorias">
-            <a (click)="scrollToCategory(categoria)">
-                {{ categoria }}
-            </a>
-        </li>
-    </ul>
-</div>
+    <div class="flex flex-col h-full">
+        <!-- Encabezado -->
+        <div class="flex items-center justify-between px-4 py-4 border-b border-base-200">
+            <h2 *ngIf="!collapsed" class="text-lg font-bold text-primary">Nuestras Secciones</h2>
+            <!-- Botón cerrar en móvil -->
+            <button class="md:hidden text-gray-500 hover:text-primary" (click)="toggleSidebar()">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Lista de categorías -->
+        <ul class="flex-1 p-2 space-y-1 text-sm font-medium text-gray-700 overflow-auto">
+            <li *ngFor="let categoria of categorias">
+                <button (click)="scrollToCategory(categoria)"
+                    class="w-full flex items-center gap-3 px-3 py-2 rounded hover:bg-secondary hover:text-primary transition">
+                    <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h12v2H3v-2z" />
+                    </svg>
+                    <span *ngIf="!collapsed" class="truncate">{{ categoria }}</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</aside>

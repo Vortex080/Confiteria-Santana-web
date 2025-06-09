@@ -1,0 +1,213 @@
+<!-- 🔝 HEADER -->
+<header class="w-full bg-white shadow p-4 flex items-center justify-center">
+    <img src="/images/negro.png" alt="Logo Santa Ana" class="h-16 object-contain" />
+</header>
+
+
+<div class="grid grid-cols-1 lg:grid-cols-4 h-[90vh] gap-4 p-4">
+
+    <!-- IZQUIERDA (3/4 pantalla, 2 filas: carrito arriba, categorías abajo) -->
+    <div class="col-span-1 lg:col-span-3 grid grid-rows-[auto,1fr] gap-4 h-full">
+
+        <div class="bg-base-200 rounded-2xl shadow p-4 flex flex-col h-full relative">
+            <h3 class="text-xl font-bold mb-2">Carrito</h3>
+
+            <!-- Contenedor tabla con scroll y botones a la derecha -->
+            <div class="relative h-[300px] overflow-hidden">
+                <!-- Scroll interno -->
+                <div #tablaContainer class="overflow-y-auto h-full pr-4">
+                    <table class="table w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Producto</th>
+                                <th class="text-center">Cantidad</th>
+                                <th class="text-center">Precio</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of carrito" (click)="seleccionarProducto(item)"
+                                [class.bg-green-200]="item === productoSeleccionado"
+                                class="cursor-pointer transition-colors">
+                                <td class="font-medium">{{ item.name }}</td>
+                                <td class="text-center">
+                                    <input type="number" class="input input-sm w-16 text-center"
+                                        [(ngModel)]="item.cantidad"
+                                        (ngModelChange)="cambiarCantidad(item.id, item.cantidad)" min="1" />
+                                </td>
+                                <td class="text-center">
+                                    <input type="number" class="input input-sm w-20 text-center"
+                                        [(ngModel)]="item.precio" (ngModelChange)="cambiarPrecio(item.id, item.price)"
+                                        step="0.01" />
+                                </td>
+                                <td class="text-center font-semibold">
+                                    {{ (item.price * item.cantidad) | currency:'EUR' }}
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-ghost btn-sm text-red-600"
+                                        (click)="eliminarProducto(item.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
+                                            fill="currentColor">
+                                            <path
+                                                d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6Z" />
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Botones de scroll grandes y fijos a la derecha -->
+                <div class="absolute top-0 right-0 h-full flex flex-col justify-between">
+                    <button class="btn btn-primary w-12 h-1/2 rounded-none rounded-tr-2xl text-xl"
+                        (click)="scrollArriba()">
+                        ⬆️
+                    </button>
+                    <button class="btn btn-primary w-12 h-1/2 rounded-none rounded-br-2xl text-xl"
+                        (click)="scrollAbajo()">
+                        ⬇️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 🔽 CATEGORÍAS / PRODUCTOS (abajo) -->
+        <div class="bg-base-100 rounded-2xl shadow p-4 flex flex-row overflow-hidden h-[calc(100vh-500px)] relative">
+
+            <!-- Buscador flotante -->
+            <div class="absolute top-0 left-0 w-full px-4 pt-4 z-10 transition-all duration-300" [ngClass]="{
+    'opacity-100 translate-y-0 pointer-events-auto': mostrarBuscador,
+    'opacity-0 -translate-y-4 pointer-events-none': !mostrarBuscador
+  }">
+                <input type="text" [(ngModel)]="busqueda" placeholder="Buscar producto..."
+                    class="input input-bordered w-full shadow-lg" />
+            </div>
+
+
+            <!-- 📦 Zona principal (productos o categorías) -->
+            <div class="flex flex-col h-full flex-1 pr-2">
+                <ng-container *ngIf="!categoriaSeleccionada">
+                    <h3 class="text-xl font-bold mb-4">Categorías</h3>
+
+                    <div class="overflow-y-auto flex-1" #scrollZona>
+                        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+                            <div *ngFor="let categoria of categorias.value()"
+                                class="btn btn-outline text-sm md:text-base h-20"
+                                (click)="seleccionarCategoria(categoria)">
+                                {{ categoria.name }}
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+
+                <ng-container *ngIf="categoriaSeleccionada">
+                    <h3 class="text-xl font-bold mb-2">{{ categoriaSeleccionada.nombre }}</h3>
+                    <div class="overflow-y-auto flex-1" #scrollZona>
+                        <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+                            <div *ngFor="let producto of productosFiltradosPorCategoria"
+                                class="bg-base-200 p-3 rounded-xl text-center cursor-pointer hover:bg-primary hover:text-white transition"
+                                (click)="agregarProducto(producto)">
+                                <img [src]="producto.photos?.[0]?.url || 'assets/placeholder.png'"
+                                    alt="{{ producto.name }}"
+                                    class="w-14 h-14 object-cover mx-auto mb-1 rounded-full" />
+                                <p class="font-medium text-sm md:text-base">{{ producto.name }}</p>
+                                <p class="text-sm">{{ producto.price | currency:'EUR' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+            <!-- 🎛️ Columna de botones lateral -->
+            <div class="flex flex-col justify-between items-center w-14">
+                <button class="btn btn-primary w-full h-1/3 rounded-none rounded-tr-2xl text-xl"
+                    (click)="scrollZonaArriba()">
+                    ⬆️
+                </button>
+
+                <button *ngIf="categoriaSeleccionada"
+                    class="btn btn-secondary w-full h-1/3 rounded-none rounded-br-2xl text-xl"
+                    (click)="deseleccionarCategoria()">
+                    atras
+                </button>
+                <button class="btn btn-primary w-full h-1/3 rounded-none text-xl" (click)="scrollZonaAbajo()">
+                    ⬇️
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 🟦 PANEL DERECHO: total + acciones + teclado -->
+    <div class="bg-base-300 rounded-2xl shadow p-4 flex flex-col h-full col-span-1">
+
+        <!-- 🧮 Total grande arriba -->
+        <div class="text-right text-4xl font-bold text-black mb-6 pr-2">
+            {{ total() | currency:'EUR' }}
+        </div>
+
+        <!-- 🔘 Acciones táctiles (incluye botón de venta ahora) -->
+        <div class="grid grid-cols-3 gap-2 flex-1">
+            <!-- +1 botón táctil -->
+            <button class="btn btn-neutral w-full h-full text-xl"
+                (click)="incrementarCantidadSeleccionado()">+1</button>
+            <button class="btn btn-neutral w-full h-full text-xl">-1</button>
+            <button class="btn w-full h-full text-xl"
+                [ngClass]="modoEntrada === 'cantidad' ? 'btn-primary' : 'btn-neutral'"
+                (click)="setModoEntrada('cantidad')">
+                Ud.
+            </button>
+
+            <button class="btn w-full h-full text-xl"
+                [ngClass]="modoEntrada === 'precio' ? 'btn-primary' : 'btn-neutral'" (click)="setModoEntrada('precio')">
+                €
+            </button>
+
+            <button class="btn w-full h-full text-xl"
+                [ngClass]="modoEntrada === 'descuento' ? 'btn-primary' : 'btn-neutral'"
+                (click)="setModoEntrada('descuento')">
+                Dto.
+            </button>
+
+            <button class="btn w-full h-full text-xl btn-neutral" (click)="mostrarBuscador = !mostrarBuscador">
+                {{ mostrarBuscador ? '❌' : '🔍' }}
+            </button>
+
+            <button class="btn btn-neutral w-full h-full text-xl"></button>
+            <button class="btn btn-neutral w-full h-full text-xl" (click)="vaciarCarrito()">⛔</button>
+            <button class="btn btn-error w-full h-full text-xl" (click)="cerrarTPV()">Cerrar</button>
+
+            <!-- ✅ Botón de realizar venta -->
+            <button class="btn btn-success w-full col-span-3 h-full text-xl" [disabled]="carrito.length === 0"
+                (click)="realizarVenta()">
+                Realizar venta
+            </button>
+        </div>
+
+        <!-- ⌨️ Teclado numérico igualado en tamaño -->
+        <div class="grid grid-cols-3 gap-2 mt-4 flex-1">
+            <button class="btn btn-outline w-full h-full text-xl" (click)="agregarDigito('7')">7</button>
+            <button class="btn btn-outline w-full h-full text-xltext-xl" (click)="agregarDigito('8')">8</button>
+            <button class="btn btn-outline w-full h-full text-xl" (click)="agregarDigito('9')">9</button>
+            <button class="btn btn-outline w-full h-full text-xl" (click)="agregarDigito('4')">4</button>
+            <button class="btn btn-outline w-full h-full text-xl" (click)="agregarDigito('5')">5</button>
+            <button class="btn btn-outline w-full h-full text-xl" (click)="agregarDigito('6')">6</button>
+            <button class="btn btn-outline w-full h-full text-xl" (click)="agregarDigito('1')">1</button>
+            <button class="btn btn-outline w-full h-full text-xl" (click)="agregarDigito('2')">2</button>
+            <button class="btn btn-outline w-full h-full text-xl" (click)="agregarDigito('3')">3</button>
+            <button class="btn btn-outline w-full h-full col-span-2 text-xl" (click)="agregarDigito('0')">0</button>
+            <button class="btn btn-outline w-full h-full text-xl" (click)="agregarDigito('.')">.</button>
+
+            <!-- Nuevos botones -->
+            <button class="btn btn-accent w-full h-full text-xl" (click)="sumarCantidad()">+</button>
+            <button class="btn btn-accent w-full h-full text-xl" (click)="restarCantidad()">–</button>
+            <button class="btn btn-success w-full h-full col-span-3 text-xl" (click)="confirmarEntrada()">Intro</button>
+        </div>
+    </div>
+
+</div>
