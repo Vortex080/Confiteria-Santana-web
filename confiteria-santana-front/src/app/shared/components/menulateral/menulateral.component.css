@@ -1,0 +1,18 @@
+/* Clase base para el sidebar con transición */
+.sidebar {
+    transition: all 300ms ease-in-out;
+    overflow: hidden;
+}
+
+/* Estado visible: ancho completo y opacidad 1 */
+.sidebar.visible {
+    width: 16rem;
+    /* o el ancho deseado, por ejemplo, 256px */
+    opacity: 1;
+}
+
+/* Estado oculto: ancho 0 y opacidad 0 */
+.sidebar.hidden {
+    width: 0;
+    opacity: 0;
+}

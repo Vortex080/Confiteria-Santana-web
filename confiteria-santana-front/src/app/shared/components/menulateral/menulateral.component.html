@@ -1,0 +1,29 @@
+<aside
+    class="fixed z-50 top-0 left-0 h-full w-full md:static md:h-auto bg-white shadow-lg border-r transform transition-all duration-300 ease-in-out md:block">
+
+    <div class="flex flex-col h-full">
+        <!-- Encabezado -->
+        <div class="flex items-center justify-between px-4 py-4 border-b border-base-200">
+            <h2 *ngIf="!collapsed" class="text-lg font-bold text-primary">Nuestras Secciones</h2>
+            <!-- Botón cerrar en móvil -->
+            <button class="md:hidden text-gray-500 hover:text-primary" (click)="toggleSidebar()">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Lista de categorías -->
+        <ul class="flex-1 p-2 space-y-1 text-sm font-medium text-gray-700 overflow-auto">
+            <li *ngFor="let categoria of categories.value()">
+                <button (click)="scrollToCategory(categoria.name)"
+                    class="w-full flex items-center gap-3 px-3 py-2 rounded hover:bg-secondary hover:text-primary transition">
+                    <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h12v2H3v-2z" />
+                    </svg>
+                    <span *ngIf="!collapsed" class="truncate">{{ categoria.name }}</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</aside>

@@ -1,0 +1,193 @@
+<div *ngIf="user" class="flex flex-col lg:flex-row max-w-6xl mx-auto mt-10 mb-20 gap-6 px-4">
+
+    <!-- Menú lateral -->
+    <aside class="w-full lg:w-1/4 bg-base-100 rounded-xl shadow-md p-4 h-fit">
+        <h3 class="text-lg font-semibold mb-4">Opciones</h3>
+        <ul class="menu bg-base-200 rounded-box w-full">
+            <li><a [ngClass]="{ 'active': tab === 'perfil' }" (click)="tab = 'perfil'">Perfil</a></li>
+            <li><a [ngClass]="{ 'active': tab === 'direccion' }" (click)="tab = 'direccion'">Dirección</a></li>
+            <li><a [ngClass]="{ 'active': tab === 'metodos' }" (click)="tab = 'metodos'">Métodos de Pago</a></li>
+            <li><a [ngClass]="{ 'active': tab === 'pedidos' }" (click)="tab = 'pedidos'">Pedidos Realizados</a></li>
+        </ul>
+    </aside>
+
+    <!-- Contenido principal -->
+    <section class="flex-1 bg-base-100 p-6 rounded-xl shadow-md space-y-6">
+
+        <!-- PERFIL -->
+        <div *ngIf="tab === 'perfil'" class="space-y-8">
+
+            <!-- Datos personales -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Nombre de Usuario</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing" [(ngModel)]="user.username" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Email</label>
+                    <input class="input input-bordered w-full" type="email" [readonly]="!isEditing"
+                        [(ngModel)]="user.email" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Nombre</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing" [(ngModel)]="user.name" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Apellidos</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing" [(ngModel)]="user.lastname" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Teléfono</label>
+                    <input class="input input-bordered w-full" type="tel" [readonly]="!isEditing"
+                        [(ngModel)]="user.phone" />
+                </div>
+            </div>
+
+            <!-- Botón cambiar contraseña -->
+            <div *ngIf="isEditing" class="form-control md:col-span-2">
+                <button class="btn btn-outline w-fit" type="button" (click)="showPasswordChange = !showPasswordChange">
+                    {{ showPasswordChange ? 'Cancelar cambio de contraseña' : 'Cambiar contraseña' }}
+                </button>
+            </div>
+
+            <!-- Inputs de cambio de contraseña -->
+            <ng-container *ngIf="showPasswordChange">
+                <div class="form-control md:col-span-2">
+                    <label class="label-text font-semibold mb-1">Contraseña actual</label>
+                    <input class="input input-bordered w-full" type="password" [(ngModel)]="passwordForm.current" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Nueva contraseña</label>
+                    <input class="input input-bordered w-full" type="password" [(ngModel)]="passwordForm.new" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Repetir nueva contraseña</label>
+                    <input class="input input-bordered w-full" type="password" [(ngModel)]="passwordForm.confirm" />
+                </div>
+            </ng-container>
+
+            <!-- Botón guardar/editar -->
+            <div class="text-center">
+                <button class="btn btn-primary" (click)="saveChanges()">
+                    {{ isEditing ? 'Guardar Cambios' : 'Editar Perfil' }}
+                </button>
+            </div>
+        </div>
+
+        <!-- DIRECCIÓN -->
+        <div *ngIf="tab === 'direccion'" class="space-y-8">
+            <h4 class="text-lg font-semibold mt-4">Dirección</h4>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Calle</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing"
+                        [(ngModel)]="user.address.street" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Número</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing"
+                        [(ngModel)]="user.address.number" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Piso</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing"
+                        [(ngModel)]="user.address.flat" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Puerta</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing"
+                        [(ngModel)]="user.address.door" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Ciudad</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing"
+                        [(ngModel)]="user.address.city" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Provincia</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing"
+                        [(ngModel)]="user.address.state" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">País</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing"
+                        [(ngModel)]="user.address.country" />
+                </div>
+                <div class="form-control w-full">
+                    <label class="label-text font-semibold mb-1">Código Postal</label>
+                    <input class="input input-bordered w-full" [readonly]="!isEditing"
+                        [(ngModel)]="user.address.postalCode" />
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary" (click)="isEditing = !isEditing">
+                    {{ isEditing ? 'Guardar Dirección' : 'Editar Dirección' }}
+                </button>
+            </div>
+        </div>
+
+
+        <!-- MÉTODOS DE PAGO -->
+        <div *ngIf="tab === 'metodos'" class="space-y-2">
+            <h3 class="text-xl font-semibold mb-2">Métodos de Pago</h3>
+            <p class="text-gray-500">Aquí se mostrarán los métodos de pago guardados.</p>
+        </div>
+
+        <!-- PEDIDOS -->
+        <div *ngIf="tab === 'pedidos'" class="space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <h3 class="text-2xl font-bold">Pedidos Realizados</h3>
+                <div class="flex items-center gap-2">
+                    <label for="filtroFecha" class="label-text font-semibold">Filtrar por mes:</label>
+                    <input id="filtroFecha" type="month" class="input input-bordered max-w-xs"
+                        [(ngModel)]="filtroFecha" />
+                </div>
+            </div>
+
+            <div *ngIf="pedidosFiltrados().length > 0; else sinPedidos" class="grid gap-6">
+                <div *ngFor="let pedido of pedidosFiltrados()"
+                    class="rounded-xl bg-white p-6 shadow-md border border-gray-200">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-500">ID Pedido: <strong>{{ pedido.id }}</strong></span>
+                        <span class="text-sm text-gray-500">{{ pedido.created_at | date: 'fullDate' }}</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div><strong>Total:</strong> {{ pedido.total | currency:'EUR' }}</div>
+                        <div><strong>Método de Pago:</strong> {{ pedido.paymentMethodName || 'N/A' }}</div>
+                        <div><strong>Dirección:</strong>
+                            {{ pedido.shipping?.street }}, {{ pedido.shipping?.number }},
+                            {{ pedido.shipping?.city }}, {{ pedido.shipping?.postalCode }}
+                        </div>
+                    </div>
+
+                    <!-- Productos (si quieres mostrar) -->
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-gray-700 mb-2">Productos:</h4>
+                        <div class="mt-4">
+                            <h4 class="font-semibold text-gray-700 mb-2">Productos:</h4>
+                            <ng-container *ngIf="getSaleForPedido(pedido.id)?.line!.length > 0; else sinLineas">
+                                <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                                    <li *ngFor="let line of getSaleForPedido(pedido.id)?.line">
+                                        {{ line.product?.name }} x{{ line.cuantity }} - {{ line.subtotal |
+                                        currency:'EUR' }}
+                                    </li>
+                                </ul>
+                            </ng-container>
+                            <ng-template #sinLineas>
+                                <p class="text-gray-400 italic">No se encontraron productos.</p>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #sinPedidos>
+                <p class="text-gray-500 text-center mt-8">No hay pedidos registrados para el mes seleccionado.</p>
+            </ng-template>
+        </div>
+
+
+    </section>
+</div>

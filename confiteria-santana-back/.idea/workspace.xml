@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4050de44-080f-4e1d-a23a-86f46f2576d6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/OrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/OrderDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/PaymentMethodDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/PaymentMethodDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/SaleDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/SaleDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/StockMovementsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/StockMovementsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/OrderMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/OrderMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Sale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/Sale.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/StockMovements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/StockMovements.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/domain/enums/MovementReason.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/domain/enums/MovementReason.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/OrderRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/OrderRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/ProductRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/ProductRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/SaleRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/SaleRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/StockMovementsRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/StockMovementsRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/StockRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/StockRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/UserRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/controllers/UserRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AlergensDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/AlergensDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/OrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductPhotoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/ProductPhotoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/StockDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/repositories/StockDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/security/CorsFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vortex/infrastructure/security/CorsFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/liberty/config/server.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/liberty/config/server.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/public/manifest.webmanifest" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/public/manifest.webmanifest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/admin-productos/admin-productos.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/admin-productos/admin-productos.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/admin-productos/admin-productos.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/admin-productos/admin-productos.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/almacen/almacen.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/almacen/almacen.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/almacen/almacen.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/almacen/almacen.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/almacen/almacen.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/almacen/almacen.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/category/category.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/category/category.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/category/category.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/category/category.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/clientes/clientes.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/clientes/clientes.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/confirm-dialog/confirm-dialog.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/crea-pedido/crea-pedido.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/crea-pedido/crea-pedido.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/crea-pedido/crea-pedido.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/crea-pedido/crea-pedido.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/crea-venta/crea-venta.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/crea-venta/crea-venta.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/dashboard/dashboard.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/dashboard/dashboard.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/dashboard/dashboard.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/dashboard/dashboard.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/pedidos/pedidos.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/pedidos/pedidos.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/pedidos/pedidos.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/pedidos/pedidos.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/product-modal/product-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/product-modal/product-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/tpv/tpv.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/tpv/tpv.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/tpv/tpv.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/tpv/tpv.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/ventas/ventas.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/ventas/ventas.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/ventas/ventas.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/administration/components/ventas/ventas.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/cart/cart.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/cart/cart.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/cart/cart.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/cart/cart.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/menulateral/menulateral.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/menulateral/menulateral.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/menulateral/menulateral.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/menulateral/menulateral.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/navbar/navbar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/navbar/navbar.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/navbar/navbar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/navbar/navbar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/productos/productos.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/productos/productos.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/productos/productos.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/productos/productos.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/register/register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/register/register.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/user-profile/user-profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/user-profile/user-profile.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/user-profile/user-profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/components/user-profile/user-profile.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/guards/Admin.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/guards/Admin.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/guards/Almacen.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/guards/Almacen.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/guards/Repartidor.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/guards/Repartidor.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/guards/Tpv.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/guards/Tpv.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/interface/Order.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/interface/Order.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/interface/PaymentMethod.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/interface/PaymentMethod.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/interface/Stock.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/interface/Stock.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/interface/StockMovements.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/interface/StockMovements.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/admin/admin.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/admin/admin.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/home/home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/home/home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/producto/producto.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/producto/producto.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/producto/producto.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/producto/producto.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/sobrenosotros/sobrenosotros.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/pages/sobrenosotros/sobrenosotros.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Alergens.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Alergens.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Category.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Category.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/LocalStorage.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/LocalStorage.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Order.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Order.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Sale.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Sale.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Stock.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/Stock.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/StockMovements.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/service/StockMovements.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/shared.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/app/shared/shared.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../confiteria-santana-front/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../confiteria-santana-front/src/styles.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2ulz9XCOe4RDeyf7xYKfpXRIAsX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.confiteria [liberty:run].executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.confiteria [maven,liberty:run].executor&quot;: &quot;Debug&quot;,
+    &quot;Maven.confiteria [mvn,liberty:run].executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;front&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/TFG/confiteria-santana-back&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="confiteria [liberty:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="liberty:run" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewState">
+    <option name="selectedTab" value="Logical" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4050de44-080f-4e1d-a23a-86f46f2576d6" name="Changes" comment="" />
+      <created>1742837799582</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1742837799582</updated>
+      <workItem from="1742837801287" duration="2324000" />
+      <workItem from="1742856004576" duration="16219000" />
+      <workItem from="1743097527407" duration="4807000" />
+      <workItem from="1743436441676" duration="3424000" />
+      <workItem from="1743494472398" duration="12464000" />
+      <workItem from="1743595541474" duration="963000" />
+      <workItem from="1744035110326" duration="5049000" />
+      <workItem from="1744101712813" duration="5218000" />
+      <workItem from="1744207820627" duration="5392000" />
+      <workItem from="1744277799856" duration="2003000" />
+      <workItem from="1745051131788" duration="4000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

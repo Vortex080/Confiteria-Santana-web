@@ -1,0 +1,15 @@
+{
+  "name": "confiteria-santana-front",
+  "short_name": "confiteria-santana-front",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "dorado.png",
+      "sizes": "868x575",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}

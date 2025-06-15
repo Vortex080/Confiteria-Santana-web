@@ -1,0 +1,47 @@
+<main class="py-8 px-4 md:px-10 bg-base-100">
+    <h3 class="text-center text-3xl font-extrabold text-primary mb-12">
+        NUESTROS MEJORES PRODUCTOS
+    </h3>
+
+    <div class="flex w-full gap-6">
+        <!-- Sidebar -->
+        <aside class="hidden md:block w-64">
+            <app-menulateral></app-menulateral>
+        </aside>
+
+        <!-- Contenedor de productos -->
+        <section class="flex-1 overflow-y-auto h-[calc(100vh-5rem)] pr-2">
+            <div class="flex flex-col gap-12">
+                <!-- Mostramos por categoría -->
+                <div *ngFor="let categoria of categoriasView" [id]="categoria">
+                    <h2 class="text-2xl font-bold text-neutral mb-4 border-b border-neutral-content pb-2">
+                        {{ categoria }}
+                    </h2>
+
+                    <!-- Tarjetas de productos -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <a *ngFor="let producto of productosView[categoria]" [routerLink]="['/producto', producto.id]"
+                            class="card bg-base-100 shadow-sm border border-base-200 hover:shadow-md transition duration-200">
+
+
+                            <ng-container *ngIf="producto.photos && producto.photos.length > 0">
+                                <figure>
+                                    <img [src]="producto.photos[0].url" [alt]="producto.name"
+                                        class="h-48 w-full object-cover" />
+                                </figure>
+                            </ng-container>
+
+                            <div class="card-body">
+                                <h2 class="card-title">{{ producto.name }}</h2>
+                                <p class="text-sm text-neutral-content">Descripción del producto</p>
+                                <div class="card-actions justify-end">
+                                    <button class="btn btn-sm btn-primary">Comprar</button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

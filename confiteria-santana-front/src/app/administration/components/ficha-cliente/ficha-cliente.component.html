@@ -1,0 +1,134 @@
+<div class="modal modal-open">
+    <div class="modal-box w-full transition-all duration-500" [ngClass]="mostrarDireccion ? 'max-w-5xl' : 'max-w-2xl'">
+
+        <h2 class="text-2xl font-bold mb-6">
+            {{ modoEdicion ? 'Editar Cliente' : 'Información del Cliente' }}
+        </h2>
+
+        <form (ngSubmit)="onSave()" class="flex flex-row gap-6">
+
+            <!-- Panel IZQUIERDO: Datos del cliente -->
+            <div class="flex-1 flex flex-col gap-4">
+
+                <div class="text-center">
+                    <img [src]="cliente.photo" class="w-24 h-24 rounded-full mx-auto object-cover mb-2 shadow"
+                        alt="Foto" />
+                    <p class="text-sm italic font-semibold">{{ cliente.username }} - {{ cliente.rol }}</p>
+                </div>
+
+                <!-- Usuario -->
+                <div>
+                    <label class="label"><span class="label-text font-semibold">Usuario</span></label>
+                    <input class="input input-bordered w-full" type="text" [(ngModel)]="cliente.username"
+                        name="username" [readonly]="!modoEdicion" />
+                    <span *ngIf="errores['username']" class="text-error text-sm mt-1 block">{{ errores['username']
+                        }}</span>
+                </div>
+
+                <!-- Nombre -->
+                <div>
+                    <label class="label"><span class="label-text font-semibold">Nombre</span></label>
+                    <input class="input input-bordered w-full" type="text" [(ngModel)]="cliente.name" name="name"
+                        [readonly]="!modoEdicion" />
+                    <span *ngIf="errores['name']" class="text-error text-sm mt-1 block">{{ errores['name'] }}</span>
+                </div>
+
+                <!-- Apellidos -->
+                <div>
+                    <label class="label"><span class="label-text font-semibold">Apellidos</span></label>
+                    <input class="input input-bordered w-full" type="text" [(ngModel)]="cliente.lastname"
+                        name="lastname" [readonly]="!modoEdicion" />
+                    <span *ngIf="errores['lastname']" class="text-error text-sm mt-1 block">{{ errores['lastname']
+                        }}</span>
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label class="label"><span class="label-text font-semibold">Email</span></label>
+                    <input class="input input-bordered w-full" type="email" [(ngModel)]="cliente.email" name="email"
+                        [readonly]="!modoEdicion" />
+                    <span *ngIf="errores['email']" class="text-error text-sm mt-1 block">{{ errores['email'] }}</span>
+                </div>
+
+                <!-- Teléfono -->
+                <div>
+                    <label class="label"><span class="label-text font-semibold">Teléfono</span></label>
+                    <input class="input input-bordered w-full" type="number" [(ngModel)]="cliente.phone" name="phone"
+                        [readonly]="!modoEdicion" />
+                </div>
+
+                <!-- Rol -->
+                <div *ngIf="modoEdicion">
+                    <label class="label"><span class="label-text font-semibold">Rol</span></label>
+                    <select class="select select-bordered w-full" [(ngModel)]="cliente.rol" name="rol">
+                        <option value="USER">Usuario</option>
+                        <option value="ADMIN">Administrador</option>
+                        <option value="MOD">Moderador</option>
+                    </select>
+                </div>
+
+                <!-- Foto -->
+                <div *ngIf="modoEdicion">
+                    <label class="label"><span class="label-text font-semibold">Foto (URL)</span></label>
+                    <input class="input input-bordered w-full" [(ngModel)]="cliente.photo" name="photo" />
+                </div>
+
+                <!-- Botón toggle dirección -->
+                <div *ngIf="modoEdicion" class="text-right">
+                    <button type="button" class="btn btn-sm btn-outline" (click)="mostrarDireccion = !mostrarDireccion">
+                        {{ mostrarDireccion ? 'Ocultar dirección' : 'Editar dirección' }}
+                    </button>
+                </div>
+
+                <!-- Acciones -->
+                <div class="modal-action mt-6">
+                    <button type="button" class="btn" (click)="close.emit()">Cerrar</button>
+                    <button *ngIf="modoEdicion" type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+
+            <!-- Panel DERECHO animado -->
+            <div class="transition-all duration-500 overflow-hidden border-l pl-6" [ngClass]="{
+          'w-0 opacity-0 translate-x-10 pointer-events-none': !mostrarDireccion,
+          'w-full opacity-100 translate-x-0': mostrarDireccion
+        }">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="label"><span class="label-text font-semibold">Calle</span></label>
+                        <input class="input input-bordered w-full" [(ngModel)]="cliente.address.street" name="street" />
+                    </div>
+                    <div>
+                        <label class="label"><span class="label-text font-semibold">Número</span></label>
+                        <input class="input input-bordered w-full" [(ngModel)]="cliente.address.number" name="number" />
+                    </div>
+                    <div>
+                        <label class="label"><span class="label-text font-semibold">Piso</span></label>
+                        <input class="input input-bordered w-full" [(ngModel)]="cliente.address.flat" name="flat" />
+                    </div>
+                    <div>
+                        <label class="label"><span class="label-text font-semibold">Puerta</span></label>
+                        <input class="input input-bordered w-full" [(ngModel)]="cliente.address.door" name="door" />
+                    </div>
+                    <div>
+                        <label class="label"><span class="label-text font-semibold">Ciudad</span></label>
+                        <input class="input input-bordered w-full" [(ngModel)]="cliente.address.city" name="city" />
+                    </div>
+                    <div>
+                        <label class="label"><span class="label-text font-semibold">Provincia</span></label>
+                        <input class="input input-bordered w-full" [(ngModel)]="cliente.address.state" name="state" />
+                    </div>
+                    <div>
+                        <label class="label"><span class="label-text font-semibold">País</span></label>
+                        <input class="input input-bordered w-full" [(ngModel)]="cliente.address.country"
+                            name="country" />
+                    </div>
+                    <div>
+                        <label class="label"><span class="label-text font-semibold">Código Postal</span></label>
+                        <input class="input input-bordered w-full" [(ngModel)]="cliente.address.postalCode"
+                            name="postalCode" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="fixed inset-0 bg-transparent flex justify-center items-center z-50 pointer-events-none">
+    <div
+        class="bg-white p-6 rounded-2xl w-[90%] max-w-4xl max-h-[90vh] overflow-auto backdrop-blur-md shadow-2xl z-50 pointer-events-auto space-y-4">
+        <h2 class="text-xl font-bold">
+            {{ modoEdicion ? 'Editar pedido' : 'Crear nuevo pedido' }}
+        </h2>
+
+
+        <!-- Errores -->
+        <div *ngIf="erroresFormulario.length > 0" class="mb-4">
+            <ul class="text-error text-sm list-disc pl-5">
+                <li *ngFor="let error of erroresFormulario">{{ error }}</li>
+            </ul>
+        </div>
+
+        <!-- Cliente -->
+        <label class="block text-sm font-medium">Cliente:</label>
+        <div class="relative">
+            <input type="text" placeholder="Buscar cliente" class="input input-bordered w-full"
+                [(ngModel)]="filtroCliente" *ngIf="!pedido.user.id" />
+
+            <div *ngIf="pedido.user.id" class="flex justify-between items-center p-2 border rounded">
+                <span>{{ pedido.user.name }} {{ pedido.user.lastname }}</span>
+                <button class="btn btn-xs btn-outline" (click)="limpiarCliente()">✖</button>
+            </div>
+
+            <div *ngIf="filtroCliente && !pedido.user.id"
+                class="absolute z-10 mt-1 w-full bg-white border rounded shadow-lg max-h-60 overflow-auto">
+                <ul>
+                    <li *ngFor="let u of clientesFiltrados()" class="p-2 hover:bg-gray-100 cursor-pointer"
+                        (click)="seleccionarCliente(u)">
+                        {{ u.name }} {{ u.lastname }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Métodos y dirección -->
+        <div class="grid md:grid-cols-2 gap-4">
+            <label class="form-control">
+                <span class="label-text font-semibold">Método de pago</span>
+                <select class="select select-bordered w-full" [(ngModel)]="pedido.paymentMethod"
+                    [compareWith]="compareById">
+                    <option disabled selected>Selecciona</option>
+
+                    <option *ngFor="let pm of getMetodosDePagoFiltrados()" [ngValue]="pm">
+                        {{ pm.brand }} - ****{{ pm.last4 || '****' }}
+                    </option>
+
+                    <option *ngIf="paymentMethods.isLoading()" disabled>Cargando...</option>
+                </select>
+            </label>
+
+
+
+            <label class="form-control">
+                <span class="label-text font-semibold">Coste de envío (€)</span>
+                <input type="number" class="input input-bordered w-full" [(ngModel)]="pedido.sale.total" />
+            </label>
+
+            <label class="form-control md:col-span-2">
+                <span class="label-text font-semibold">Dirección de envío</span>
+                <input type="text" class="input input-bordered w-full" [(ngModel)]="pedido.shipping.street" />
+            </label>
+
+            <label class="form-control md:col-span-2">
+                <span class="label-text font-semibold">Dirección de facturación</span>
+                <input type="text" class="input input-bordered w-full" [(ngModel)]="pedido.billingAddress.street" />
+            </label>
+        </div>
+
+        <!-- Tabla de productos -->
+        <div class="overflow-y-auto max-h-64 rounded-lg border border-base-300">
+            <table class="table table-zebra w-full">
+                <thead class="sticky top-0 bg-base-200 z-10">
+                    <tr class="text-base font-semibold text-neutral">
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio (€)</th>
+                        <th>Total (€)</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let linea of pedido.sale.line; let i = index">
+                        <td>
+                            <div *ngIf="linea.product.name; else selectorProducto">
+                                {{ linea.product.name }}
+                            </div>
+                            <ng-template #selectorProducto>
+                                <button class="btn btn-sm btn-info w-full"
+                                    (click)="abrirSelectorProducto(i)">Seleccionar producto</button>
+                            </ng-template>
+                        </td>
+                        <td><input class="input input-bordered w-24" type="number" [(ngModel)]="linea.cuantity"
+                                (change)="calcularTotal()" /></td>
+                        <td><input class="input input-bordered w-28" type="number" [(ngModel)]="linea.price"
+                                (change)="calcularTotal()" /></td>
+                        <td>{{ (linea.cuantity * linea.price) | number:'1.2-2' }} €</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-error" (click)="eliminarProducto(i)">✖</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button class="btn btn-outline btn-accent" (click)="agregarProducto()">+ Añadir producto</button>
+
+        <div class="text-right text-lg font-semibold">
+            Total estimado: {{ (calcularTotal() + (pedido.sale.total || 0)) | number:'1.2-2' }} €
+        </div>
+
+
+        <!-- Selector de productos -->
+        <div *ngIf="lineaSeleccionadaIndex !== null"
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 bg-white p-4 rounded-lg shadow-xl border border-base-300 z-[999]">
+            <h4 class="text-xl font-bold mb-4">Seleccionar producto</h4>
+            <input type="text" placeholder="Buscar producto" class="input input-bordered w-full mb-4"
+                [(ngModel)]="filtroProducto" />
+            <div class="overflow-y-auto max-h-80">
+                <table class="table table-zebra w-full">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let prod of productosFiltrados()">
+                            <td>{{ prod.name }}</td>
+                            <td>
+                                <button class="btn btn-xs btn-success"
+                                    (click)="seleccionarProducto(prod)">Seleccionar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 text-right">
+                <button class="btn btn-outline" (click)="cerrarSelectorProducto()">Cancelar</button>
+            </div>
+        </div>
+
+        <div class="flex justify-end gap-2">
+            <button class="btn" (click)="cancelar()">Cancelar</button>
+            <button class="btn btn-primary" (click)="guardar()">Guardar</button>
+        </div>
+    </div>
+</div>

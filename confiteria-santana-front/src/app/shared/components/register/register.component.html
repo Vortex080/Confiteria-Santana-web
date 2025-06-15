@@ -1,0 +1,147 @@
+<div class="container mx-auto p-6">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="bg-white shadow-md rounded p-8">
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- Primera Parte -->
+      <div class="flex-1 border-r border-gray-300 pr-6">
+        <h2 class="text-xl font-semibold mb-4">Datos Personales</h2>
+        <div formGroupName="firstPart" class="space-y-4">
+          <div>
+            <label class="block">Nombre</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="nombre" />
+            <p *ngIf="registerForm.get('firstPart.nombre')?.touched && registerForm.get('firstPart.nombre')?.invalid"
+              class="text-red-500 text-sm">Nombre requerido</p>
+          </div>
+
+          <div>
+            <label class="block">Usuario</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="usuario" />
+            <p *ngIf="registerForm.get('firstPart.usuario')?.touched && registerForm.get('firstPart.usuario')?.invalid"
+              class="text-red-500 text-sm">Usuario requerido</p>
+          </div>
+
+          <div>
+            <label class="block">Apellidos</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="apellidos" />
+            <p *ngIf="registerForm.get('firstPart.apellidos')?.touched && registerForm.get('firstPart.apellidos')?.invalid"
+              class="text-red-500 text-sm">Apellidos requeridos</p>
+          </div>
+
+          <div>
+            <label class="block">Correo</label>
+            <input type="email"
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="correo" />
+            <p *ngIf="registerForm.get('firstPart.correo')?.touched && registerForm.get('firstPart.correo')?.invalid"
+              class="text-red-500 text-sm">Correo inválido</p>
+          </div>
+
+          <div>
+            <label class="block">Contraseña</label>
+            <input type="password"
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="contrasena" />
+            <p *ngIf="registerForm.get('firstPart.contrasena')?.touched && registerForm.get('firstPart.contrasena')?.invalid"
+              class="text-red-500 text-sm">Mínimo 6 caracteres</p>
+          </div>
+
+          <div>
+            <label class="block">Confirmar Contraseña</label>
+            <input type="password"
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="confirmarContrasena" />
+            <p *ngIf="registerForm.get('firstPart')?.errors?.['notMatching']" class="text-red-500 text-sm">
+              Las contraseñas no coinciden</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Segunda Parte -->
+      <div class="flex-1 pl-6">
+        <h2 class="text-xl font-semibold mb-4">Dirección</h2>
+        <div formGroupName="secondPart" class="space-y-4">
+          <div>
+            <label class="block">Calle</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="calle" />
+            <p *ngIf="registerForm.get('secondPart.calle')?.touched && registerForm.get('secondPart.calle')?.invalid"
+              class="text-red-500 text-sm">Calle requerida</p>
+          </div>
+
+          <div>
+            <label class="block">Número</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="numero" />
+            <p *ngIf="registerForm.get('secondPart.numero')?.touched && registerForm.get('secondPart.numero')?.invalid"
+              class="text-red-500 text-sm">Número requerido</p>
+          </div>
+
+          <div>
+            <label class="block">Piso (opcional)</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="piso" />
+          </div>
+
+          <div>
+            <label class="block">Puerta (opcional)</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="puerta" />
+          </div>
+
+          <div>
+            <label class="block">Ciudad</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="ciudad" />
+            <p *ngIf="registerForm.get('secondPart.ciudad')?.touched && registerForm.get('secondPart.ciudad')?.invalid"
+              class="text-red-500 text-sm">Ciudad requerida</p>
+          </div>
+
+          <div>
+            <label class="block">Provincia</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="provincia" />
+            <p *ngIf="registerForm.get('secondPart.provincia')?.touched && registerForm.get('secondPart.provincia')?.invalid"
+              class="text-red-500 text-sm">Provincia requerida</p>
+          </div>
+
+          <div>
+            <label class="block">País</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="pais" />
+            <p *ngIf="registerForm.get('secondPart.pais')?.touched && registerForm.get('secondPart.pais')?.invalid"
+              class="text-red-500 text-sm">País requerido</p>
+          </div>
+
+          <div>
+            <label class="block">Código Postal</label>
+            <input
+              class="w-full h-10 px-4 shadow-inner border rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              formControlName="codigoPostal" />
+            <p *ngIf="registerForm.get('secondPart.codigoPostal')?.touched && registerForm.get('secondPart.codigoPostal')?.invalid"
+              class="text-red-500 text-sm">Código postal inválido</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón Submit -->
+    <div class="mt-6 text-center">
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+        Registrarse
+      </button>
+    </div>
+  </form>
+</div>

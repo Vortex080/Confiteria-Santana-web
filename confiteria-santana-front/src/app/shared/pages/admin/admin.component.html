@@ -1,0 +1,96 @@
+<div class="flex h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <aside [class.w-64]="!collapsed" [class.w-20]="collapsed"
+        class="bg-white border-r shadow-lg p-4 transition-all duration-300 flex flex-col"
+        [class.items-center]="collapsed">
+
+        <!-- Toggle button -->
+        <div class="flex justify-end w-full mb-4">
+            <button (click)="collapsed = !collapsed" class="btn btn-sm btn-ghost">
+                <span class="material-icons" *ngIf="!collapsed">chevron_left</span>
+                <span class="material-icons" *ngIf="collapsed">chevron_right</span>
+            </button>
+        </div>
+
+        <!-- Logo -->
+        <h1 *ngIf="!collapsed" class="text-2xl font-bold text-center text-purple-600 mb-10">Confitería</h1>
+
+        <!-- Menu -->
+        <ul class="space-y-4 w-full">
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/dashboard" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <span class="material-icons">dashboard</span>
+                    <span *ngIf="!collapsed">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/pedidos" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <span class="material-icons">shopping_cart</span>
+                    <span *ngIf="!collapsed">Pedidos</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/product" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <span class="material-icons">inventory_2</span>
+                    <span *ngIf="!collapsed">Productos</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/categorias" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <span class="material-icons">category</span>
+                    <span *ngIf="!collapsed">Categorías</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/alergen" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <span class="material-icons">warning</span>
+                    <span *ngIf="!collapsed">Alérgenos</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/clientes" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <span class="material-icons">people</span>
+                    <span *ngIf="!collapsed">Clientes</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/ventas" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <span class="material-icons">point_of_sale</span>
+                    <span *ngIf="!collapsed">Ventas</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/tpv" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <span class="material-icons">storefront</span>
+                    <span *ngIf="!collapsed">TPV</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start" [class.justify-center]="collapsed">
+                <a href="/admin/almacen" class="btn btn-ghost flex items-center gap-2 w-full text-left">
+                    <span class="material-icons">warehouse</span>
+                    <span *ngIf="!collapsed">Almacén</span>
+                </a>
+            </li>
+
+            <li class="flex justify-start">
+                <div (click)="goToHome()" class="btn btn-ghost flex items-left gap-2 w-full text-left cursor-pointer">
+                    <span class="material-icons">home</span>
+                    <span *ngIf="!collapsed">Inicio</span>
+                </div>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Contenido -->
+    <main class="flex-1 p-8 overflow-auto">
+        <router-outlet></router-outlet>
+    </main>
+</div>

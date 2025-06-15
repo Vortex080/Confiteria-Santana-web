@@ -1,0 +1,156 @@
+<div class="flex flex-col lg:flex-row gap-6 p-4">
+    <!-- Carrito: sección izquierda -->
+    <div class="flex-1 bg-white shadow-lg rounded-xl p-6">
+        <h2 class="text-2xl font-bold mb-6">🛒 Carrito</h2>
+
+        <div class="overflow-y-auto min-h-[200px] max-h-[74vh] pr-2">
+            <div *ngIf="cartItems.length; else emptyCart">
+                <div *ngFor="let item of cartItems; let i = index" class="flex gap-4 items-start mb-6 border-b pb-4">
+                    <img [src]="item.product.photos[0]?.url || 'https://via.placeholder.com/80'"
+                        alt="{{ item.product.name }}" class="w-20 h-20 object-cover rounded-lg border" />
+
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <a [routerLink]="['/producto', item.product.id]"
+                                class="text-lg font-semibold text-primary hover:underline">
+                                {{ item.product.name }}
+                            </a>
+
+                            <p class="font-semibold text-green-600">
+                                {{ item.product.price * item.quantity | number:'1.2-2' }} €
+                            </p>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-1">{{ item.product.description }}</p>
+                        <p class="text-sm text-gray-500">
+                            Categoría: <span class="font-medium">{{ item.product.category?.name || 'Sin categoría'
+                                }}</span>
+                        </p>
+                        <p class="text-sm text-gray-500">
+                            Unidad: {{ item.product.unit }} | Precio unitario: {{ item.product.price }} €
+                        </p>
+
+                        <!-- Input para editar cantidad -->
+                        <div class="flex items-center gap-2 mt-2">
+                            <label class="text-sm text-gray-600">Cantidad:</label>
+                            <input type="number" min="1" [(ngModel)]="item.quantity"
+                                (change)="actualizarCantidad(i, item.quantity)"
+                                class="input input-sm input-bordered w-20" />
+                        </div>
+
+                        <!-- Alérgenos -->
+                        <div class="mt-2 flex flex-wrap gap-2">
+                            <span *ngFor="let alergen of item.product.alergens"
+                                class="badge badge-sm badge-warning text-xs" title="{{ alergen.name }}">
+                                {{ alergen.name }}
+                            </span>
+                        </div>
+
+                        <button class="btn btn-sm btn-error mt-4" (click)="removeItem(i)">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #emptyCart>
+                <p class="text-gray-500">El carrito está vacío.</p>
+            </ng-template>
+        </div>
+    </div>
+
+    <!-- Total: sección derecha -->
+    <div class="w-full lg:w-1/3 bg-base-200 shadow-md rounded-xl p-6 flex flex-col justify-between">
+        <div>
+            <h2 class="text-2xl font-bold mb-4">📦 Resumen</h2>
+            <p class="text-lg mb-2">
+                Total: <span class="font-bold text-green-600">{{ total | currency:'EUR' }} €</span>
+            </p>
+        </div>
+        <button class="btn btn-primary mt-6" [disabled]="!cartItems.length" (click)="makeOrder()">
+            Realizar pedido
+        </button>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<dialog #modal class="modal">
+    <div class="modal-box w-full max-w-xl">
+        <h3 class="text-xl font-bold mb-4">Confirmar pedido</h3>
+
+        <!-- Formulario de dirección -->
+        <form (ngSubmit)="confirmarPedido()" #pedidoForm="ngForm">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="form-control">
+                    <label for="street" class="label">
+                        <span class="label-text">Calle</span>
+                    </label>
+                    <input id="street" name="street" type="text" class="input input-bordered w-full"
+                        [(ngModel)]="direccion.street" required />
+                </div>
+
+                <div class="form-control">
+                    <label for="number" class="label">
+                        <span class="label-text">Número</span>
+                    </label>
+                    <input id="number" name="number" type="text" class="input input-bordered w-full"
+                        [(ngModel)]="direccion.number" required />
+                </div>
+
+                <div class="form-control">
+                    <label for="flat" class="label">
+                        <span class="label-text">Piso</span>
+                    </label>
+                    <input id="flat" name="flat" type="text" class="input input-bordered w-full"
+                        [(ngModel)]="direccion.flat" />
+                </div>
+
+                <div class="form-control">
+                    <label for="door" class="label">
+                        <span class="label-text">Puerta</span>
+                    </label>
+                    <input id="door" name="door" type="text" class="input input-bordered w-full"
+                        [(ngModel)]="direccion.door" />
+                </div>
+
+                <div class="form-control">
+                    <label for="city" class="label">
+                        <span class="label-text">Ciudad</span>
+                    </label>
+                    <input id="city" name="city" type="text" class="input input-bordered w-full"
+                        [(ngModel)]="direccion.city" required />
+                </div>
+
+                <div class="form-control">
+                    <label for="state" class="label">
+                        <span class="label-text">Provincia</span>
+                    </label>
+                    <input id="state" name="state" type="text" class="input input-bordered w-full"
+                        [(ngModel)]="direccion.state" required />
+                </div>
+
+                <div class="form-control">
+                    <label for="country" class="label">
+                        <span class="label-text">País</span>
+                    </label>
+                    <input id="country" name="country" type="text" class="input input-bordered w-full"
+                        [(ngModel)]="direccion.country" required />
+                </div>
+
+                <div class="form-control">
+                    <label for="postalCode" class="label">
+                        <span class="label-text">Código Postal</span>
+                    </label>
+                    <input id="postalCode" name="postalCode" type="text" class="input input-bordered w-full"
+                        [(ngModel)]="direccion.postalCode" required />
+                </div>
+            </div>
+
+
+            <div class="modal-action mt-6">
+                <button type="submit" class="btn btn-primary">Confirmar pedido</button>
+                <button type="button" class="btn" (click)="modal.close()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</dialog>
