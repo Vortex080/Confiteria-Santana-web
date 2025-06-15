@@ -2,15 +2,17 @@ import { inject } from '@angular/core';
 import { Router, type CanMatchFn } from '@angular/router';
 import { AuthService } from '../service/Auth.service';
 
-export const adminGuard: CanMatchFn = (route, state) => {
+export const TpvGuard: CanMatchFn = (route, state) => {
 
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  if (auth.getRole() === 'tpv') {
+  const role = auth.getRole();
+
+  if (role && role == 'tpv') {
     return true;
   }
 
-  router.navigate(['/home']);
+  router.navigate(['/401']);
   return false;
 };

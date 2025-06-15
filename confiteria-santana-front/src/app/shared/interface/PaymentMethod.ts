@@ -7,5 +7,5 @@ export interface PaymentMethod {
     expiryMonth: number;
     expiryYear: number;
     brand: string;
-    user: number;
+    userId: number;
 }

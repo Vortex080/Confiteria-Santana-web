@@ -35,7 +35,7 @@ export class LoginComponent {
         console.log('Login exitoso:', body);
         this.localStorageService.setToken(body.token);
         this.localStorageService.setUser(body.user);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
 
       },
       error: err => {

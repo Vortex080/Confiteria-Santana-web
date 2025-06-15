@@ -15,13 +15,13 @@
 
         <!-- Lista de categorías -->
         <ul class="flex-1 p-2 space-y-1 text-sm font-medium text-gray-700 overflow-auto">
-            <li *ngFor="let categoria of categorias">
-                <button (click)="scrollToCategory(categoria)"
+            <li *ngFor="let categoria of categories.value()">
+                <button (click)="scrollToCategory(categoria.name)"
                     class="w-full flex items-center gap-3 px-3 py-2 rounded hover:bg-secondary hover:text-primary transition">
                     <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M3 5h18v2H3V5zm0 6h18v2H3v-2zm0 6h12v2H3v-2z" />
                     </svg>
-                    <span *ngIf="!collapsed" class="truncate">{{ categoria }}</span>
+                    <span *ngIf="!collapsed" class="truncate">{{ categoria.name }}</span>
                 </button>
             </li>
         </ul>

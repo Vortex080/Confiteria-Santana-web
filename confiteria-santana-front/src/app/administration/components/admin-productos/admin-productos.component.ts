@@ -1,13 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ProductModalComponent } from '../product-modal/product-modal.component'
 import { ProductosService } from '../../../shared/service/productos.service';
-import { CategoryService } from '../../../shared/service/Category.service';
 import { Product } from '../../../shared/interface/product';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -19,6 +18,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class AdminProductosComponent {
   visible = false;
   productoEditando: Product | null = null;
+  visibleEliminar = false;
 
   constructor(private productosService: ProductosService, private sanitizer: DomSanitizer) { }
 
@@ -29,6 +29,7 @@ export class AdminProductosComponent {
 
   cerrar() {
     this.visible = false;
+    this.products.reload();
   }
 
   editarProducto(id: number) {
@@ -72,12 +73,12 @@ export class AdminProductosComponent {
 
   confirmarEliminacion(producto: any) {
     this.productoAEliminar = producto;
-    this.mostrarConfirmacion = true;
+    this.visibleEliminar = true;
   }
 
   cancelarEliminacion() {
     this.productoAEliminar = null;
-    this.mostrarConfirmacion = false;
+    this.visibleEliminar = false;
   }
 
   eliminarConfirmado() {
@@ -85,7 +86,7 @@ export class AdminProductosComponent {
       this.eliminarProducto(this.productoAEliminar.id);
       this.productoAEliminar = null;
     }
-    this.mostrarConfirmacion = false;
+    this.visibleEliminar = false;
   }
 
 
@@ -99,5 +100,6 @@ export class AdminProductosComponent {
     return url; // ya es una URL válida
   }
 
+  
 
 }

@@ -56,25 +56,23 @@
 
         <ng-template #loggedIn>
             <!-- Icono del carrito -->
-            <a href="/carrito" class="btn btn-ghost btn-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 7M7 13l-1.293 2.707A1 1 0 007 17h10a1 1 0 00.894-1.447L17 13M9 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
-                </svg>
+            <a href="/carrito" class="btn btn-ghost btn-circle" id="cart-icon">
+                <div class="indicator">
+                    <span *ngIf="cartCount > 0" class="indicator-item badge badge-sm badge-primary text-white">
+                        {{ cartCount }}
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 7M7 13l-1.293 2.707A1 1 0 007 17h10a1 1 0 00.894-1.447L17 13M9 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" />
+                    </svg>
+                </div>
             </a>
+
             <div class="dropdown dropdown-end">
                 <div tabindex="0" class="flex items-center justify-center space-x-2 cursor-pointer">
                     <!-- Nombre del usuario -->
                     <span class="font-semibold">Bienvenido, {{ user().name }}</span>
-                    <!-- Avatar circular -->
-                    <div class="btn btn-circle avatar">
-                        <div class="w-10 h-10 rounded-full overflow-hidden">
-                            <img [src]="user().photoUrl || 'https://via.placeholder.com/40'" alt="User photo"
-                                class="w-full h-full object-cover" />
-                        </div>
-                    </div>
-
                 </div>
 
                 <ul tabindex="0"

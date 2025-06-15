@@ -6,8 +6,9 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductosService } from '../../../shared/service/productos.service';
 import { CategoryService } from '../../../shared/service/Category.service';
 import { Category } from '../../../shared/interface/category';
-
-
+import { SaleService } from '../../../shared/service/Sale.service';
+import { Sale } from '../../../shared/interface/Sale';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tpv',
@@ -16,22 +17,33 @@ import { Category } from '../../../shared/interface/category';
   templateUrl: './tpv.component.html',
 })
 export class TpvComponent {
+  constructor(
+    private productosService: ProductosService,
+    private categoriaService: CategoryService,
+    private saleService: SaleService,
+    private router: Router
+  ) { }
 
-  constructor(private productosService: ProductosService, private categoriaService: CategoryService) { }
-
-  productos = rxResource({
-    loader: () => this.productosService.getallProduct(),
-  })
-
+  metodoPago: 'Efectivo' | 'Tarjeta' = 'Efectivo';
+  productos = rxResource({ loader: () => this.productosService.getallProduct() });
+  categorias = rxResource({ loader: () => this.categoriaService.getallCategory() });
 
   carrito: any[] = [];
+  productoSeleccionado: any = null;
+  mostrarModalVenta = false;
+  efectivoEntregado: number | null = null;
+  busqueda: string = '';
+  categoriaSeleccionada: Category | null = null;
+  mostrarBuscador = false;
+  entradaTactil: string = '';
+  modoEntrada: 'cantidad' | 'precio' | 'descuento' | null = null;
 
   agregarProducto(producto: any) {
     const item = this.carrito.find(p => p.id === producto.id);
     if (item) {
       item.cantidad++;
     } else {
-      this.carrito.push({ ...producto, cantidad: 1 });
+      this.carrito.push({ ...producto, cantidad: 1, price: producto.price, descuento: 0 });
     }
   }
 
@@ -46,32 +58,65 @@ export class TpvComponent {
 
   cambiarPrecio(id: number, nuevoPrecio: number) {
     const item = this.carrito.find(p => p.id === id);
-    if (item && nuevoPrecio >= 0) item.precio = nuevoPrecio;
+    if (item && nuevoPrecio >= 0) item.price = nuevoPrecio;
   }
 
   total(): number {
-    return this.carrito.reduce((s, p) => s + p.precio * p.cantidad, 0);
+    return this.carrito.reduce((s, p) => s + p.price * p.cantidad * (1 - (p.descuento || 0) / 100), 0);
   }
 
-  realizarVenta() {
-    alert('Venta realizada');
-    this.carrito = [];
-  }
+  confirmarVenta() {
+    const errores: string[] = [];
 
-  busqueda: string = '';
+    if (!this.metodoPago) errores.push('Debes seleccionar un método de pago.');
+    if (this.carrito.length === 0) errores.push('Debes añadir productos al carrito.');
+    if (this.metodoPago === 'Efectivo' && (this.efectivoEntregado === null || this.efectivoEntregado < this.total())) {
+      errores.push('El efectivo entregado es insuficiente.');
+    }
+
+    if (errores.length > 0) return;
+
+    const venta: Sale = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      metodoPago: this.metodoPago,
+      total: this.total(),
+      line: this.carrito.map(p => ({
+        id: 0,
+        cuantity: p.cantidad,
+        price: p.price,
+        subtotal: p.cantidad * p.price * (1 - (p.descuento || 0) / 100),
+        product: {
+          id: p.id,
+          name: p.name,
+          description: p.description,
+          price: p.price,
+          unit: p.unit,
+          alergens: p.alergens,
+          category: p.category,
+          photos: p.photos
+        }
+      }))
+    };
+
+    this.saleService.crearSale(venta).subscribe({
+      next: () => {
+        this.carrito = [];
+        this.efectivoEntregado = null;
+        this.mostrarModalVenta = false;
+      },
+      error: err => {
+        console.error('Error al guardar venta:', err);
+        alert('Error al guardar la venta. Inténtalo de nuevo.');
+      }
+    });
+  }
 
   get productosFiltrados() {
     return this.productos.value()?.filter(p =>
       p.name.toLowerCase().includes(this.busqueda.toLowerCase())
     );
   }
-
-  categorias = rxResource({
-    loader: () => this.categoriaService.getallCategory(),
-  })
-
-  categoriaSeleccionada: any = null;
-
 
   seleccionarCategoria(categoria: Category) {
     this.categoriaSeleccionada = categoria;
@@ -82,22 +127,32 @@ export class TpvComponent {
   }
 
   cerrarTPV() {
-    alert('Cerrar TPV'); // Aquí luego defines el comportamiento real
+    this.router.navigate(['/']);
+  }
+
+
+  realizarVenta() {
+    this.mostrarModalVenta = true;
   }
 
   @ViewChild('tablaContainer') tablaContainer!: ElementRef;
+  @ViewChild('scrollZona') scrollZona!: ElementRef;
 
   scrollArriba() {
-    const contenedor = this.tablaContainer.nativeElement;
-    contenedor.scrollTop -= 60; // Ajusta la cantidad de scroll si quieres
+    this.tablaContainer.nativeElement.scrollTop -= 60;
   }
 
   scrollAbajo() {
-    const contenedor = this.tablaContainer.nativeElement;
-    contenedor.scrollTop += 60;
+    this.tablaContainer.nativeElement.scrollTop += 60;
   }
 
-  productoSeleccionado: any = null;
+  scrollZonaArriba() {
+    this.scrollZona.nativeElement.scrollTop -= 60;
+  }
+
+  scrollZonaAbajo() {
+    this.scrollZona.nativeElement.scrollTop += 60;
+  }
 
   seleccionarProducto(producto: any) {
     this.productoSeleccionado = producto;
@@ -109,32 +164,45 @@ export class TpvComponent {
     }
   }
 
-  @ViewChild('scrollZona') scrollZona!: ElementRef;
-
-  scrollZonaArriba() {
-    this.scrollZona.nativeElement.scrollTop -= 60;
-  }
-
-  scrollZonaAbajo() {
-    this.scrollZona.nativeElement.scrollTop += 60;
-  }
-
-  entradaTactil: string = '';
-  modoEntrada: 'cantidad' | 'precio' | 'descuento' | null = null;
-
-
-
   sumarCantidad() {
-    if (this.productoSeleccionado) {
-      this.productoSeleccionado.cantidad++;
+    if (!this.productoSeleccionado) return;
+
+    switch (this.modoEntrada) {
+      case 'cantidad':
+        this.productoSeleccionado.cantidad++;
+        break;
+      case 'precio':
+        this.productoSeleccionado.price = Math.round((this.productoSeleccionado.price + 0.1) * 100) / 100;
+        break;
+      case 'descuento':
+        this.productoSeleccionado.descuento = Math.min((this.productoSeleccionado.descuento || 0) + 1, 100);
+        break;
+      default:
+        this.productoSeleccionado.cantidad++;
+        break;
     }
   }
 
   restarCantidad() {
-    if (this.productoSeleccionado && this.productoSeleccionado.cantidad > 1) {
-      this.productoSeleccionado.cantidad--;
+    if (!this.productoSeleccionado) return;
+
+    switch (this.modoEntrada) {
+      case 'cantidad':
+        if (this.productoSeleccionado.cantidad > 1) this.productoSeleccionado.cantidad--;
+        break;
+      case 'precio':
+        this.productoSeleccionado.price = Math.max(0, Math.round((this.productoSeleccionado.price - 0.1) * 100) / 100);
+        break;
+      case 'descuento':
+        this.productoSeleccionado.descuento = Math.max((this.productoSeleccionado.descuento || 0) - 1, 0);
+        break;
+      default:
+        if (this.productoSeleccionado.cantidad > 1) this.productoSeleccionado.cantidad--;
+        break;
     }
   }
+
+
 
   agregarDigito(digito: string) {
     this.entradaTactil += digito;
@@ -153,33 +221,40 @@ export class TpvComponent {
         this.productoSeleccionado.cantidad = valor;
         break;
       case 'precio':
-        this.productoSeleccionado.precio = valor;
+        this.productoSeleccionado.price = valor;
         break;
       case 'descuento':
-        // Aplica tu lógica si añades descuento más adelante
+        this.productoSeleccionado.descuento = valor;
         break;
     }
 
-    // Limpiar entrada y modo
     this.entradaTactil = '';
     this.modoEntrada = null;
   }
 
-  mostrarBuscador: boolean = false;
-
   get productosFiltradosPorCategoria(): Product[] {
-    if (!this.categoriaSeleccionada) return this.productos.value() || [];
-    console.log(this.categoriaSeleccionada);
-    console.log(this.categorias.value());
-    console.log(this.productos.value());
-    return this.productos.value()!.filter(p => p.category === this.categoriaSeleccionada.id) || [];
+    const productos = this.productos.value() || [];
 
+    if (!this.categoriaSeleccionada) return [];
+
+    return productos
+      .filter(p => p.category.id === this.categoriaSeleccionada!.id)
+      .filter(p => p.name.toLowerCase().includes(this.busqueda.toLowerCase()));
   }
+
 
   vaciarCarrito() {
     this.carrito = [];
-    this.productoSeleccionado = null; // opcional: deselecciona también el producto activo
+    this.productoSeleccionado = null;
   }
 
+  cancelarVenta() {
+    this.efectivoEntregado = null;
+    this.mostrarModalVenta = false;
+  }
 
+  get cambio(): number {
+    if (this.efectivoEntregado === null) return 0;
+    return this.efectivoEntregado - this.total();
+  }
 }

@@ -1,0 +1,12 @@
+<!-- Fondo oscuro translúcido -->
+<div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <!-- Modal -->
+    <div class="bg-base-100 p-6 rounded-2xl shadow-xl w-full max-w-md">
+        <h3 class="text-xl font-semibold mb-4 text-neutral">{{ title }}</h3>
+        <p class="mb-6 text-neutral">{{ message }}</p>
+        <div class="flex justify-end gap-4">
+            <button class="btn btn-outline" (click)="onCancel()">Cancelar</button>
+            <button class="btn btn-error" (click)="onConfirm()">Eliminar</button>
+        </div>
+    </div>
+</div>

@@ -24,61 +24,74 @@
     </div>
 
     <!-- Tabla de Ventas -->
-    <div class="overflow-x-auto rounded-xl shadow">
-        <table class="table table-zebra">
-            <thead class="bg-base-200 text-base font-semibold text-neutral">
-                <tr>
-                    <th>ID</th>
-                    <th>Fecha</th>
-                    <th>Total (€)</th>
-                    <th>Método de Pago</th>
-                    <th class="text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <ng-container *ngFor="let venta of ventasFiltradas">
-                    <!-- Fila principal -->
+    <!-- Tabla de Ventas -->
+    <!-- Tabla de Ventas -->
+    <div class="rounded-xl shadow overflow-hidden">
+        <div class="overflow-y-auto max-h-[74vh]">
+            <table class="table table-zebra w-full">
+                <thead class="bg-base-200 text-base font-semibold text-neutral sticky top-0 z-10">
                     <tr>
-                        <td>{{ venta.id }}</td>
-                        <td>{{ venta.date | date:'short' }}</td>
-                        <td>{{ venta.total | number:'1.2-2' }} €</td>
-                        <td>{{ venta.metodoPago }}</td>
-                        <td class="text-center">
-                            <div class="flex justify-center gap-2">
-                                <button class="btn btn-sm btn-outline btn-info" (click)="toggleLineas(venta)">
-                                    {{ venta.showLineas ? 'Ocultar' : 'Ver líneas' }}
-                                </button>
-                                <button class="btn btn-sm btn-outline btn-error">Eliminar</button>
-                            </div>
+                        <th>ID</th>
+                        <th>Fecha</th>
+                        <th>Total (€)</th>
+                        <th>Método de Pago</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let venta of ventasFiltradas">
+                        <!-- Fila principal -->
+                        <tr>
+                            <td>{{ venta.id }}</td>
+                            <td>{{ venta.date | date:'short' }}</td>
+                            <td>{{ venta.total | number:'1.2-2' }} €</td>
+                            <td>{{ venta.metodoPago }}</td>
+                            <td class="text-center">
+                                <div class="flex justify-center gap-2">
+                                    <button class="btn btn-sm btn-outline btn-info" (click)="toggleLineas(venta)">
+                                        {{ venta.showLineas ? 'Ocultar' : 'Ver líneas' }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline btn-error" (click)="eliminarVenta(venta)">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Fila de detalle (líneas) -->
+                        <tr *ngIf="venta.showLineas">
+                            <td colspan="5">
+                                <div class="p-4 bg-base-100 rounded-xl">
+                                    <h4 class="font-bold mb-2">Líneas de venta:</h4>
+                                    <ul class="space-y-2">
+                                        <li *ngFor="let linea of venta.line">
+                                            {{ linea.cuantity }} x {{ getProductoDeLinea(linea)?.name }} - {{
+                                            linea.subtotal }} €
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+
+                    <!-- Si no hay resultados -->
+                    <tr *ngIf="ventasFiltradas.length === 0">
+                        <td colspan="5" class="text-center text-neutral-content py-4">
+                            No se encontraron ventas.
                         </td>
                     </tr>
-
-                    <!-- Fila de detalle (líneas) -->
-                    <tr *ngIf="venta.showLineas">
-                        <td colspan="5">
-                            <div class="p-4 bg-base-100 rounded-xl">
-                                <h4 class="font-bold mb-2">Líneas de venta:</h4>
-                                <ul class="space-y-2">
-                                    <li *ngFor="let linea of venta.line">
-                                        {{ linea.cuantity }} x {{ getProductoDeLinea(linea)?.name }} - {{ linea.subtotal}} €
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-container>
-
-                <!-- Si no hay resultados -->
-                <tr *ngIf="ventasFiltradas.length === 0">
-                    <td colspan="5" class="text-center text-neutral-content py-4">
-                        No se encontraron ventas.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
+
 </div>
 
-<app-crea-venta *ngIf="modalCrearVentaVisible" [show]="modalCrearVentaVisible" (close)="cerrarModalVenta()" (ventaCreada)="actualizarVentas()">
+<app-crea-venta *ngIf="modalCrearVentaVisible" [show]="modalCrearVentaVisible" (close)="cerrarModalVenta()"
+    (ventaCreada)="actualizarVentas()">
 </app-crea-venta>
+
+<app-confirm-dialog *ngIf="confirmVisible" [title]="'Eliminar venta'"
+    [message]="'¿Estás seguro de que quieres eliminar esta venta?'" (confirm)="confirmarEliminacion()"
+    (cancel)="cancelarEliminacion()">
+</app-confirm-dialog>

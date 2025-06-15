@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class UserService {
 
 
-  private apiUrlPOST = 'http://localhost:9080/confiteria/api/user';
+  private apiUrlPOST = 'confiteria/api/user';
 
   constructor(private http: HttpClient) { }
 

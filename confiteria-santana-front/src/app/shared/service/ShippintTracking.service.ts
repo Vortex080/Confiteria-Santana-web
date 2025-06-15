@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ShippintTrackingService {
 
-  private apiUrlPOST = 'http://localhost:9080/confiteria/api/shippingtracking';
+  private apiUrlPOST = '/api/api/shippingtracking';
 
   constructor(private http: HttpClient) { }
 

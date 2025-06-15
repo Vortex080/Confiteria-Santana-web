@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class SaleService {
 
-  private apiUrlPOST = 'http://localhost:9080/confiteria/api/sale';
+  private apiUrlPOST = '/api/api/sale';
 
   constructor(private http: HttpClient) { }
 
@@ -31,6 +31,11 @@ export class SaleService {
   getallSale(): Observable<Sale[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<Sale[]>(this.apiUrlPOST, { headers });
+  }
+
+  deleteSale(id: number): Observable<HttpResponse<void>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.delete<void>(`${this.apiUrlPOST}/${id}`, { headers, observe: 'response' });
   }
 
 }

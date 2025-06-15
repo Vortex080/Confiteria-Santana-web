@@ -1,6 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { User } from '../../interface/user';
+import { LocalStorageService } from '../../service/LocalStorage.service';
+import { UserService } from '../../service/User.service';
+import { OrderService } from '../../service/Order.service';
+import { OrderResponse } from '../../interface/Order';
+import { Sale } from '../../interface/Sale';
+import { SaleService } from '../../service/Sale.service';
 
 @Component({
   standalone: true,
@@ -9,43 +17,73 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
   isEditing = false;
+  modoEdicion = false;
+  showPasswordChange = false;
 
-  user = {
-    username: 'juanperez',
-    name: 'Juan',
-    lastname: 'Pérez',
-    email: 'juan@example.com',
-    phone: 123456789,
-    photo: 'https://randomuser.me/api/portraits/men/75.jpg',
-    pass: '', // Vacío porque no se muestra la contraseña actual
-    rol: 'admin',
-    address: {
-      street: 'Calle Falsa',
-      number: '123',
-      flat: '2ºA',
-      door: '', // puedes poner 'B' si lo deseas
-      city: 'Madrid',
-      state: 'Madrid',
-      country: 'España',
-      postalCode: '28080'
-    }
+  tab: 'perfil' | 'direccion' | 'metodos' | 'pedidos' = 'perfil';
+
+  user!: User;
+  editedUser!: User;
+
+  passwordForm = {
+    current: '',
+    new: '',
+    confirm: ''
   };
 
+  // Pedidos
+  allOrders = rxResource<OrderResponse[], any>({
+    loader: () => this.orderService.getallPedido()
+  });
+
+  sales = rxResource<Sale[], any>({
+    loader: () => this.saleService.getallSale(),
+  });
+
+  userOrders = computed(() =>
+    this.allOrders.value()?.filter(order => order.userId === this.user?.id) ?? []
+  );
+
+  constructor(
+    private localStorageService: LocalStorageService,
+    private userService: UserService,
+    private orderService: OrderService,
+    private saleService: SaleService
+  ) { }
+
+  ngOnInit(): void {
+    const localUser = this.localStorageService.getUser();
+
+    if (localUser?.email) {
+      this.userService.getallUser().subscribe(users => {
+        const found = users.find(u => u.email === localUser.email);
+        if (found) {
+          this.user = structuredClone(found);
+          this.editedUser = structuredClone(found);
+          this.allOrders.reload(); // Carga inicial de pedidos
+        } else {
+          console.error('Usuario no encontrado con email:', localUser.email);
+        }
+      });
+    }
+  }
+
+  getSaleForPedido(pedidoId: number): Sale | undefined {
+    return this.sales.value()?.find(sale => sale.id === pedidoId);
+  }
 
 
-  editedUser = { ...this.user };
-
-  toggleEdit() {
+  toggleEdit(): void {
     this.isEditing = !this.isEditing;
     if (!this.isEditing) {
-      this.editedUser = { ...this.user };
+      this.editedUser = structuredClone(this.user);
     }
     this.modoEdicion = !this.modoEdicion;
   }
 
-  saveChanges() {
+  saveChanges(): void {
     if (this.showPasswordChange) {
       if (!this.passwordForm.current || !this.passwordForm.new || !this.passwordForm.confirm) {
         alert('Por favor completa todos los campos de contraseña.');
@@ -57,28 +95,41 @@ export class UserProfileComponent {
         return;
       }
 
-      // Aquí enviarías la nueva contraseña y la actual para verificar y actualizar.
+      // Lógica futura para cambio de contraseña.
       console.log('Cambiando contraseña:', this.passwordForm);
     }
 
-    // Guardar el resto del perfil
-    console.log('Guardando perfil:', this.user);
-
-    this.isEditing = false;
-    this.showPasswordChange = false;
+    this.userService.updateUser(this.user).subscribe({
+      next: res => {
+        alert('Perfil actualizado con éxito');
+        this.localStorageService.setUser({
+          name: this.user.name,
+          email: this.user.email
+        });
+        this.isEditing = false;
+        this.showPasswordChange = false;
+      },
+      error: err => {
+        alert('Error al guardar los cambios');
+        console.error(err);
+      }
+    });
   }
 
 
-  tab: 'perfil' | 'direccion' | 'metodos' | 'pedidos' = 'perfil';
-  modoEdicion = false;
+  filtroFecha: string = ''; // formato 'YYYY-MM'
 
-  showPasswordChange = false;
+  pedidosFiltrados = computed(() => {
+    if (!this.userOrders()) return [];
 
-  passwordForm = {
-    current: '',
-    new: '',
-    confirm: ''
-  };
+    if (!this.filtroFecha) return this.userOrders();
 
+    const [año, mes] = this.filtroFecha.split('-').map(Number);
+
+    return this.userOrders().filter(pedido => {
+      const fecha = new Date(pedido.created_at);
+      return fecha.getFullYear() === año && (fecha.getMonth() + 1) === mes;
+    });
+  });
 
 }

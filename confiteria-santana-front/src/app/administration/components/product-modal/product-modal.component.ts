@@ -8,8 +8,6 @@ import { CategoryService } from '../../../shared/service/Category.service';
 import { AlergensService } from '../../../shared/service/Alergens.service';
 import { Alergen } from '../../../shared/interface/alergen';
 import { Photo } from '../../../shared/interface/photo';
-import { HttpResponse } from '@angular/common/http';
-import { finalize } from 'rxjs/operators';
 import { ProductosService } from '../../../shared/service/productos.service';
 
 @Component({
@@ -19,21 +17,16 @@ import { ProductosService } from '../../../shared/service/productos.service';
   templateUrl: './product-modal.component.html',
 })
 export class ProductModalComponent {
-
   @Input() productToEdit: Product | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() productSaved = new EventEmitter<Product>();
 
-  // Campos del formulario
   name = '';
   description = '';
   price!: number;
   unit = '';
   categoryId: number | null = null;
   croppedImage: string | null = null;
-  alergenIds: number[] = [];
-  selectedAlergenMap: Record<number, boolean> = {};
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['productToEdit'] && this.productToEdit) {
       const prod = this.productToEdit;
@@ -60,14 +53,14 @@ export class ProductModalComponent {
     }
   }
 
-
+  alergenIds: number[] = [];
+  selectedAlergenMap: Record<number, boolean> = {};
 
   imageChangedEvent: any = '';
+  visible = false;
 
   categories = rxResource({ loader: () => this.categoryService.getallCategory() });
   alergens = rxResource({ loader: () => this.alergenService.getallAlergen() });
-
-  visible = false;
 
   constructor(
     private categoryService: CategoryService,
@@ -89,7 +82,6 @@ export class ProductModalComponent {
       this.alergenIds = this.productToEdit.alergens?.map(a => a.id) || [];
       this.selectedAlergenMap = Object.fromEntries(this.alergenIds.map(id => [id, true]));
     } else {
-      // En caso de crear, limpiar campos
       this.name = '';
       this.description = '';
       this.price = 0;
@@ -97,9 +89,11 @@ export class ProductModalComponent {
       this.categoryId = null;
       this.croppedImage = null;
       this.selectedAlergenMap = {};
+      this.alergenIds = [];
     }
-  }
 
+    this.imageChangedEvent = '';
+  }
 
   cerrar() {
     this.close.emit();
@@ -121,16 +115,40 @@ export class ProductModalComponent {
   imageCropped(event: ImageCroppedEvent) {
     if (event.base64) {
       this.croppedImage = event.base64;
-      return;
-    }
-    if (event.blob) {
+    } else if (event.blob) {
       const reader = new FileReader();
       reader.onloadend = () => (this.croppedImage = reader.result as string);
       reader.readAsDataURL(event.blob);
     }
   }
 
+  syncAlergenIds() {
+    this.alergenIds = Object.keys(this.selectedAlergenMap)
+      .filter(id => this.selectedAlergenMap[+id])
+      .map(id => +id);
+  }
+
+  toggleAlergen(ag: Alergen) {
+    this.selectedAlergenMap[ag.id] = !this.selectedAlergenMap[ag.id];
+    this.syncAlergenIds();
+  }
+
+  removeAlergen(id: number) {
+    delete this.selectedAlergenMap[id];
+    this.syncAlergenIds();
+  }
+
+  get selectedAlergens() {
+    return this.alergens.value()?.filter(ag => this.selectedAlergenMap[ag.id]) || [];
+  }
+
+  isSelected(id: number) {
+    return !!this.selectedAlergenMap[id];
+  }
+
   submit() {
+    this.syncAlergenIds();
+
     if (!this.name || !this.description || !this.price || !this.unit || !this.categoryId || !this.croppedImage) {
       alert('Por favor, completa todos los campos requeridos.');
       return;
@@ -142,19 +160,13 @@ export class ProductModalComponent {
       altText: `${this.name} - foto del producto`
     };
 
-
     const categoriaSeleccionada = this.categories.value()?.find(c => c.id === Number(this.categoryId));
     if (!categoriaSeleccionada) {
       console.error('Categoría no encontrada', categoriaSeleccionada);
       return;
     }
 
-    if (!foto.url) {
-      alert('Por favor, sube una imagen del producto.');
-      return;
-    }
-
-    const producto = {
+    const producto: Product = {
       id: this.productToEdit?.id ?? 0,
       name: this.name,
       description: this.description,
@@ -171,21 +183,10 @@ export class ProductModalComponent {
 
     accion.subscribe({
       next: () => {
-        alert(this.productToEdit ? 'Producto actualizado' : 'Producto creado');
         this.cerrar();
+        this.productSaved.emit(producto);
       },
       error: (err) => alert('Error al guardar: ' + err.message)
     });
-
-    this.productSaved.emit(producto);
   }
-
-
-  // Métodos para multi-select de alérgenos si usas chips o dropdown
-  get selectedAlergens() {
-    return this.alergens.value()?.filter(ag => this.selectedAlergenMap[ag.id]) || [];
-  }
-  isSelected(id: number) { return !!this.selectedAlergenMap[id]; }
-  toggleAlergen(ag: Alergen) { this.selectedAlergenMap[ag.id] = !this.selectedAlergenMap[ag.id]; }
-  removeAlergen(id: number) { delete this.selectedAlergenMap[id]; }
 }

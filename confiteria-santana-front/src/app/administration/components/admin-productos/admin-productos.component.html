@@ -27,66 +27,75 @@
     </div>
 
     <!-- Tabla -->
-    <div class="overflow-x-auto rounded-xl shadow">
-        <table class="table table-zebra">
-            <thead class="bg-base-200 text-base font-semibold text-neutral">
-                <tr>
-                    <th>ID</th>
-                    <th>Foto</th>
-                    <th>Nombre</th>
-                    <th>Categoria</th>
-                    <th>Descripción</th>
-                    <th>Precio (€)</th>
-                    <th>Unidad</th>
-                    <th class="text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let producto of productosFiltrados">
-                    <td>{{ producto?.id }}</td>
-                    <td>
-                        <img [src]="producto.photos?.[0]?.url" alt="Producto" class="w-12 h-12 object-cover rounded" />
-                    </td>
-                    <td class="font-medium">{{ producto.name }}</td>
-                    <td>{{ producto.category?.name || 'Sin categoría' }}</td>
-                    <td class="max-w-xs truncate" title="{{ producto?.description }}">
-                        {{ producto?.description }}
-                    </td>
-                    <td>{{ producto?.price | number: '1.2-2' }}</td>
-                    <td>{{ producto?.unit }}</td>
-                    <td class="text-center">
-                        <div class="flex justify-center gap-2">
-                            <button class="btn btn-sm btn-outline btn-info" (click)="editarProducto(producto.id)">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path
-                                        d="M14.06,9.02L15,9.94L5.92,19H5V18.08L14.06,9.02M17.66,3C17.41,3 17.15,3.1 16.97,3.29L15.13,5.12L18.87,8.87L20.71,7.03C21.1,6.64 21.1,6 20.71,5.62L18.37,3.29C18.18,3.1 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                </svg>
-                            </button>
+    <!-- Tabla -->
+    <div class="rounded-xl shadow overflow-hidden">
+        <div class="overflow-y-auto max-h-[74vh]">
+            <table class="table table-zebra w-full">
+                <thead class="bg-base-200 text-base font-semibold text-neutral sticky top-0 z-10">
+                    <tr>
+                        <th>ID</th>
+                        <th>Foto</th>
+                        <th>Nombre</th>
+                        <th>Categoria</th>
+                        <th>Descripción</th>
+                        <th>Precio (€)</th>
+                        <th>Unidad</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let producto of productosFiltrados">
+                        <td>{{ producto?.id }}</td>
+                        <td>
+                            <img [src]="producto.photos?.[0]?.url" alt="Producto"
+                                class="w-12 h-12 object-cover rounded" />
+                        </td>
+                        <td class="font-medium">{{ producto.name }}</td>
+                        <td>{{ producto.category?.name || 'Sin categoría' }}</td>
+                        <td class="max-w-xs truncate" title="{{ producto?.description }}">
+                            {{ producto?.description }}
+                        </td>
+                        <td>{{ producto?.price | number: '1.2-2' }}</td>
+                        <td>{{ producto?.unit }}</td>
+                        <td class="text-center">
+                            <div class="flex justify-center gap-2">
+                                <button class="btn btn-sm btn-outline btn-info" (click)="editarProducto(producto.id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M14.06,9.02L15,9.94L5.92,19H5V18.08L14.06,9.02M17.66,3C17.41,3 17.15,3.1 16.97,3.29L15.13,5.12L18.87,8.87L20.71,7.03C21.1,6.64 21.1,6 20.71,5.62L18.37,3.29C18.18,3.1 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                    </svg>
+                                </button>
 
-                            <button class="btn btn-sm btn-outline btn-error" (click)="confirmarEliminacion(producto)">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path
-                                        d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6Z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <tr *ngIf="productosFiltrados?.length === 0 || !productosFiltrados">
-                    <td colspan="7" class="text-center text-neutral-content py-4">
-                        No se encontraron productos.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                                <button class="btn btn-sm btn-outline btn-error"
+                                    (click)="confirmarEliminacion(producto)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6Z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
 
+                    <tr *ngIf="productosFiltrados?.length === 0 || !productosFiltrados">
+                        <td colspan="8" class="text-center text-neutral-content py-4">
+                            No se encontraron productos.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <app-confirm-dialog *ngIf="mostrarConfirmacion" [nombre]="productoAEliminar?.name"
-        (onConfirm)="eliminarConfirmado()" (onCancel)="cancelarEliminacion()">
+
+    @if (visibleEliminar) {
+    <app-confirm-dialog [title]="'Eliminar producto'" [message]="'¿Estás seguro de que quieres eliminar este producto?'"
+        (confirm)="eliminarConfirmado()" (cancel)="cancelarEliminacion()">
     </app-confirm-dialog>
+    }
+
 
 
 </div>

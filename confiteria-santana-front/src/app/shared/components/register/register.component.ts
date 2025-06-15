@@ -74,7 +74,7 @@ export class RegisterComponent {
         phone: 0, // Puedes agregar un campo de teléfono en el formulario si es necesario
         pass: formValue.firstPart.contrasena,
       };
-
+      console.log('Usuario a registrar:', usuario);
       this.registerService.registrarUsuario(usuario).subscribe({
         next: (response: { body: any; }) => {
           this.errorMessage = null;

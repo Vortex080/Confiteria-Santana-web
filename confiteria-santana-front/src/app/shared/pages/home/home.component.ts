@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { ProductosService } from '../../service/productos.service';
+import { Product } from '../../interface/product';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  productosRecomendados: Product[] = [];
+  private productosService = inject(ProductosService);
 
-  productosrecomendados = [
-    { id: 1, nombre: 'Producto 1' },
-    { id: 2, nombre: 'Producto 2' },
-    { id: 3, nombre: 'Producto 3' },
-    { id: 4, nombre: 'Producto 4' },
-  ];
-
-
-
+  ngOnInit(): void {
+    this.productosService.getallProduct().subscribe((productos) => {
+      this.productosRecomendados = productos.slice(0, 8); // Los primeros 8 como recomendados
+    });
+  }
 }

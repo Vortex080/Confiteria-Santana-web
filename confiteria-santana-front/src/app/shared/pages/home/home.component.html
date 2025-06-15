@@ -1,87 +1,98 @@
-<!-- Carousel responsive -->
-<div class="carousel w-full h-64 md:h-150">
+<!-- Carrusel principal -->
+<div class="carousel w-full h-[500px] mb-12 rounded-xl overflow-hidden shadow-xl">
     <div id="slide1" class="carousel-item relative w-full">
-        <img src="https://wallpapercave.com/wp/wp2980636.jpg" class="w-full h-full object-cover" />
-        <!-- Texto overlay responsive -->
-        <div
-            class="absolute top-4 left-4 sm:top-10 sm:left-10 md:top-70 md:left-40 bg-gray-800/70 text-white p-4 rounded shadow-lg">
-            <p class="text-xl sm:text-3xl md:text-4xl">Bienvenido a la página de inicio</p>
-            <p class="mt-2 text-sm sm:text-base md:text-lg">Este es un texto de prueba</p>
+        <img src="images/carrusel_1.jpg" class="w-full object-cover" />
+        <div class="absolute inset-0 bg-black/50 flex flex-col justify-center items-start px-10">
+            <h2 class="text-white text-4xl md:text-5xl font-bold mb-4">Bienvenido a Confiteria Santana</h2>
+            <p class="text-white text-lg md:text-xl">Pastelería artesanal con envío a domicilio</p>
         </div>
-        <!-- Botones de navegación -->
-        <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
-            <a href="#slide4" class="btn btn-circle">❮</a>
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+            <a href="#slide3" class="btn btn-circle">❮</a>
             <a href="#slide2" class="btn btn-circle">❯</a>
         </div>
     </div>
-
     <div id="slide2" class="carousel-item relative w-full">
-        <img src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
-            class="w-full h-full object-cover" />
-        <div
-            class="absolute top-4 left-4 sm:top-10 sm:left-10 md:top-70 md:left-40 bg-gray-800/70 text-white p-4 rounded shadow-lg">
-            <p class="text-xl sm:text-3xl md:text-4xl">Bienvenido a la página de inicio</p>
-            <p class="mt-2 text-sm sm:text-base md:text-lg">Este es un texto de prueba</p>
+        <img src="https://images.unsplash.com/photo-1587560699334-cc1d1b4d8e99" class="w-full object-cover" />
+        <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-start px-10">
+            <h2 class="text-white text-4xl md:text-5xl font-bold mb-4">El sabor de Jaén, en tu casa</h2>
+            <p class="text-white text-lg md:text-xl">Envíos en 24/48 horas a toda España</p>
         </div>
-        <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#slide1" class="btn btn-circle">❮</a>
             <a href="#slide3" class="btn btn-circle">❯</a>
         </div>
     </div>
-
     <div id="slide3" class="carousel-item relative w-full">
-        <img src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
-            class="w-full h-full object-cover" />
-        <div
-            class="absolute top-4 left-4 sm:top-10 sm:left-10 md:top-70 md:left-40 bg-gray-800/70 text-white p-4 rounded shadow-lg">
-            <p class="text-xl sm:text-3xl md:text-4xl">Bienvenido a la página de inicio</p>
-            <p class="mt-2 text-sm sm:text-base md:text-lg">Este es un texto de prueba</p>
+        <img src="https://images.unsplash.com/photo-1631515243347-f01f20da07d9" class="w-full object-cover" />
+        <div class="absolute inset-0 bg-black/40 flex flex-col justify-center items-start px-10">
+            <h2 class="text-white text-4xl md:text-5xl font-bold mb-4">Tradición y dulzura</h2>
+            <p class="text-white text-lg md:text-xl">Magdalenas, bizcochos, bollería y mucho más</p>
         </div>
-        <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
+        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#slide2" class="btn btn-circle">❮</a>
-            <a href="#slide4" class="btn btn-circle">❯</a>
-        </div>
-    </div>
-
-    <div id="slide4" class="carousel-item relative w-full">
-        <img src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
-            class="w-full h-full object-cover" />
-        <div
-            class="absolute top-4 left-4 sm:top-10 sm:left-10 md:top-70 md:left-40 bg-gray-800/70 text-white p-4 rounded shadow-lg">
-            <p class="text-xl sm:text-3xl md:text-4xl">Bienvenido a la página de inicio</p>
-            <p class="mt-2 text-sm sm:text-base md:text-lg">Este es un texto de prueba</p>
-        </div>
-        <div class="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
-            <a href="#slide3" class="btn btn-circle">❮</a>
             <a href="#slide1" class="btn btn-circle">❯</a>
         </div>
     </div>
 </div>
 
-<!-- Sección de productos recomendados -->
-<div class="bg-base-200 m-6 p-8 rounded-2xl">
-    <!-- Título centrado y grande -->
-    <h3 class="text-center text-3xl font-bold mb-8">
-        Productos recomendados
-    </h3>
-    <!-- Grid responsive: 1 columna en móviles, 2 en sm, 3 en md, 4 en lg -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        @for (producto of productosrecomendados; track producto) {
-        <div class="card bg-base-100 shadow-sm">
+<!-- Sección de bienvenida -->
+<section class="text-center px-6 py-12 bg-gradient-to-b from-base-200 to-white">
+    <h2 class="text-4xl font-bold text-primary mb-4">Bienvenido a nuestra tienda online</h2>
+    <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+        En <strong>Ruizor</strong> elaboramos cada producto con pasión y los mejores ingredientes. Disfruta de dulces
+        tradicionales con la comodidad de recibirlos en casa.
+    </p>
+</section>
+
+<!-- Cómo hacer un pedido -->
+<section class="py-16 px-6 bg-white">
+    <div class="max-w-5xl mx-auto text-center">
+        <h3 class="text-3xl font-bold text-primary mb-6">¿Cómo hacer un pedido?</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-gray-700">
+            <div>
+                <div class="text-5xl text-primary mb-4">🛍️</div>
+                <h4 class="text-xl font-semibold mb-2">Elige tus productos</h4>
+                <p>Explora nuestra selección y añade tus favoritos al carrito.</p>
+            </div>
+            <div>
+                <div class="text-5xl text-primary mb-4">💳</div>
+                <h4 class="text-xl font-semibold mb-2">Paga con seguridad</h4>
+                <p>Usa tu método de pago preferido en un entorno 100% seguro.</p>
+            </div>
+            <div>
+                <div class="text-5xl text-primary mb-4">📦</div>
+                <h4 class="text-xl font-semibold mb-2">Recibe en casa</h4>
+                <p>Envíos rápidos en 24/48h a cualquier punto de España.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Banner de envío -->
+<section class="relative bg-cover bg-center h-64 my-12 rounded-2xl overflow-hidden shadow-xl"
+    style="background-image: url('https://images.unsplash.com/photo-1542835435-4ec20bfdee7d');">
+    <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+        <h2 class="text-white text-3xl md:text-5xl font-bold text-center">📦 ENVÍO 24/48 HORAS</h2>
+    </div>
+</section>
+
+<!-- Productos recomendados -->
+<section class="bg-base-100 py-12 px-6">
+    <h3 class="text-center text-3xl font-bold mb-8 text-primary">Productos recomendados</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+        <div *ngFor="let producto of productosRecomendados" class="card bg-white shadow-md hover:shadow-xl transition">
             <figure>
-                <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes"
-                    class="w-full object-cover" />
+                <img [src]="producto.photos[0]?.url || 'https://via.placeholder.com/300'" [alt]="producto.name"
+                    class="w-full h-48 object-cover rounded-t-xl" />
             </figure>
             <div class="card-body">
-                <h2 class="card-title">{{producto.nombre}}</h2>
-                <p>
-                    A card component has a figure, a body part, and inside body there are title and actions parts
-                </p>
-                <div class="card-actions justify-end">
-                    <button class="btn btn-primary">Buy Now</button>
+                <h2 class="card-title">{{ producto.name }}</h2>
+                <p class="text-sm text-gray-500 truncate">{{ producto.description }}</p>
+                <div class="card-actions justify-between items-center mt-2">
+                    <span class="text-green-600 font-bold">{{ producto.price }} €</span>
+                    <a class="btn btn-sm btn-primary" [routerLink]="['/producto', producto.id]">Ver más</a>
                 </div>
             </div>
         </div>
-        }
     </div>
-</div>
+</section>

@@ -4,17 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../../../shared/service/Category.service';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { ConfirmDialogComponent } from "../../../shared/components/confirm-dialog/confirm-dialog.component";
 @Component({
   selector: 'app-category',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ConfirmDialogComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryComponent {
 
-  constructor(private categoriaService: CategoryService) { }
 
+  constructor(private categoriaService: CategoryService) { }
+  visibleEliminar = false;
   filtro: string = '';
   modalVisible: boolean = false;
   modalEdicionAbierto: boolean = false;
@@ -61,6 +63,32 @@ export class CategoryComponent {
         this.cerrarModal();
       });
     }
+  }
+
+  categoriaAEliminar: any = null;
+
+  confirmarEliminacion(categoria: any) {
+    this.categoriaAEliminar = categoria;
+    this.visibleEliminar = true;
+  }
+
+  cancelarEliminacion() {
+    this.categoriaAEliminar = null;
+    this.visibleEliminar = false;
+  }
+
+  eliminarConfirmado() {
+    if (this.categoriaAEliminar) {
+      this.categoriaService.deleteCategory(this.categoriaAEliminar.id).subscribe({
+        next: () => {
+          this.categorias.reload();
+          this.categoriaAEliminar = null;
+        },
+        error: err => console.error('Error al eliminar la categoria:', err)
+      });
+      this.categoriaAEliminar = null;
+    }
+    this.visibleEliminar = false;
   }
 
 }

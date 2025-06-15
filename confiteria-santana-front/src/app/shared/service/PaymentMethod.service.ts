@@ -8,7 +8,7 @@ import { PaymentMethod } from '../interface/PaymentMethod';
 })
 export class PaymentMethodService {
 
-  private apiUrlPOST = 'http://localhost:9080/confiteria/api/paymentmethod';
+  private apiUrlPOST = '/api/api/paymentmethod';
 
   constructor(private http: HttpClient) { }
 

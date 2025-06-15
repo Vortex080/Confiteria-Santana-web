@@ -1,5 +1,7 @@
+import { Product } from "./product";
+
 export interface Stock {
     id: number;
-    product: number;
+    product: Product;
     quantity: number;
 }

@@ -1,18 +1,24 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { Category } from '../../interface/category';
+import { CategoryService } from '../../service/Category.service';
 
 @Component({
   selector: 'app-menulateral',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './menulateral.component.html',
-  styleUrl: './menulateral.component.css'
-
+  styleUrls: ['./menulateral.component.css']
 })
 export class MenulateralComponent {
 
+  constructor(private categoryService: CategoryService) { }
 
   collapsed = false;
   sidebarVisible = false;
+
+  categories = rxResource({ loader: () => this.categoryService.getallCategory() });
 
   toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
@@ -21,9 +27,6 @@ export class MenulateralComponent {
   isSidebarVisible(): boolean {
     return this.sidebarVisible || window.innerWidth >= 768;
   }
-
-  // Método que alterna la visibilidad del sideba
-  categorias: string[] = ['Galletas', 'Bolleria', 'Tartas', 'Reposteria']; // Asegúrate de que coincida con el padre
 
   scrollToCategory(categoria: string) {
     const el = document.getElementById(categoria);
@@ -34,5 +37,4 @@ export class MenulateralComponent {
       }
     }
   }
-
 }

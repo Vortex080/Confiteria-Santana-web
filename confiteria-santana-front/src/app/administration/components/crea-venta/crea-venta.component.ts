@@ -92,7 +92,6 @@ export class CreaVentaComponent implements OnInit, OnDestroy {
 
     const linea = this.nuevaVenta.line[this.lineaSeleccionadaIndex];
 
-    // ✅ Forzar siempre un objeto
     const productoFinal = Array.isArray(producto) ? producto[0] : producto;
 
     linea.id = productoFinal.id;
@@ -170,7 +169,6 @@ export class CreaVentaComponent implements OnInit, OnDestroy {
     this.salesService.crearSale(ventaFinal).subscribe({
       next: () => {
         this.erroresFormulario = [];
-        alert('Venta creada correctamente');
         this.ventaCreada.emit(ventaFinal);
         this.cerrarConAnimacion();
       },

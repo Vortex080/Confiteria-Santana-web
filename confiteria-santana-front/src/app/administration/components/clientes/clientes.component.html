@@ -23,59 +23,63 @@
     </div>
 
     <!-- Tabla -->
-    <div class="overflow-x-auto rounded-xl shadow">
-        <table class="table table-zebra">
-            <thead class="bg-base-200 text-base font-semibold text-neutral">
-                <tr>
-                    <th>ID</th>
-                    <th>Foto</th>
-                    <th>Usuario</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Email</th>
-                    <th>Rol</th>
-                    <th>Teléfono</th>
-                    <th class="text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let cliente of clientesFiltrados">
-                    <td>{{ cliente.id }}</td>
-                    <td>
-                        <img [src]="cliente.photo" alt="Foto" class="w-12 h-12 object-cover rounded" />
-                    </td>
-                    <td class="font-medium">{{ cliente.username }}</td>
-                    <td>{{ cliente.name }}</td>
-                    <td>{{ cliente.lastname }}</td>
-                    <td>{{ cliente.email }}</td>
-                    <td>{{ cliente.rol }}</td>
-                    <td>{{ cliente.phone }}</td>
-                    <td class="text-center">
-                        <div class="flex justify-center gap-2">
-                            <button class="btn btn-sm btn-outline btn-warning" (click)="abrirFicha(cliente, false)">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path d="M11,9H13V7H11M12,20A8,8 0 1,1 20,12A8,8 0 0,1 12,20M11,17H13V11H11V17Z" />
-                                </svg>
-                            </button>
-                            <button class="btn btn-sm btn-outline btn-info" (click)="abrirFicha(cliente, true)">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path
-                                        d="M14.06,9.02L15,9.94L5.92,19H5V18.08L14.06,9.02M17.66,3C17.41,3 17.15,3.1 16.97,3.29L15.13,5.12L18.87,8.87L20.71,7.03C21.1,6.64 21.1,6 20.71,5.62L18.37,3.29C18.18,3.1 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                </svg>
-                            </button>
+    <!-- Tabla -->
+    <div class="rounded-xl shadow overflow-hidden">
+        <div class="overflow-y-auto max-h-[74vh]">
+            <table class="table table-zebra w-full">
+                <thead class="bg-base-200 text-base font-semibold text-neutral sticky top-0 z-10">
+                    <tr>
+                        <th>ID</th>
+                        <th>Foto</th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Teléfono</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cliente of clientesFiltrados">
+                        <td>{{ cliente.id }}</td>
+                        <td>
+                            <img [src]="cliente.photo" alt="Foto" class="w-12 h-12 object-cover rounded" />
+                        </td>
+                        <td class="font-medium">{{ cliente.username }}</td>
+                        <td>{{ cliente.name }}</td>
+                        <td>{{ cliente.lastname }}</td>
+                        <td>{{ cliente.email }}</td>
+                        <td>{{ cliente.rol }}</td>
+                        <td>{{ cliente.phone }}</td>
+                        <td class="text-center">
+                            <div class="flex justify-center gap-2">
+                                <button class="btn btn-sm btn-outline btn-warning" (click)="abrirFicha(cliente, false)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M11,9H13V7H11M12,20A8,8 0 1,1 20,12A8,8 0 0,1 12,20M11,17H13V11H11V17Z" />
+                                    </svg>
+                                </button>
+                                <button class="btn btn-sm btn-outline btn-info" (click)="abrirFicha(cliente, true)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M14.06,9.02L15,9.94L5.92,19H5V18.08L14.06,9.02M17.66,3C17.41,3 17.15,3.1 16.97,3.29L15.13,5.12L18.87,8.87L20.71,7.03C21.1,6.64 21.1,6 20.71,5.62L18.37,3.29C18.18,3.1 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
 
-                        </div>
-                    </td>
-                </tr>
-                <tr *ngIf="clientesFiltrados?.length === 0">
-                    <td colspan="9" class="text-center text-neutral-content py-4">
-                        No se encontraron clientes.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    <tr *ngIf="clientesFiltrados?.length === 0">
+                        <td colspan="9" class="text-center text-neutral-content py-4">
+                            No se encontraron clientes.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

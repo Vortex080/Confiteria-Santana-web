@@ -7,7 +7,7 @@ import { Category } from '../interface/category';
   providedIn: 'root'
 })
 export class CategoryService {
-  private apiUrlPOST = 'http://localhost:9080/confiteria/api/category';
+  private apiUrlPOST = '/api/api/category'; 
 
   constructor(private http: HttpClient) { }
 
@@ -31,6 +31,11 @@ export class CategoryService {
   getallCategory(): Observable<Category[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<Category[]>(`${this.apiUrlPOST}`, { headers });
+  }
+
+  deleteCategory(id: number): Observable<HttpResponse<void>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.delete<void>(`${this.apiUrlPOST}/${id}`, { headers, observe: 'response' });
   }
 
 }

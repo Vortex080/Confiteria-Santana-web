@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Order } from '../interface/Order';
+import { Order, OrderResponse } from '../interface/Order';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class OrderService {
 
-  private apiUrlPOST = 'http://localhost:9080/confiteria/api/order';
+  private apiUrlPOST = '/api/api/order';
 
   constructor(private http: HttpClient) { }
 
@@ -29,9 +29,14 @@ export class OrderService {
     return this.http.put<Order>(`${this.apiUrlPOST}/${Order.id}`, Order, { headers, observe: 'response' });
   }
 
-  getallPedido(): Observable<Order[]> {
+  getallPedido(): Observable<OrderResponse[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.get<Order[]>(this.apiUrlPOST, { headers });
+    return this.http.get<OrderResponse[]>(this.apiUrlPOST, { headers });
+  }
+
+  deleteOrder(id: number): Observable<HttpResponse<void>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.delete<void>(`${this.apiUrlPOST}/${id}`, { headers, observe: 'response' });
   }
 
 }

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class StockService {
 
-  private apiUrlPOST = 'http://localhost:9080/confiteria/api/stock';
+  private apiUrlPOST = '/api/api/stock';
 
   constructor(private http: HttpClient) { }
 
@@ -27,6 +27,15 @@ export class StockService {
   updateStock(Stock: Stock): Observable<HttpResponse<Stock>> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put<Stock>(`${this.apiUrlPOST}/${Stock.id}`, Stock, { headers, observe: 'response' });
+  }
+
+  deleteStock(id: number): Observable<HttpResponse<void>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.delete<void>(`${this.apiUrlPOST}/${id}`, { headers, observe: 'response' });
+  }
+  getAllStock(): Observable<Stock[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<Stock[]>(this.apiUrlPOST, { headers });
   }
 
 }

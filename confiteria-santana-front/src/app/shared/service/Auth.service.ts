@@ -10,7 +10,7 @@ export class AuthService {
   private user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null;
 
   getRole(): string {
-    return this.user.rol;
+    return this.user?.rol ?? 'user';
   }
 
 }

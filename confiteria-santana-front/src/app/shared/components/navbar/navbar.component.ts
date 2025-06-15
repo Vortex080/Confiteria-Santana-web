@@ -3,6 +3,7 @@ import { LocalStorageService } from '../../service/LocalStorage.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { CartService } from '../../service/CartService.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,11 +14,20 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class NavbarComponent {
   sanitizedPhoto: SafeHtml | null = null;
 
+  cartCount = 0;
 
-  constructor(private localStorageService: LocalStorageService, private sanitizer: DomSanitizer) { }
+  constructor(private cartService: CartService) {
+    this.updateCartCount();
+    window.addEventListener('storage', () => this.updateCartCount());
+  }
+
+  updateCartCount() {
+    this.cartCount = this.cartService.getCount();
+  }
+
 
   user = input<any>(null);
-  token= input<string | null>(null);
+  token = input<string | null>(null);
 
   logout() {
     localStorage.removeItem('token');

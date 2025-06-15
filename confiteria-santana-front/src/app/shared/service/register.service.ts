@@ -8,7 +8,7 @@ import { User } from '../interface/user';
 })
 export class RegisterService {
 
-  private apiUrl = 'http://localhost:9080/confiteria/api/user'; // Cambia esta URL por la de tu endpoint
+  private apiUrl = '/confiteria/api/user'; // Cambia esta URL por la de tu endpoint
 
   constructor(private http: HttpClient) { }
 

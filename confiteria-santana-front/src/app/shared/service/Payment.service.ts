@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class PaymentService {
 
-  private apiUrlPOST = 'http://localhost:9080/confiteria/api/payment';
+  private apiUrlPOST = '/api/api/payment';
 
   constructor(private http: HttpClient) { }
 

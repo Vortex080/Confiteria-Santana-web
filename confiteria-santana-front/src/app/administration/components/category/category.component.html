@@ -24,80 +24,87 @@
     </div>
 
     <!-- Tabla -->
-    <div class="overflow-x-auto rounded-xl shadow">
-        <table class="table table-zebra">
-            <thead class="bg-base-200 text-base font-semibold text-neutral">
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th class="text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let categoria of categoriasFiltradas">
-                    <td>{{ categoria.id }}</td>
-                    <td class="font-medium">{{ categoria.name }}</td>
-                    <td class="max-w-xs truncate" title="{{ categoria.description }}">
-                        {{ categoria.description }}
-                    </td>
-                    <td class="text-center">
-                        <div class="flex justify-center gap-2">
-                            <button class="btn btn-sm btn-outline btn-info"
-                                (click)="abrirModalEditarCategoria(categoria)">
+    <div class="rounded-xl shadow overflow-hidden">
+        <div class="overflow-y-auto max-h-[74vh]">
+            <table class="table table-zebra w-full">
+                <thead class="bg-base-200 text-base font-semibold text-neutral sticky top-0 z-10">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let categoria of categoriasFiltradas">
+                        <td>{{ categoria.id }}</td>
+                        <td class="font-medium">{{ categoria.name }}</td>
+                        <td class="max-w-xs truncate" title="{{ categoria.description }}">
+                            {{ categoria.description }}
+                        </td>
+                        <td class="text-center">
+                            <div class="flex justify-center gap-2">
+                                <button class="btn btn-sm btn-outline btn-info"
+                                    (click)="abrirModalEditarCategoria(categoria)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path
+                                            d="M14.06,9.02L15,9.94L5.92,19H5V18.08L14.06,9.02M17.66,3C17.41,3 17.15,3.1 16.97,3.29L15.13,5.12L18.87,8.87L20.71,7.03C21.1,6.64 21.1,6 20.71,5.62L18.37,3.29C18.18,3.1 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
+                                    </svg>
+                                </button>
+                                <button class="btn btn-sm btn-outline btn-error"
+                                    (click)="confirmarEliminacion(categoria)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9Z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
 
-                                <!-- Icono lápiz -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path
-                                        d="M14.06,9.02L15,9.94L5.92,19H5V18.08L14.06,9.02M17.66,3C17.41,3 17.15,3.1 16.97,3.29L15.13,5.12L18.87,8.87L20.71,7.03C21.1,6.64 21.1,6 20.71,5.62L18.37,3.29C18.18,3.1 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z" />
-                                </svg>
-                            </button>
-                            <button class="btn btn-sm btn-outline btn-error">
-                                <!-- Icono papelera -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9Z" />
-                                </svg>
-                            </button>
+                    <tr *ngIf="categoriasFiltradas?.length === 0 || !categoriasFiltradas">
+                        <td colspan="4" class="text-center text-neutral-content py-4">
+                            No se encontraron categorías.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Modal -->
+            <!-- Modal (solo se muestra si categoriaEditando está definida) -->
+            <dialog id="modalCategoria" class="modal" [open]="modalVisible" *ngIf="categoriaEditando">
+                <div class="modal-box">
+                    <h3 class="font-bold text-lg mb-4">
+                        {{ categoriaEditando?.id ? 'Editar categoría' : 'Nueva categoría' }}
+                    </h3>
+
+                    <form #categoriaForm="ngForm" (ngSubmit)="guardarCategoria()">
+                        <div class="mb-4">
+                            <label class="label">Nombre</label>
+                            <input type="text" [(ngModel)]="categoriaEditando.name" name="name"
+                                class="input input-bordered w-full" required />
                         </div>
-                    </td>
-                </tr>
-                <tr *ngIf="categoriasFiltradas?.length === 0 || !categoriasFiltradas">
-                    <td colspan="4" class="text-center text-neutral-content py-4">
-                        No se encontraron categorías.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        <div class="mb-4">
+                            <label class="label">Descripción</label>
+                            <textarea [(ngModel)]="categoriaEditando.description" name="description"
+                                class="textarea textarea-bordered w-full" required></textarea>
+                        </div>
 
-        <!-- Modal -->
-        <!-- Modal (solo se muestra si categoriaEditando está definida) -->
-        <dialog id="modalCategoria" class="modal" [open]="modalVisible" *ngIf="categoriaEditando">
-            <div class="modal-box">
-                <h3 class="font-bold text-lg mb-4">
-                    {{ categoriaEditando?.id ? 'Editar categoría' : 'Nueva categoría' }}
-                </h3>
+                        <div class="modal-action">
+                            <button type="button" class="btn" (click)="cerrarModal()">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </dialog>
 
-                <form #categoriaForm="ngForm" (ngSubmit)="guardarCategoria()">
-                    <div class="mb-4">
-                        <label class="label">Nombre</label>
-                        <input type="text" [(ngModel)]="categoriaEditando.name" name="name"
-                            class="input input-bordered w-full" required />
-                    </div>
-                    <div class="mb-4">
-                        <label class="label">Descripción</label>
-                        <textarea [(ngModel)]="categoriaEditando.description" name="description"
-                            class="textarea textarea-bordered w-full" required></textarea>
-                    </div>
-
-                    <div class="modal-action">
-                        <button type="button" class="btn" (click)="cerrarModal()">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </dialog>
+        </div>
 
     </div>
-</div>
+
+    @if (visibleEliminar) {
+    <app-confirm-dialog [title]="'Eliminar producto'" [message]="'¿Estás seguro de que quieres eliminar este producto?'"
+        (confirm)="eliminarConfirmado()" (cancel)="cancelarEliminacion()">
+    </app-confirm-dialog>
+    }

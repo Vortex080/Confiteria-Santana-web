@@ -7,7 +7,7 @@ import { User } from '../interface/user';
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = 'http://localhost:9080/confiteria/api/user/login'; // Cambia esta URL por la de tu endpoint
+  private apiUrl = '/api/api/user/login'; // Cambia esta URL por la de tu endpoint
 
   constructor(private http: HttpClient) { }
 

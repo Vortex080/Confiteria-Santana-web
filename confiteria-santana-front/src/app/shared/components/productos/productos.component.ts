@@ -1,63 +1,56 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenulateralComponent } from "../menulateral/menulateral.component";
 import { Product } from '../../interface/product';
 import { ProductosService } from '../../service/productos.service'; // Asegúrate de que la ruta sea correcta
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CategoryService } from '../../service/Category.service';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule, MenulateralComponent],
+  imports: [CommonModule, MenulateralComponent, RouterModule],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css'
 })
 export class ProductosComponent {
-
-  productos: Product[] = [];
-  categorias: string[] = [];
-  productosFiltrados: { [key: string]: Product[] } = {};
-
   sidebarVisible: boolean = window.innerWidth >= 768;
 
   constructor(private productosService: ProductosService, private categoryService: CategoryService) { }
 
   categories = rxResource({ loader: () => this.categoryService.getallCategory() });
+  products = rxResource({ loader: () => this.productosService.getallProduct() });
 
-  nombresCategorias: string[] = [];
+  productosFiltrados = computed(() => {
+    const productos = this.products.value()?.length ? this.products.value()! : [];
+    const categorias = this.categories.value()?.length ? this.categories.value()! : [];
 
-  filtrarPorCategorias(): void {
-    if (!this.categories.hasValue() || this.productos.length === 0) {
-      this.productosFiltrados = {};
-      this.nombresCategorias = [];
-      return;
-    }
+    console.log('Productos:', productos);
+    console.log('Categorias:', categorias);
 
-    const cats = this.categories.value()!;
-
-    // Unimos productos con el nombre de la categoría
-    const prodsConCat = this.productos.map(p => {
-      const categoria = cats.find(c => c.id === p.category.id);
+    const prodsConCat = productos.map(p => {
+      const categoria = categorias.find(c => c.id === p.category.id);
       return {
         ...p,
         categoryName: categoria?.name ?? 'Sin categoría'
       };
     });
 
-    // Agrupamos por nombre
-    this.productosFiltrados = prodsConCat.reduce((acc, producto) => {
+    const agrupados = prodsConCat.reduce((acc, producto) => {
       const nombre = producto.categoryName;
-      if (!acc[nombre]) {
-        acc[nombre] = [];
-      }
+      if (!acc[nombre]) acc[nombre] = [];
       acc[nombre].push(producto);
       return acc;
-    }, {} as { [nombre: string]: Product[] });
+    }, {} as { [key: string]: Product[] });
 
-    this.nombresCategorias = Object.keys(this.productosFiltrados);
-  }
+    console.log('Filtrados:', agrupados);
+    return agrupados;
+  });
 
+
+  nombresCategorias = computed(() => Object.keys(this.productosFiltrados()));
 
   @HostListener('window:resize', [])
   onResize() {
@@ -65,9 +58,7 @@ export class ProductosComponent {
   }
 
   updateSidebarVisibility(): void {
-    if (window.innerWidth >= 768) {
-      this.sidebarVisible = true;
-    }
+    this.sidebarVisible = window.innerWidth >= 768;
   }
 
   toggleSidebar(): void {
@@ -77,4 +68,14 @@ export class ProductosComponent {
   isSidebarVisible(): boolean {
     return this.sidebarVisible;
   }
+
+  get categoriasView(): string[] {
+    return this.nombresCategorias();
+  }
+
+  get productosView(): { [key: string]: Product[] } {
+    return this.productosFiltrados();
+  }
+
+
 }

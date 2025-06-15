@@ -17,6 +17,10 @@ import { PedidosComponent } from '../administration/components/pedidos/pedidos.c
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { CartComponent } from './components/cart/cart.component';
 import { AlmacenComponent } from '../administration/components/almacen/almacen.component';
+import { AlergenoComponent } from '../administration/components/alergeno/alergeno.component';
+import { adminGuard } from './guards/Admin.guard';
+import { TpvGuard } from './guards/Tpv.guard';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 
 export const sharedRoutes: Routes = [
@@ -56,32 +60,41 @@ export const sharedRoutes: Routes = [
             {
                 path: 'carrito',
                 component: CartComponent,
+            },
+            {
+                path: 'producto/:id',
+                loadComponent: () => import('./pages/producto/producto.component').then(m => m.ProductoComponent)
             }
+
         ]
     },
     {
         path: 'admin',
         component: AdminComponent,
         children: [
-            { path: 'dashboard', component: DashboardComponent },
-            { path: 'product', component: AdminProductosComponent },
-            { path: 'clientes', component: ClientesComponent },
-            { path: 'categorias', component: CategoryComponent },
-            { path: 'tpv', component: TpvComponent },
-            { path: 'ventas', component: VentasComponent },
-            { path: 'pedidos', component: PedidosComponent },
-            { path: 'almacen', component: AlmacenComponent },
+            { path: 'dashboard', component: DashboardComponent, canMatch: [adminGuard] },
+            { path: 'product', component: AdminProductosComponent, canMatch: [adminGuard] },
+            { path: 'clientes', component: ClientesComponent, canMatch: [adminGuard] },
+            { path: 'categorias', component: CategoryComponent, canMatch: [adminGuard] },
+            { path: 'tpv', component: TpvComponent, canMatch: [adminGuard] },
+            { path: 'ventas', component: VentasComponent, canMatch: [adminGuard] },
+            { path: 'pedidos', component: PedidosComponent, canMatch: [adminGuard] },
+            { path: 'almacen', component: AlmacenComponent, canMatch: [adminGuard] },
+            { path: 'alergen', component: AlergenoComponent, canMatch: [adminGuard] },
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-        ]
+        ],
+        canMatch: [adminGuard]
 
     },
     {
 
         path: 'tpv',
-        component: TpvComponent
+        component: TpvComponent,
+        canMatch: [TpvGuard]
     },
     { path: 'pedidos', component: PedidosComponent },
     { path: 'almacen', component: AlmacenComponent },
+    { path: '401', component: UnauthorizedComponent },
     { path: '**', redirectTo: '' }
 
 

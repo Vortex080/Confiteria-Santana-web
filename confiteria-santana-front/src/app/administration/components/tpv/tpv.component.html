@@ -38,7 +38,7 @@
                                 </td>
                                 <td class="text-center">
                                     <input type="number" class="input input-sm w-20 text-center"
-                                        [(ngModel)]="item.precio" (ngModelChange)="cambiarPrecio(item.id, item.price)"
+                                        [(ngModel)]="item.price" (ngModelChange)="cambiarPrecio(item.id, item.price)"
                                         step="0.01" />
                                 </td>
                                 <td class="text-center font-semibold">
@@ -105,7 +105,7 @@
 
 
                 <ng-container *ngIf="categoriaSeleccionada">
-                    <h3 class="text-xl font-bold mb-2">{{ categoriaSeleccionada.nombre }}</h3>
+                    <h3 class="text-xl font-bold mb-2">{{ categoriaSeleccionada.name }}</h3>
                     <div class="overflow-y-auto flex-1" #scrollZona>
                         <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
                             <div *ngFor="let producto of productosFiltradosPorCategoria"
@@ -144,46 +144,46 @@
     </div>
 
     <!-- 🟦 PANEL DERECHO: total + acciones + teclado -->
-    <div class="bg-base-300 rounded-2xl shadow p-4 flex flex-col h-full col-span-1">
+    <div class="bg-base-300 rounded-2xl shadow p-4 grid grid-rows-[auto,1fr,auto] h-full col-span-1">
 
-        <!-- 🧮 Total grande arriba -->
-        <div class="text-right text-4xl font-bold text-black mb-6 pr-2">
+
+        <div class="text-right text-4xl font-bold text-black pr-2">
             {{ total() | currency:'EUR' }}
         </div>
 
+
         <!-- 🔘 Acciones táctiles (incluye botón de venta ahora) -->
-        <div class="grid grid-cols-3 gap-2 flex-1">
-            <!-- +1 botón táctil -->
-            <button class="btn btn-neutral w-full h-full text-xl"
+        <div class="grid grid-cols-3 gap-2 h-full">
+            <button class="btn btn-neutral text-xl w-full h-full"
                 (click)="incrementarCantidadSeleccionado()">+1</button>
-            <button class="btn btn-neutral w-full h-full text-xl">-1</button>
-            <button class="btn w-full h-full text-xl"
+            <button class="btn btn-neutral text-xl w-full h-full" (click)="restarCantidad()">-1</button>
+            <button class="btn text-xl w-full h-full"
                 [ngClass]="modoEntrada === 'cantidad' ? 'btn-primary' : 'btn-neutral'"
                 (click)="setModoEntrada('cantidad')">
                 Ud.
             </button>
 
-            <button class="btn w-full h-full text-xl"
+            <button class="btn text-xl w-full h-full"
                 [ngClass]="modoEntrada === 'precio' ? 'btn-primary' : 'btn-neutral'" (click)="setModoEntrada('precio')">
                 €
             </button>
-
-            <button class="btn w-full h-full text-xl"
+            <button class="btn text-xl w-full h-full"
                 [ngClass]="modoEntrada === 'descuento' ? 'btn-primary' : 'btn-neutral'"
                 (click)="setModoEntrada('descuento')">
                 Dto.
             </button>
-
-            <button class="btn w-full h-full text-xl btn-neutral" (click)="mostrarBuscador = !mostrarBuscador">
+            <button class="btn btn-neutral text-xl w-full h-full" (click)="mostrarBuscador = !mostrarBuscador">
                 {{ mostrarBuscador ? '❌' : '🔍' }}
             </button>
 
-            <button class="btn btn-neutral w-full h-full text-xl"></button>
-            <button class="btn btn-neutral w-full h-full text-xl" (click)="vaciarCarrito()">⛔</button>
-            <button class="btn btn-error w-full h-full text-xl" (click)="cerrarTPV()">Cerrar</button>
+            <button class="btn btn-neutral text-xl w-full h-full"></button>
+            <button class="btn btn-neutral text-xl w-full h-full" (click)="vaciarCarrito()">⛔</button>
+            <button class="btn btn-error text-xl w-full h-full" (click)="cerrarTPV()">Cerrar</button>
+        </div>
 
-            <!-- ✅ Botón de realizar venta -->
-            <button class="btn btn-success w-full col-span-3 h-full text-xl" [disabled]="carrito.length === 0"
+        <!-- BOTÓN DE VENTA DE ABAJO -->
+        <div class="mt-2">
+            <button class="btn btn-success w-full text-xl h-16" [disabled]="carrito.length === 0"
                 (click)="realizarVenta()">
                 Realizar venta
             </button>
@@ -210,4 +210,55 @@
         </div>
     </div>
 
+</div>
+
+
+<!-- ✅ Modal de Confirmación de Venta -->
+<div class="fixed inset-0 bg-transparent flex justify-center items-center z-50" *ngIf="mostrarModalVenta">
+
+    <div class="bg-white p-6 rounded-2xl shadow-lg w-[90%] max-w-md text-center space-y-4">
+        <h2 class="text-2xl font-bold">Confirmar venta</h2>
+
+        <p class="text-lg">
+            Total a pagar: <strong>{{ total() | currency:'EUR' }}</strong>
+        </p>
+
+        <!-- Botones de método de pago -->
+        <div class="flex gap-4 justify-center">
+            <button class="btn h-16 w-32 text-xl" [ngClass]="metodoPago === 'Efectivo' ? 'btn-primary' : 'btn-outline'"
+                (click)="metodoPago = 'Efectivo'">
+                Efectivo
+            </button>
+
+            <button class="btn h-16 w-32 text-xl" [ngClass]="metodoPago === 'Tarjeta' ? 'btn-primary' : 'btn-outline'"
+                (click)="metodoPago = 'Tarjeta'">
+                Tarjeta
+            </button>
+        </div>
+
+        <!-- Campo de efectivo solo si se paga en efectivo -->
+        <div *ngIf="metodoPago === 'Efectivo'" class="space-y-2">
+            <label class="block font-medium">Efectivo entregado</label>
+            <input type="number" min="0" class="input input-bordered w-full text-xl text-center"
+                [(ngModel)]="efectivoEntregado" />
+
+            <div *ngIf="efectivoEntregado !== null">
+                <p class="text-lg">
+                    Cambio:
+                    <strong [class.text-red-600]="cambio < 0" [class.text-green-600]="cambio >= 0">
+                        {{ cambio | currency:'EUR' }}
+                    </strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Botones finales -->
+        <div class="flex justify-end gap-4 pt-2">
+            <button class="btn btn-outline h-14 w-32 text-lg" (click)="cancelarVenta()">Cancelar</button>
+            <button class="btn btn-success h-14 w-32 text-lg" [disabled]="metodoPago === 'Efectivo' && cambio < 0"
+                (click)="confirmarVenta()">
+                Confirmar
+            </button>
+        </div>
+    </div>
 </div>

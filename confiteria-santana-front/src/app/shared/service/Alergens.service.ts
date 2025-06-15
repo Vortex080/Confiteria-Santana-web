@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AlergensService {
-  private apiUrlPOST = 'http://localhost:9080/confiteria/api/alergen';
+  private apiUrlPOST = '/api/api/alergen';
 
   constructor(private http: HttpClient) { }
 
@@ -31,6 +31,11 @@ export class AlergensService {
   getallAlergen(): Observable<Alergen[]> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<Alergen[]>(`${this.apiUrlPOST}`, { headers });
+  }
+
+  deleteAlergen(id: number): Observable<HttpResponse<void>> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.delete<void>(`${this.apiUrlPOST}/${id}`, { headers, observe: 'response' });
   }
 
 }
