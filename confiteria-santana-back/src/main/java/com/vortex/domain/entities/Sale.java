@@ -113,7 +113,7 @@ public class Sale {
 	 *
 	 * @return the lineas
 	 */
-	public List<SaleLine> getLineas() {
+	public List<SaleLine> getLine() {
 		return line;
 	}
 
@@ -122,7 +122,7 @@ public class Sale {
 	 *
 	 * @param lineas the new lineas
 	 */
-	public void setLineas(List<SaleLine> lineas) {
+	public void setLine(List<SaleLine> lineas) {
 		this.line = lineas;
 	}
 }

@@ -42,7 +42,7 @@ public class Product {
     @Column(nullable = false)
     private String unit;
 
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.MERGE })
     @JoinTable(
             name = "product_alergen",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -189,5 +189,17 @@ public class Product {
      */
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void setAlergens(List<Alergens> alergens) {
+        this.alergens = alergens;
+    }
+
+    public List<ProductPhoto> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<ProductPhoto> photos) {
+        this.photos = photos;
     }
 }

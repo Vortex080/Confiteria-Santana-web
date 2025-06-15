@@ -1,15 +1,17 @@
 
 package com.vortex.infrastructure.repositories;
 
+import java.util.List;
+
 import com.vortex.domain.dto.ProductDTO;
 import com.vortex.domain.entities.Product;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
-
-import java.util.List;
 
 /**
  * The type Product dao.
@@ -36,10 +38,18 @@ public class ProductDAO {
      * @param id the id
      * @return the product
      */
+    @Transactional
     public Product findById(Long id) {
-        return em.find(Product.class, id);
+        try {
+            return em.createQuery(
+                    "SELECT p FROM Product p LEFT JOIN FETCH p.photos WHERE p.id = :id", 
+                    Product.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
-
     /**
      * Find all list.
      *

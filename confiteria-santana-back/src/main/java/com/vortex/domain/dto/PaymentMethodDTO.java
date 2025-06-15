@@ -1,10 +1,14 @@
 package com.vortex.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 // TODO: Auto-generated Javadoc
 /**
  * The type Payment method dto.
  */
 public class PaymentMethodDTO {
+
+	private Long id;
 
 	/** The user id. */
 	private Long userId;
@@ -36,11 +40,28 @@ public class PaymentMethodDTO {
 	public PaymentMethodDTO() {
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 	/**
 	 * Gets user.
 	 *
 	 * @return the user
 	 */
+	@JsonProperty("user")
 	public Long getUser() {
 		return userId;
 	}
@@ -50,6 +71,7 @@ public class PaymentMethodDTO {
 	 *
 	 * @param user the user
 	 */
+	@JsonProperty("user")
 	public void setUser(Long user) {
 		this.userId = user;
 	}

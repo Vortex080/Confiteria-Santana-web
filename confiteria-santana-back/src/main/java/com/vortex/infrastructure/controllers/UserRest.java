@@ -203,7 +203,7 @@ public class UserRest {
 	    User user = dao.findByEmail(request.getEmail());
 
 	    // Si no existe o contraseña incorrecta, retornar 401
-	    if (user == null || !BCrypt.checkpw(request.getPass(), user.getPassword())) {
+	    if (user == null || user.getPassword().equals(request.getPass())) {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("Credenciales inválidas").build();
 	    }
 

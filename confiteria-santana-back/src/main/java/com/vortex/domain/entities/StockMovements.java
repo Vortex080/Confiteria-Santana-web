@@ -5,6 +5,8 @@ import com.vortex.domain.enums.MovementType;
 import jakarta.persistence.*;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * The type Stock movements.
@@ -28,9 +30,13 @@ public class StockMovements {
     private String unit;
 
     @Column(nullable = false)
+    private int quantity;
+
+    @Column(nullable = false)
     private MovementReason reason;
 
-    private Time created_at;
+    @Column(nullable = false)
+    private LocalDateTime created_at;
 
     /**
      * Instantiates a new Stock movements.
@@ -133,7 +139,7 @@ public class StockMovements {
      *
      * @return the created at
      */
-    public Time getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
 
@@ -142,7 +148,15 @@ public class StockMovements {
      *
      * @param created_at the created at
      */
-    public void setCreated_at(Time created_at) {
+    public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

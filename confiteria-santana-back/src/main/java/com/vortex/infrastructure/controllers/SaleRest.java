@@ -1,9 +1,14 @@
 package com.vortex.infrastructure.controllers;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.vortex.domain.entities.*;
+import com.vortex.domain.enums.MovementReason;
+import com.vortex.domain.enums.MovementType;
+import com.vortex.infrastructure.repositories.*;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -11,13 +16,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import com.vortex.domain.dto.ProductDTO;
 import com.vortex.domain.dto.SaleDTO;
 import com.vortex.domain.dto.SaleLineDTO;
-import com.vortex.domain.entities.Product;
-import com.vortex.domain.entities.Sale;
-import com.vortex.domain.entities.SaleLine;
-import com.vortex.infrastructure.repositories.AlergensDAO;
-import com.vortex.infrastructure.repositories.ProductDAO;
-import com.vortex.infrastructure.repositories.SaleDAO;
-import com.vortex.infrastructure.repositories.SaleLineDAO;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -45,6 +43,10 @@ public class SaleRest {
 	private SaleLineDAO saleline;
 	@Inject
 	private ProductDAO productDAO;
+	@Inject
+	private StockMovementsDAO stockMoveDAO;
+	@Inject
+	private StockDAO stockDAO;
 
 	@POST
 	@APIResponses({ @APIResponse(responseCode = "200", description = "Operación exitosa"),
@@ -65,12 +67,12 @@ public class SaleRest {
 		List<SaleLine> lineas = new ArrayList<>();
 
 		for (SaleLineDTO lineDTO : dto.getLine()) {
-			
+
 
 			if (productDAO.findById(lineDTO.getProduct().getId()) == null) {
 				return Response.status(Response.Status.BAD_REQUEST).entity("Producto con ID inválido").build();
 			}
-			
+
 			SaleLine line = new SaleLine();
 			line.setCuantity(lineDTO.getCuantity());
 			line.setPrice(lineDTO.getPrice());
@@ -78,10 +80,23 @@ public class SaleRest {
 			line.setProduct(lineDTO.getProduct());
 			line.setSale(sale);
 
+			StockMovements stockmove = new StockMovements();
+			stockmove.setProduct(ProductMapper.fromDTO(lineDTO.getProduct()));
+			stockmove.setReason(MovementReason.VENTA);
+			stockmove.setType(MovementType.SALIDA);
+			stockmove.setUnit(String.valueOf(lineDTO.getCuantity()));
+			stockmove.setCreated_at(LocalDateTime.now());
+
+			stockMoveDAO.persist(stockmove);
+
+			Stock stock = stockDAO.findByProductId(lineDTO.getProduct().getId());
+			stock.setQuantity((int) (stock.getQuantity() - lineDTO.getCuantity()));
+			stockDAO.update(stock);
+
 			lineas.add(line);
 		}
 
-		sale.setLineas(lineas);
+		sale.setLine(lineas);
 		dao.persist(sale);
 
 		return Response.status(Response.Status.CREATED).build();
@@ -102,7 +117,7 @@ public class SaleRest {
 			dto.setId(sale.getId());
 			dto.setTotal(sale.getTotal());
 			dto.setMetodoPago(sale.getMetodoPago());
-			List<SaleLineDTO> lineasDTO = sale.getLineas().stream().map(linea -> {
+			List<SaleLineDTO> lineasDTO = sale.getLine().stream().map(linea -> {
 				SaleLineDTO l = new SaleLineDTO();
 				l.setProduct(linea.getProduct());
 				l.setCuantity(linea.getCuantity());
@@ -137,7 +152,7 @@ public class SaleRest {
 		dto.setTotal(sale.getTotal());
 		dto.setMetodoPago(sale.getMetodoPago());
 
-		List<SaleLineDTO> lineasDTO = sale.getLineas().stream().map(linea -> {
+		List<SaleLineDTO> lineasDTO = sale.getLine().stream().map(linea -> {
 			SaleLineDTO l = new SaleLineDTO();
 			l.setProduct(linea.getProduct());
 			l.setCuantity(linea.getCuantity());
@@ -153,11 +168,7 @@ public class SaleRest {
 
 	@PUT
 	@Path("/{id}")
-	@APIResponses({ @APIResponse(responseCode = "200", description = "Actualizado correctamente"),
-			@APIResponse(responseCode = "400", description = "Datos inválidos"),
-			@APIResponse(responseCode = "404", description = "Venta no encontrada") })
 	public Response update(@PathParam("id") Long id, SaleDTO dto) {
-
 		Sale sale = dao.findById(id);
 		if (sale == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
@@ -171,7 +182,6 @@ public class SaleRest {
 		sale.setMetodoPago(dto.getMetodoPago());
 		sale.setTotal(dto.getTotal());
 
-		sale.getLineas().clear();
 
 		List<SaleLine> nuevasLineas = new ArrayList<>();
 		for (SaleLineDTO lineDTO : dto.getLine()) {
@@ -190,11 +200,12 @@ public class SaleRest {
 			nuevasLineas.add(line);
 		}
 
-		sale.setLineas(nuevasLineas);
+		sale.setLine(nuevasLineas);
 		dao.update(sale);
 
 		return Response.ok().build();
 	}
+
 
 	@DELETE
 	@Path("/{id}")
@@ -207,7 +218,7 @@ public class SaleRest {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 
-		List<SaleLine> lineas = sale.getLineas();
+		List<SaleLine> lineas = sale.getLine();
 		for (SaleLine linea : lineas) {
 			saleline.delete(linea);
 		}

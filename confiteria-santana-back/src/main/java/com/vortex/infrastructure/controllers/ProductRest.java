@@ -4,13 +4,10 @@ package com.vortex.infrastructure.controllers;
 import com.vortex.domain.dto.AlergenDTO;
 import com.vortex.domain.dto.ProductDTO;
 import com.vortex.domain.dto.ProductPhotoDTO;
-import com.vortex.domain.entities.Alergens;
-import com.vortex.domain.entities.Product;
-import com.vortex.domain.entities.ProductPhoto;
-import com.vortex.infrastructure.repositories.AlergensDAO;
-import com.vortex.infrastructure.repositories.CategoryDAO;
-import com.vortex.infrastructure.repositories.ProductDAO;
-import com.vortex.infrastructure.repositories.ProductPhotoDAO;
+import com.vortex.domain.entities.*;
+import com.vortex.domain.enums.MovementReason;
+import com.vortex.domain.enums.MovementType;
+import com.vortex.infrastructure.repositories.*;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -19,6 +16,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +36,10 @@ public class ProductRest {
 	private ProductPhotoDAO productPhotoDAO;
 	@Inject
 	private AlergensDAO alergensDAO;
+	@Inject
+	private StockDAO stockDAO;
+	@Inject
+	private StockMovementsDAO stockMovementsDAO;
 
 	/**
 	 * Creates the.
@@ -91,6 +95,23 @@ public class ProductRest {
 			
 			productPhotoDAO.persist(photo1);
 		}
+
+		Stock stock = new Stock();
+		stock.setProduct(product);
+		stock.setQuantity(1);
+
+		stockDAO.persist(stock);
+
+		StockMovements stockMovements = new StockMovements();
+
+		stockMovements.setProduct(product);
+		stockMovements.setType(MovementType.ENTRADA);
+		stockMovements.setReason(MovementReason.AÑADIDO);
+		stockMovements.setUnit("unidad");
+		stockMovements.setCreated_at(LocalDateTime.now());
+
+
+		stockMovementsDAO.persist(stockMovements);
 
 		return Response.status(Response.Status.CREATED).build();
 

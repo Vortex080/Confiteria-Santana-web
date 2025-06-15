@@ -33,7 +33,7 @@
 			<property name="hibernate.cache.use_query_cache" value="false" />
 
 			<!-- Generación automática de tablas -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="jakarta.persistence.schema-generation.database.action"
 				value="create" />
 		</properties>

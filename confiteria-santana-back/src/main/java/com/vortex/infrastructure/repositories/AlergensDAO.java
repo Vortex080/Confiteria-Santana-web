@@ -52,7 +52,7 @@ public class AlergensDAO {
      * @param alergens the alergens
      */
     public void delete(Alergens alergens) {
-        em.remove(alergens);
+        em.remove(em.merge(alergens));
     }
 
     /**

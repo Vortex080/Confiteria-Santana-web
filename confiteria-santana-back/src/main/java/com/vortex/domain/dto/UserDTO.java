@@ -205,7 +205,6 @@ public class UserDTO {
 	 *
 	 * @return the pass
 	 */
-	@JsonIgnore
 	public String getPass() {
 		return pass;
 	}

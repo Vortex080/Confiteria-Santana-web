@@ -1,12 +1,14 @@
 package com.vortex.infrastructure.repositories;
 
+import java.util.List;
+
 import com.vortex.domain.entities.Stock;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-
-import java.util.List;
 
 /**
  * The type Stock dao.
@@ -63,5 +65,17 @@ public class StockDAO {
     public void update(Stock stock) {
         em.merge(stock);
     }
+    
+    public Stock findByProductId(Long productId) {
+        try {
+            return em
+                    .createQuery("SELECT s FROM Stock s WHERE s.product.id = :productId", Stock.class)
+                    .setParameter("productId", productId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
 
 }

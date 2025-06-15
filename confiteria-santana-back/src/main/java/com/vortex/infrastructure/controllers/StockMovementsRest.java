@@ -3,8 +3,11 @@ package com.vortex.infrastructure.controllers;
 import com.vortex.domain.dto.StockMovementsDTO;
 import com.vortex.domain.entities.Payments;
 import com.vortex.domain.entities.Product;
+import com.vortex.domain.entities.Stock;
 import com.vortex.domain.entities.StockMovements;
+import com.vortex.domain.enums.MovementReason;
 import com.vortex.infrastructure.repositories.ProductDAO;
+import com.vortex.infrastructure.repositories.StockDAO;
 import com.vortex.infrastructure.repositories.StockMovementsDAO;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -14,6 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Tag(name = "StockMovements")
@@ -26,6 +30,8 @@ public class StockMovementsRest {
     private StockMovementsDAO dao;
     @Inject
     private ProductDAO productDAO;
+    @Inject
+    private StockDAO stockDAO;
 
     @POST
     @APIResponses({
@@ -38,20 +44,36 @@ public class StockMovementsRest {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        StockMovements stock = new StockMovements();
-
         Product product = productDAO.findById(dto.getProduct());
+        if (product == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
 
+        // Crear y guardar el movimiento
+        StockMovements stock = new StockMovements();
         stock.setProduct(product);
         stock.setUnit(dto.getUnit());
         stock.setType(dto.getType());
         stock.setReason(dto.getReason());
+        stock.setCreated_at(LocalDateTime.now());
+
 
         dao.persist(stock);
 
-        return Response.status(Response.Status.CREATED).build();
+        Stock stockraw = stockDAO.findByProductId(product.getId());
 
+
+        if (dto.getReason() == MovementReason.AÑADIDO) {
+            stockraw.setQuantity(stockraw.getQuantity() + dto.getQuantity());
+        } else {
+            stockraw.setQuantity(stockraw.getQuantity() - dto.getQuantity());
+        }
+
+        stockDAO.update(stockraw);
+
+        return Response.status(Response.Status.CREATED).build();
     }
+
 
     @GET
     @Path("/{id}")

@@ -51,6 +51,15 @@ public class OrderDAO {
         return em.createQuery("select o from Order o", Order.class).getResultList();
     }
 
+    
+    public boolean deleteById(Long id) {
+        Order entity = em.find(Order.class, id);
+        if (entity == null) return false;
+        em.remove(entity);
+        return true;
+    }
+
+    
     /**
      * Delete.
      *
@@ -76,10 +85,10 @@ public class OrderDAO {
                 "AND o.paymentMethod = :paymentMethod AND o.billingAddress = :billingAddress";
 
         TypedQuery<Order> query = em.createQuery(jpql, Order.class)
-                .setParameter("user", orderDTO.getUser())
+                .setParameter("user", orderDTO.getUserId())
                 .setParameter("total", orderDTO.getTotal())
                 .setParameter("shipping", orderDTO.getShipping())
-                .setParameter("paymentMethod", orderDTO.getPaymentMethod())
+                .setParameter("paymentMethod", orderDTO.getPaymentMethodId())
                 .setParameter("billingAddress", orderDTO.getBillingAddress());
 
         return query.getResultStream().findFirst().orElse(null);

@@ -8,9 +8,13 @@ import com.vortex.domain.enums.MovementType;
  */
 public class StockMovementsDTO {
 
+    private Long id;
+
     private Long product;
 
     private MovementType type;
+
+    private int quantity;
 
     private String unit;
 
@@ -92,4 +96,23 @@ public class StockMovementsDTO {
     public void setReason(MovementReason reason) {
         this.reason = reason;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+
+
 }
